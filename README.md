@@ -49,18 +49,23 @@ python3 launch_dashboard.py
 
 ### 📸 Dashboard Preview
 
-<!-- Add your screenshots here -->
 <div align="center">
 
-| Main Dashboard | Signal Analysis | Empirical Map Generation |
-|---|---|---|
+#### **Core Dashboard Features**
+
+| **Main Interface** | **Signal Analysis** | **Empirical Maps** |
+|:---:|:---:|:---:|
 | ![Dashboard Main](docs/screenshots/dashboard-main.png) | ![Signal Analysis](docs/screenshots/signal-analysis.png) | ![Empirical Map](docs/screenshots/empirical-map.png) |
-| **Gear Hunt Detection** | **Misfire Analysis** | **Fuel Consumption** |
+| Complete web-based interface | Interactive Plotly visualizations | 2D Heatmaps & 3D Surfaces |
+
+| **Advanced Analytics** | **Misfire Detection** | **Fuel Efficiency** |
+|:---:|:---:|:---:|
 | ![Gear Hunt](docs/screenshots/gear-hunt.png) | ![Misfire](docs/screenshots/misfire.png) | ![Fuel Analysis](docs/screenshots/fuel-analysis.png) |
+| Multi-signal correlation | 9 detection algorithms | BSFC & efficiency metrics |
 
 </div>
 
-> 📝 **Note:** Screenshots will be added to `docs/screenshots/` directory. See [Screenshots Guide](#adding-screenshots) below.
+> 💡 **Tip:** Click on any screenshot to view full-size images in the repository.
 
 ---
 
@@ -570,38 +575,59 @@ We welcome contributions! Please follow these steps:
 
 ---
 
-## 📝 Adding Screenshots
+## 🏗️ Architecture
 
-To add screenshots to the README:
+### System Architecture Diagram
 
-1. **Create screenshots directory:**
-```bash
-mkdir -p docs/screenshots
 ```
-
-2. **Take screenshots of:**
-   - Main dashboard
-   - Signal analysis interface
-   - Empirical map generation
-   - Gear hunt detection
-   - Misfire analysis
-   - Fuel consumption plots
-
-3. **Save as PNG files:**
-   - `dashboard-main.png`
-   - `signal-analysis.png`
-   - `empirical-map.png`
-   - `gear-hunt.png`
-   - `misfire.png`
-   - `fuel-analysis.png`
-
-4. **Update README.md** - Screenshots are already referenced above!
+┌─────────────────────────────────────────────────────────────┐
+│                    Client (Web Browser)                      │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐             │
+│  │   HTML5    │  │ JavaScript │  │   Plotly  │             │
+│  │   CSS3     │  │  (ES6+)    │  │ Charts    │             │
+│  └────────────┘  └────────────┘  └────────────┘             │
+└────────────────────────┬────────────────────────────────────┘
+                         │ HTTP/REST API
+┌────────────────────────▼────────────────────────────────────┐
+│              Flask Backend Server (Python)                    │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │  Core Application (app.py)                          │   │
+│  │  - File Upload & Processing                         │   │
+│  │  - Signal Extraction & Caching                     │   │
+│  │  - RESTful API Endpoints                            │   │
+│  └──────────────────────────────────────────────────────┘   │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │  Analysis Modules                                    │   │
+│  │  ├─ custom_map.py (Empirical Maps)                  │   │
+│  │  ├─ custom_misfire.py (Misfire Detection)          │   │
+│  │  ├─ custom_gear.py (Gear Hunt)                     │   │
+│  │  ├─ custom_fuel.py (Fuel Analysis)                 │   │
+│  │  └─ custom_iupr.py, custom_dfc.py, etc.              │   │
+│  └──────────────────────────────────────────────────────┘   │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────────┐
+│                    Data Processing Layer                     │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐            │
+│  │  asammdf   │  │  pandas    │  │  numpy     │            │
+│  │ (MDF/MF4)  │  │ (DataFrames│  │ (Arrays)   │            │
+│  └────────────┘  └────────────┘  └────────────┘            │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐            │
+│  │  scipy     │  │ scikit-learn│  │ signal_mapping│        │
+│  │ (Interpolation)│ (ML)      │  │ (DBC files)│            │
+│  └────────────┘  └────────────┘  └────────────┘            │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 📄 License
 
-[Add your license here - MIT, Apache 2.0, etc.]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes and version history.
 
 ---
 
