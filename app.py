@@ -4793,8 +4793,10 @@ if __name__ == "__main__":
     import logging
     if os.getenv("FLASK_ACCESS_LOG","1")=="0":
         logging.getLogger("werkzeug").setLevel(logging.WARNING)
-    host=os.getenv("FLASK_HOST","127.0.0.1")
-    port=int(os.getenv("FLASK_PORT","5000"))
-    debug=os.getenv("FLASK_DEBUG","").lower() in ("1","true","yes","on")
+    # Support both FLASK_PORT (legacy) and PORT (production platforms like Render/Heroku)
+    port = int(os.getenv("PORT", os.getenv("FLASK_PORT", "8000")))
+    host = os.getenv("FLASK_HOST", "0.0.0.0" if os.getenv("PORT") else "127.0.0.1")
+    debug = os.getenv("FLASK_DEBUG","").lower() in ("1","true","yes","on")
     print("ROUTES:", [str(r) for r in app.url_map.iter_rules()])
+    print(f"🌐 Starting server on {host}:{port}")
     app.run(host=host, port=port, debug=debug, use_reloader=False)
