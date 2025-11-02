@@ -14,7 +14,7 @@ A comprehensive fleet diagnostics tool for analyzing vehicle MDF/MF4 files with 
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/25Bonged/VEHICLE-LAB.git
 cd backend_mdf
 ```
 
@@ -69,4 +69,3 @@ See the various `.md` files for detailed documentation:
 ## Contributing
 
 [Add contribution guidelines if needed]
-
