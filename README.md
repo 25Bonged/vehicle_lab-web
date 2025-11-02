@@ -13,7 +13,7 @@
 
 [🚀 Live Demo](#-live-demo) • [📖 Documentation](#-documentation) • [💻 Features](#-key-features) • [🔄 Workflow](#-workflow) • [📚 Repository Info](#-repository-contents)
 
-> ⚠️ **Note:** This repository contains documentation, workflows, and analysis modules. The core application source code (`app.py`, `frontend.html`) is proprietary and not included.
+> ⚠️ **Note:** This is a **documentation-only repository**. All source code (`.py` files) is **private and proprietary**. Only documentation, guides, and examples are included. See [CODE_PRIVACY.md](CODE_PRIVACY.md) for details.
 
 </div>
 

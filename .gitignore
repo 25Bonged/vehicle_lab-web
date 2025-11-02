@@ -83,9 +83,14 @@ python-installer.exe
 *.sqlite
 *.sqlite3
 
-# Private/Proprietary Source Code (not for public sharing)
-app.py
+# ALL Source Code - Private/Proprietary (not for public sharing)
+# Keep all Python scripts and source code private
+*.py
+!extract_screenshots.py  # Utility script for extracting PDF images (can be public)
 frontend.html
 cie.py
 cie_API_server.py
+
+# Keep placeholders public
+*.placeholder
 
