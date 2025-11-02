@@ -1,0 +1,25 @@
+# App.py - Source Code Not Included
+
+This repository contains documentation, workflows, and guides for VEHICLE-LAB,
+but the core application source code (`app.py`, `frontend.html`, etc.) is not 
+publicly available.
+
+## What's Included
+
+- ✅ Complete documentation and user guides
+- ✅ Analysis module examples (`custom_gear.py`, `custom_misfire.py`, etc.)
+- ✅ Workflow guides and deployment instructions
+- ✅ Project structure and architecture documentation
+- ✅ Signal mapping utilities
+- ✅ Test scripts and examples
+
+## What's Not Included
+
+- ❌ Core Flask application (`app.py`)
+- ❌ Frontend interface (`frontend.html`)
+- ❌ CIE integration modules (`cie.py`, `cie_API_server.py`)
+
+## Contact
+
+For access to the full source code or licensing inquiries, please contact the repository owner.
+

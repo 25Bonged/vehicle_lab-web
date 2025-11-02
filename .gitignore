@@ -83,3 +83,9 @@ python-installer.exe
 *.sqlite
 *.sqlite3
 
+# Private/Proprietary Source Code (not for public sharing)
+app.py
+frontend.html
+cie.py
+cie_API_server.py
+

@@ -1,4 +1,4 @@
-web: python3 app.py
-# For platforms that set PORT automatically, app.py will use it
-# Otherwise defaults to port 8000
+# Note: app.py is not included in this repository
+# This file is a placeholder for deployment documentation
+# web: python3 app.py
 

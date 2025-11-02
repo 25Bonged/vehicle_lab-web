@@ -7,10 +7,13 @@
 ![License](https://img.shields.io/badge/license-MIT-orange.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.3-blue.svg)
 ![Status](https://img.shields.io/badge/status-production--ready-success.svg)
+![Repo](https://img.shields.io/badge/repo-documentation-blue.svg)
 
 **A comprehensive vehicle diagnostic and analysis platform for MDF/MF4 files**
 
-[🚀 Live Demo](#-live-demo) • [📖 Documentation](#-documentation) • [💻 Features](#-key-features) • [🔄 Workflow](#-workflow) • [⚙️ Installation](#-installation)
+[🚀 Live Demo](#-live-demo) • [📖 Documentation](#-documentation) • [💻 Features](#-key-features) • [🔄 Workflow](#-workflow) • [📚 Repository Info](#-repository-contents)
+
+> ⚠️ **Note:** This repository contains documentation, workflows, and analysis modules. The core application source code (`app.py`, `frontend.html`) is proprietary and not included.
 
 </div>
 
@@ -247,7 +250,9 @@ python3 launch_dashboard.py
 - **pip** (Python package manager)
 - **Modern web browser** (Chrome, Firefox, Edge, Safari)
 
-### Quick Installation
+### Using Analysis Modules
+
+The analysis modules in this repository can be used independently:
 
 ```bash
 # 1. Clone the repository
@@ -257,12 +262,14 @@ cd VEHICLE-LAB/backend_mdf
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# For complete dependencies (if requirements.txt is incomplete):
-pip install flask flask-cors werkzeug pandas numpy plotly asammdf scipy scikit-learn
-
-# 3. Launch the dashboard
-python3 launch_dashboard.py
+# 3. Import and use analysis modules
+python3 -c "from custom_map import generate_empirical_map"
+python3 -c "from custom_misfire import detect_misfires"
+python3 -c "from custom_gear import analyze_gear_hunt"
+# etc.
 ```
+
+> ⚠️ **Note:** The full dashboard application (`app.py`, `frontend.html`) is proprietary and not included in this repository. This repo contains documentation and reusable analysis modules.
 
 ### Detailed Installation
 
