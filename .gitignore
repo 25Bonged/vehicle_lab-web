@@ -1,93 +1,68 @@
-# Python
+# Ignore everything except documentation
+
+# ALL Source Code
+*.py
+*.html
+*.js
+*.css
+
+# ALL Data Files
+*.dbc
+*.json
+*.csv
+*.xlsx
+*.mdf
+*.mf4
+
+# ALL Config Files
+requirements.txt
+Procfile
+render.yaml
+runtime.txt
+setup_git.sh
+push_to_github.sh
+extract_pdf_images.sh
+extract_screenshots.py
+
+# ALL Directories with code/data
+collected_dbc_files/
+uploads/
+test_data/
+maps_outputs/
+models/
+posters/
+
+# Standard ignores
 __pycache__/
 *.py[cod]
-*$py.class
 *.so
 .Python
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
 venv/
 ENV/
 env/
 .venv/
-.venv
-
-# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
-
-# Logs
 *.log
-server.log
-server-*.log
-
-# Temporary files
-tmp_plots/
-tmp_*/
-*.tmp
-
-# Cache directories
-dbc_repo_cache/
-*.cache
-
-# Temporary downloads (keep collected_dbc_files/)
-dbc_temp_downloads/
-
-# Generated outputs (can be regenerated)
-maps_outputs/
-test_exports/
-
-# Uploaded files (sample data - users will upload their own)
-uploads/*.mdf
-uploads/*.mf4
-uploads/*.csv
-uploads/*.xlsx
-uploads/*.zip
-
-# Large sample data files (keep folder structure)
-*.mdf
-*.mf4
-
-# Windows executables
-*.exe
-python-installer.exe
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Environment variables
 .env
-.env.local
-
-# Database
 *.db
 *.sqlite
 *.sqlite3
 
-# ALL Source Code - Private/Proprietary (not for public sharing)
-# Keep all Python scripts and source code private
-*.py
-frontend.html
+# GitHub templates
+.github/
 
-# Keep placeholders public (documentation only)
+# Placeholders
 *.placeholder
 
+# Only allow:
+# - README.md
+# - *.md (documentation files)
+# - docs/ folder (documentation and screenshots)
