@@ -1,0 +1,68 @@
+# Ignore everything except documentation
+
+# ALL Source Code
+*.py
+*.html
+*.js
+*.css
+
+# ALL Data Files
+*.dbc
+*.json
+*.csv
+*.xlsx
+*.mdf
+*.mf4
+
+# ALL Config Files
+requirements.txt
+Procfile
+render.yaml
+runtime.txt
+setup_git.sh
+push_to_github.sh
+extract_pdf_images.sh
+extract_screenshots.py
+
+# ALL Directories with code/data
+collected_dbc_files/
+uploads/
+test_data/
+maps_outputs/
+models/
+posters/
+
+# Standard ignores
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+venv/
+ENV/
+env/
+.venv/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.log
+.env
+*.db
+*.sqlite
+*.sqlite3
+
+# GitHub templates
+.github/
+
+# Placeholders
+*.placeholder
+
+# Only allow:
+# - README.md
+# - *.md (documentation files)
+# - docs/ folder (documentation and screenshots)
