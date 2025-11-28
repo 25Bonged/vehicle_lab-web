@@ -126,13 +126,22 @@ DiagAI is an intelligent diagnostic assistant powered by Large Language Models (
 
 | **Main Interface**                                                                    | **Signal Analysis**                                                                     | **Empirical Maps**                                                                  |
 | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| ![Main Dashboard](docs/screenshots/dashboard-main.png)                               | ![Signal Analysis](docs/screenshots/signal-analysis.png)                                | ![Empirical Map](docs/screenshots/empirical-map.png)                                |
 | Upload MDF/MF4 files, browse signals, real-time processing                           | Interactive Plotly charts, signal correlation, statistical analysis                     | 2D heatmaps, 3D surface plots, efficiency islands, operating point visualization    |
 
-#### **DiagAI Interface**
+#### **Advanced Analysis Features**
 
-| **Natural Language Queries**                                                          | **Intelligent Responses**                                                                | **Multi-Agent Analysis**                                                              |
+| **Misfire Detection**                                                                 | **Gear Hunting Analysis**                                                                | **Fuel Analysis**                                                                     |
 | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Ask questions in plain English, get instant insights                                 | Engineering-grade analysis with MATLAB-level accuracy                                    | 9 specialized agents working together for comprehensive diagnostics                 |
+| ![Misfire Detection](docs/screenshots/misfire.png)                                    | ![Gear Hunt](docs/screenshots/gear-hunt.png)                                            | ![Fuel Analysis](docs/screenshots/fuel-analysis.png)                                 |
+| 9 detection algorithms, severity analysis, event timeline                            | Automatic detection, speed-RPM correlation, hunting event visualization                | BSFC maps, fuel consumption metrics, efficiency analysis                            |
+
+#### **3D Visualization**
+
+| **3D Empirical Maps**                                                                 |
+| ------------------------------------------------------------------------------------- |
+| ![3D Empirical Map](docs/screenshots/empirical-map-3d.png)                            |
+| Interactive 3D surface plots with rotation, zoom, and export capabilities           |
 
 ---
 
