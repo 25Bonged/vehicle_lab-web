@@ -14,15 +14,20 @@
     <canvas id="particles"></canvas>
     <nav>
         <div class="logo">VEHICLE-LAB</div>
-        <div class="nav-links">
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" aria-hidden="true">
             <a href="index.html">Overview</a>
             <a href="features.html">Features</a>
             <a href="casestudy.html">Case Studies</a>
             <a href="diagai.html">DiagAI</a>
             <a href="specs.html" class="active">Specs</a>
             <a href="contact.html">Contact</a>
+            <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
         </div>
-        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
     </nav>
 
     <div class="container" style="margin-top: 150px;">
@@ -154,6 +159,7 @@
     </footer>
 
     <script src="assets/particles.js"></script>
+    <script src="assets/mobile-nav.js"></script>
 </body>
 
 </html>
