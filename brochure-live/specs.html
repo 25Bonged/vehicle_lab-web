@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specifications | VEHICLE-LAB</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="particles"></canvas>
+    <nav>
+        <div class="logo">VEHICLE-LAB</div>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="features.html">Features</a>
+            <a href="casestudy.html">Case Studies</a>
+            <a href="diagai.html">DiagAI</a>
+            <a href="specs.html" class="active">Specs</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
+    </nav>
+
+    <div class="container" style="margin-top: 150px;">
+        <h2 class="section-title">Technical Specifications</h2>
+
+        <!-- Specs Grid Layout -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 80px;">
+            
+            <!-- Column 1: System Architecture -->
+            <div class="card" style="background: rgba(5, 10, 20, 0.6);">
+                <h3 style="color: var(--accent-cyan); margin-bottom: 20px;">System Architecture</h3>
+                <table class="specs-table" style="margin-top: 0;">
+                    <tr>
+                        <th>Core Engine</th>
+                        <td>Hybrid Neuro-Symbolic AI (LLM + Deterministic Agents)</td>
+                    </tr>
+                    <tr>
+                        <th>Orchestrator</th>
+                        <td>Multi-Agent Router with Intent Detection</td>
+                    </tr>
+                    <tr>
+                        <th>Supported Formats</th>
+                        <td>MDF (3.x, 4.x), MF4, CSV, Excel (.xlsx)</td>
+                    </tr>
+                    <tr>
+                        <th>Signal Indexing</th>
+                        <td>DuckDB (Columnar Storage) + 330 DBC Files</td>
+                    </tr>
+                    <tr>
+                        <th>Visualization</th>
+                        <td>Plotly.js (WebGL Accelerated) + LTTB Downsampling</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Column 2: Capabilities -->
+            <div class="card" style="background: rgba(5, 10, 20, 0.6);">
+                <h3 style="color: var(--accent-purple); margin-bottom: 20px;">Diagnostic Engine</h3>
+                <table class="specs-table" style="margin-top: 0;">
+                    <tr>
+                        <th>Signal Capacity</th>
+                        <td>1,269+ Unique Signal Types (Auto-Decoded)</td>
+                    </tr>
+                    <tr>
+                        <th>Analysis Functions</th>
+                        <td>50+ Built-in Tools (Stats, Correlation, Filtering)</td>
+                    </tr>
+                    <tr>
+                        <th>Specialized Agents</th>
+                        <td>9 Agents (Misfire, Fuel, Gear, Drivability, WLTP, etc.)</td>
+                    </tr>
+                    <tr>
+                        <th>Compliance</th>
+                        <td>IUPR (OBD-II), WLTP/RDE (EU6/7)</td>
+                    </tr>
+                    <tr>
+                        <th>Reporting</th>
+                        <td>PDF Generation (Charts, Tables, Insights)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="section-title">Processing Pipeline</h2>
+        <div class="card" style="margin-bottom: 80px; background: rgba(5, 10, 20, 0.4); padding: 40px;">
+            <div class="flow-visual-container">
+                <!-- Level 1: Input -->
+                <div class="flow-row">
+                    <div class="flow-node start">MDF/MF4 Ingestion</div>
+                </div>
+                <div class="flow-arrow-down"></div>
+
+                <!-- Level 2: Indexing -->
+                <div class="flow-row">
+                    <div class="flow-node process">DBC Decoding</div>
+                    <div class="flow-node process">DuckDB Indexing</div>
+                </div>
+                <div class="flow-arrow-down"></div>
+
+                <!-- Level 3: Intelligence -->
+                <div class="flow-row">
+                    <div class="flow-node decision" style="border-color: var(--accent-purple); color: var(--accent-purple);">DiagAI Orchestrator</div>
+                </div>
+                <div class="flow-arrow-down"></div>
+
+                <!-- Level 4: Agents -->
+                <div class="flow-row">
+                    <div class="flow-node process">MisfireAgent</div>
+                    <div class="flow-node process">FuelAgent</div>
+                    <div class="flow-node process">WLTPAgent</div>
+                </div>
+                <div class="flow-arrow-down"></div>
+
+                <!-- Level 5: Output -->
+                <div class="flow-row">
+                    <div class="flow-node output">Interactive Plots</div>
+                    <div class="flow-node output">PDF Reports</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Key Design Patterns</h2>
+        <div class="grid" style="margin-bottom: 80px;">
+            <div class="card">
+                <h3>Private RAG Deployment</h3>
+                <p>Secure, OEM-isolated Retrieval Augmented Generation ensuring proprietary calibration data never leaves your VPC.</p>
+            </div>
+            <div class="card">
+                <h3>Context-Aware Routing</h3>
+                <p>Dynamically selects between "Shallow" pattern-matching agents for speed and "Deep" reasoning models (DeepSeek) for complex root cause analysis.</p>
+            </div>
+            <div class="card">
+                <h3>Zero-ETL Pipeline</h3>
+                <p>Analyze raw binary files immediately without lengthy pre-processing or conversion steps. Native MF4 support.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 80px;">
+            <h2 style="margin-bottom: 30px;">Ready to Transform Your Workflow?</h2>
+            <a href="contact.html"><button class="cta-button" style="font-size: 1.2rem; padding: 15px 40px;">GET IN
+                    TOUCH</button></a>
+            <p style="margin-top: 20px; color: #888;">chayandaschayan@gmail.com | +91 7908054878</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">VEHICLE-LAB</div>
+        <p>&copy; 2025 Vehicle-Lab. All rights reserved.</p>
+    </footer>
+
+    <script src="assets/particles.js"></script>
+</body>
+
+</html>

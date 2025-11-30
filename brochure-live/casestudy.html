@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies | VEHICLE-LAB</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="particles"></canvas>
+    <nav>
+        <div class="logo">VEHICLE-LAB</div>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="features.html">Features</a>
+            <a href="casestudy.html" class="active">Case Studies</a>
+            <a href="diagai.html">DiagAI</a>
+            <a href="specs.html">Specs</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
+    </nav>
+
+    <div class="container" style="margin-top: 150px;">
+        <h2 class="section-title">Real-World Impact</h2>
+
+        <!-- Fleet Analysis -->
+        <div class="schematic-section" style="border-color: var(--accent-cyan);">
+            <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 20px;">Fleet Data Analysis</h3>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Challenge:</strong> A fleet manager needs to identify why 5 vehicles out of 50 are
+                        showing 15% higher fuel consumption.
+                    </p>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Solution:</strong> VEHICLE-LAB ingests logs from the entire fleet. The
+                        <strong>FuelAgent</strong> normalizes data against route topography and load.
+                    </p>
+                    <p>
+                        <strong>Result:</strong> Identified aggressive acceleration patterns in specific drivers.
+                        Implemented training, reducing fleet-wide consumption by 8%.
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <!-- CSS Plot: Comparative Line Chart -->
+                    <div class="plot-container-css">
+                        <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                            <!-- Grid -->
+                            <line x1="0" y1="20" x2="200" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            
+                            <!-- Bad Driver (Red/Orange) - High Consumption -->
+                            <polyline points="0,60 20,40 40,20 60,30 80,15 100,25 120,20 140,40 160,30 180,50 200,45"
+                                      fill="none" stroke="rgba(255, 100, 100, 0.8)" stroke-width="2" stroke-dasharray="4" />
+                            
+                            <!-- Efficient Driver (Green/Cyan) - Low Consumption -->
+                            <polyline points="0,80 20,85 40,82 60,80 80,78 100,82 120,80 140,85 160,82 180,80 200,85"
+                                      fill="none" stroke="var(--accent-cyan)" stroke-width="2" />
+
+                            <!-- Data Points on Efficient Driver -->
+                            <circle cx="40" cy="82" r="2" fill="#fff" />
+                            <circle cx="100" cy="82" r="2" fill="#fff" />
+                            <circle cx="160" cy="82" r="2" fill="#fff" />
+                        </svg>
+                        <div class="plot-label">FLEET CONSUMPTION (L/100KM)</div>
+                        <div class="overlay-data" style="top: auto; bottom: 10px; right: 10px; left: auto; border-color: var(--accent-cyan);">
+                            SAVINGS: 12.4%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WLTP Compliance -->
+        <div class="schematic-section" style="border-color: #fff;">
+            <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap-reverse;">
+                <div style="flex: 1; min-width: 300px;">
+                    <!-- CSS Plot: Velocity Profile Trace -->
+                    <div class="plot-container-css">
+                        <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                            <!-- Tolerance Band (Area) -->
+                            <path d="M0,90 L20,90 L30,40 L50,40 L60,90 L80,90 L90,20 L120,20 L130,90 L150,90 L160,50 L190,50 L200,90"
+                                  fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10" stroke-linecap="round" />
+                            
+                            <!-- Actual Speed Trace -->
+                            <path d="M0,90 L20,90 L30,40 L50,40 L60,90 L80,90 L90,20 L120,20 L130,90 L150,90 L160,50 L190,50 L200,90"
+                                  fill="none" stroke="#fff" stroke-width="2" class="pulse-path" />
+                                  
+                            <!-- Checkmarks for passing phases -->
+                            <circle cx="40" cy="30" r="4" fill="#0f0" opacity="0.5" />
+                            <circle cx="105" cy="10" r="4" fill="#0f0" opacity="0.5" />
+                            <circle cx="175" cy="40" r="4" fill="#0f0" opacity="0.5" />
+                        </svg>
+                        <div class="plot-label" style="border-color: #fff; color: #fff; background: rgba(255,255,255,0.1);">WLTP CYCLE CHECK</div>
+                        <div class="report-status" style="position: absolute; bottom: 10px; right: 10px;">PASS</div>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="color: #fff; margin-bottom: 20px;">WLTP Legislature & Compliance</h3>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Challenge:</strong> Engineers spend hours manually verifying if test cycles meet strict
+                        EU WLTP/RDE standards.
+                    </p>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Solution:</strong> The <strong>WLTPAgent</strong> automatically validates velocity
+                        profiles, soak times, and ambient conditions against the standard.
+                    </p>
+                    <p>
+                        <strong>Result:</strong> Instant "Pass/Fail" reports generated immediately after test
+                        completion. Zero manual calculation errors.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drivability -->
+        <div class="schematic-section" style="border-color: var(--accent-purple);">
+            <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="color: var(--accent-purple); margin-bottom: 20px;">Drivability & Comfort</h3>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Challenge:</strong> Customer complaints about "jerky" shifting in stop-and-go traffic.
+                    </p>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Solution:</strong> The <strong>GearAgent</strong> and <strong>DrivabilityAgent</strong>
+                        analyze high-frequency transmission data to detect "Gear Hunting" and oscillation events.
+                    </p>
+                    <p>
+                        <strong>Result:</strong> Pinpointed calibration map dead-zones causing the oscillation. Fixed in
+                        next OTA update.
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <!-- CSS Plot: Gear State vs RPM -->
+                    <div class="plot-container-css">
+                         <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                            <!-- RPM Background -->
+                            <path d="M0,80 Q50,70 100,30 T200,20" 
+                                  fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2" />
+                            
+                            <!-- Gear Steps (Staircase) -->
+                            <polyline points="0,90 30,90 30,70 60,70 60,50 90,50 90,70 110,70 110,50 140,50 140,30 180,30 180,10 200,10"
+                                      fill="none" stroke="var(--accent-purple)" stroke-width="2" />
+                            
+                            <!-- Anomaly Highlight (The 'Hunting' part) -->
+                            <circle cx="100" cy="60" r="15" fill="none" stroke="var(--accent-cyan)" stroke-width="1" stroke-dasharray="2">
+                                <animate attributeName="r" values="10;20;10" dur="2s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                        </svg>
+                        <div class="plot-label" style="border-color: var(--accent-purple); color: var(--accent-purple); background: rgba(188, 19, 254, 0.1);">SHIFT QUALITY</div>
+                        <div class="plot-label-alert" style="top: auto; bottom: 10px; left: 10px;">HUNTING DETECTED</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-logo">VEHICLE-LAB</div>
+        <p>&copy; 2025 Vehicle-Lab. All rights reserved.</p>
+    </footer>
+    <script src="assets/particles.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+How to make your site live in 30 seconds:
+
+1. Go to https://app.netlify.com/drop
+2. Drag and drop the 'website.zip' file (found in this folder) onto that page.
+3. Netlify will give you a link instantly.
+4. Send that link to your friends!
