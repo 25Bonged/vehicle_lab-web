@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | VEHICLE-LAB</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="particles"></canvas>
+
+    <nav>
+        <div class="logo">VEHICLE-LAB</div>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="features.html" class="active">Features</a>
+            <a href="casestudy.html">Case Studies</a>
+            <a href="diagai.html">DiagAI</a>
+            <a href="specs.html">Specs</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
+    </nav>
+
+    <div class="container" style="margin-top: 150px;">
+        <h2 class="section-title">Advanced Capabilities</h2>
+
+        <!-- Schematic: Data Pipeline -->
+        <div class="schematic-section">
+            <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-cyan);">End-to-End Data Pipeline
+            </h3>
+            <div class="diagram-container flow-diagram">
+                <div class="diagram-node">
+                    <h4>Ingest</h4>
+                    <p>MDF, MF4, CSV, Excel</p>
+                </div>
+                <div class="flow-arrow">➜</div>
+                <div class="diagram-node">
+                    <h4>Index</h4>
+                    <p>DuckDB + 330 DBCs</p>
+                </div>
+                <div class="flow-arrow">➜</div>
+                <div class="diagram-node central">
+                    <h4>Analyze</h4>
+                    <p>DiagAI + Agents</p>
+                </div>
+                <div class="flow-arrow">➜</div>
+                <div class="diagram-node">
+                    <h4>Report</h4>
+                    <p>PDF, Plots, Insights</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Multi-Agent System Grid -->
+        <div class="schematic-section">
+            <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-purple);">9 Specialized Diagnostic
+                Agents</h3>
+            <div class="agent-grid">
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>MisfireAgent</h5>
+                    <p>CSVA, FFT, and ML-based detection of combustion anomalies.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>FuelAgent</h5>
+                    <p>BSFC calculation, consumption metrics, and efficiency analysis.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>GearAgent</h5>
+                    <p>Transmission analysis, gear hunting detection, shift quality.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>DrivabilityAgent</h5>
+                    <p>Anti-jerk analysis, pedal map evaluation, torque filter.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>WLTPAgent</h5>
+                    <p>Standardized cycle testing and emissions compliance checks.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>StartWarmupAgent</h5>
+                    <p>Cold start analysis and warmup phase optimization.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>DFCAgent</h5>
+                    <p>Diagnostic Trouble Code analysis and correlation.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>IUPRAgent</h5>
+                    <p>In-Use Performance Ratio monitoring for OBD-II.</p>
+                </div>
+                <div class="agent-card">
+                    <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                    <h5>CANBusOffAgent</h5>
+                    <p>Bus health monitoring and error frame analysis.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <!-- CSS-Generated 3D Surface Plot -->
+                <div class="plot-container-css">
+                    <div class="surface-3d-wrap">
+                        <div class="surface-plane">
+                            <div class="grid-line-x"></div>
+                            <div class="grid-line-y"></div>
+                            <!-- Simulated data peaks -->
+                            <div class="data-peak peak-1"></div>
+                            <div class="data-peak peak-2"></div>
+                            <div class="data-peak peak-3"></div>
+                        </div>
+                    </div>
+                    <div class="plot-label">BSFC MAP: 2000 RPM</div>
+                </div>
+                <h3>3D Empirical Maps</h3>
+                <p>Generate production-ready BSFC and efficiency maps using Kriging and RBF interpolation. Visualize
+                    operating points in interactive 3D.</p>
+            </div>
+
+            <div class="card">
+                <!-- CSS-Generated Misfire Histogram -->
+                <div class="plot-container-css">
+                    <div class="chart-histogram">
+                        <div class="bar" style="height: 20%;"></div>
+                        <div class="bar" style="height: 35%;"></div>
+                        <div class="bar" style="height: 25%;"></div>
+                        <div class="bar anomaly" style="height: 85%;"></div>
+                        <div class="bar" style="height: 30%;"></div>
+                        <div class="bar" style="height: 20%;"></div>
+                    </div>
+                    <div class="plot-label-alert">MISFIRE CYL #4</div>
+                </div>
+                <h3>Misfire Detection</h3>
+                <p>9 advanced algorithms (CSVA, FFT, ML-based) to detect and analyze engine misfires with precision.</p>
+            </div>
+
+            <div class="card">
+                <!-- SVG Line Chart for Transmission -->
+                <div class="plot-container-css">
+                    <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                        <!-- Grid lines -->
+                        <line x1="0" y1="20" x2="200" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                        <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                        <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                        <!-- Hunting Oscillation -->
+                        <path d="M0,50 Q20,20 40,50 T80,50 T120,50 T160,50 T200,50" 
+                              fill="none" stroke="var(--accent-purple)" stroke-width="2" class="pulse-path" />
+                        <path d="M40,50 Q50,10 60,50 T80,90 T100,50" 
+                              fill="none" stroke="var(--accent-cyan)" stroke-width="2" />
+                    </svg>
+                    <div class="plot-label">GEAR HUNTING EVENT</div>
+                </div>
+                <h3>Transmission Analysis</h3>
+                <p>Automatic detection of gear hunting events and shift quality analysis. Correlate speed and RPM
+                    instantly.</p>
+            </div>
+
+            <div class="card">
+                <!-- Complex Dashboard SVG -->
+                <div class="plot-container-css">
+                    <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                         <!-- Background Area -->
+                        <path d="M0,80 L20,70 L40,75 L60,60 L80,65 L100,40 L120,50 L140,30 L160,35 L180,20 L200,25 L200,100 L0,100 Z"
+                              fill="rgba(0, 243, 255, 0.1)" />
+                        <!-- Main Signal -->
+                        <polyline points="0,80 20,70 40,75 60,60 80,65 100,40 120,50 140,30 160,35 180,20 200,25"
+                                  fill="none" stroke="var(--accent-cyan)" stroke-width="2" />
+                        <!-- Secondary Signal -->
+                        <polyline points="0,90 30,85 60,88 90,80 120,82 150,75 180,78 200,70"
+                                  fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-dasharray="4" />
+                    </svg>
+                    <div class="plot-label">LIVE TELEMETRY</div>
+                </div>
+                <h3>Real-Time Dashboard</h3>
+                <p>Interactive Plotly visualizations with LTTB downsampling for handling gigabyte-scale datasets
+                    smoothly.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">VEHICLE-LAB</div>
+        <p>&copy; 2025 Vehicle-Lab. All rights reserved.</p>
+    </footer>
+
+    <script src="assets/particles.js"></script>
+</body>
+
+</html>
