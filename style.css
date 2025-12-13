@@ -2108,11 +2108,13 @@ footer {
     }
     
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        line-height: 1.2;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        padding: 0 10px;
     }
     
     .newsletter-input-wrapper {
@@ -2136,6 +2138,378 @@ footer {
     /* Reduce 3D effects on mobile */
     .card-3d:hover {
         transform: translateY(-5px);
+    }
+    
+    /* ============================================
+       COMPREHENSIVE MOBILE FIXES
+       ============================================ */
+    
+    /* Scroll Sections - Better mobile spacing */
+    .scroll-section {
+        padding: 100px 15px 40px;
+        min-height: auto;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        min-height: 100vh;
+        padding-top: 120px;
+    }
+    
+    .hero-content {
+        padding: 0 10px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    
+    .hero-buttons .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    /* Container */
+    .container {
+        padding: 30px 15px;
+        width: 100%;
+    }
+    
+    /* Cards - Single column on mobile */
+    .card {
+        padding: 20px;
+    }
+    
+    .card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .card p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    /* DiagAI Hero Section - Stack vertically */
+    .diagai-hero {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        padding: 30px 20px !important;
+        gap: 30px !important;
+    }
+    
+    .diagai-hero h2 {
+        font-size: 2.5rem !important;
+    }
+    
+    .diagai-hero > div:first-child h2 {
+        font-size: 2.5rem !important;
+    }
+    
+    .diagai-hero > div:first-child p {
+        font-size: 1rem !important;
+    }
+    
+    /* DiagAI Content */
+    .diagai-content {
+        width: 100%;
+    }
+    
+    .diagai-content h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .diagai-content p {
+        font-size: 1rem !important;
+    }
+    
+    /* DiagAI 3D Container - Reduce height on mobile */
+    #diagai-3d-container {
+        height: 300px !important;
+    }
+    
+    #diagai-3d-container > div:first-child {
+        padding: 10px 15px !important;
+    }
+    
+    #diagai-3d-container h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    #diagai-3d-container p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Terminal Window */
+    .terminal-window {
+        font-size: 0.8rem;
+    }
+    
+    .terminal-body {
+        padding: 15px;
+    }
+    
+    .term-cmd, .term-output {
+        font-size: 0.75rem;
+    }
+    
+    .dtc-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .dtc-item {
+        min-width: 100%;
+    }
+    
+    /* Agent Grid - 2 columns on mobile */
+    .agent-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .agent-card {
+        padding: 12px;
+    }
+    
+    .agent-card h5 {
+        font-size: 0.75rem;
+    }
+    
+    .agent-card p {
+        font-size: 0.7rem;
+        line-height: 1.4;
+    }
+    
+    .agent-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Schematic Section - Case Studies */
+    .schematic-section {
+        padding: 25px 15px;
+        margin: 40px 0;
+    }
+    
+    .schematic-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    
+    /* Case Study Flexbox - Stack vertically */
+    .schematic-section > div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 25px !important;
+    }
+    
+    .schematic-section > div > div[style*="flex: 1"] {
+        min-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    /* Tech Badges */
+    .tech-badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    /* Flow Diagram - Data Pipeline */
+    .flow-diagram {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .diagram-node {
+        min-width: 100%;
+        padding: 15px;
+    }
+    
+    .diagram-node h4 {
+        font-size: 1rem;
+    }
+    
+    .diagram-node p {
+        font-size: 0.85rem;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+        font-size: 1.2rem;
+    }
+    
+    /* Specs Section - Stack tables */
+    .specs-section > .container > div[style*="grid-template-columns: 1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    
+    .specs-table {
+        font-size: 0.8rem;
+    }
+    
+    .specs-table th,
+    .specs-table td {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .specs-table th {
+        min-width: 100px;
+    }
+    
+    /* Newsletter Section */
+    .newsletter-container {
+        padding: 20px 15px;
+    }
+    
+    .newsletter-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .newsletter-submit {
+        width: 100%;
+    }
+    
+    /* Contact Section */
+    .contact-section .card {
+        padding: 25px 15px;
+    }
+    
+    .contact-section h3 {
+        font-size: 1.8rem;
+    }
+    
+    .contact-grid {
+        gap: 15px;
+    }
+    
+    .contact-card-minimal {
+        padding: 15px;
+    }
+    
+    .contact-card-minimal .icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+    }
+    
+    .contact-info h4 {
+        font-size: 0.9rem;
+    }
+    
+    .contact-info span {
+        font-size: 0.8rem;
+    }
+    
+    /* Expanded Capabilities Grid */
+    .expanded-capabilities-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    
+    /* DiagAI Feature Cards */
+    .diagai-feature-card {
+        padding: 20px 15px !important;
+    }
+    
+    .diagai-feature-card h4 {
+        font-size: 1rem !important;
+    }
+    
+    .diagai-feature-card p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Deep Dive Toggle */
+    #diagai-deep-dive-toggle {
+        font-size: 0.9rem !important;
+        padding: 12px 25px !important;
+    }
+    
+    /* Deep Dive Content */
+    #diagai-deep-dive .schematic-section {
+        padding: 20px 15px;
+    }
+    
+    #diagai-deep-dive .grid {
+        gap: 15px;
+    }
+    
+    /* Plot Containers */
+    .plot-container-css {
+        height: 150px;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 30px 15px;
+    }
+    
+    .footer-logo {
+        font-size: 1.2rem;
+    }
+    
+    footer p {
+        font-size: 0.8rem;
+    }
+    
+    /* CTA Buttons */
+    .cta-button {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Agent Grid - Single column on very small screens */
+    .agent-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .diagai-hero h2 {
+        font-size: 2rem !important;
+    }
+    
+    #diagai-3d-container {
+        height: 250px !important;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .schematic-section {
+        padding: 20px 12px;
+    }
+    
+    .specs-table th,
+    .specs-table td {
+        padding: 6px 8px;
+        font-size: 0.7rem;
     }
 }
 
