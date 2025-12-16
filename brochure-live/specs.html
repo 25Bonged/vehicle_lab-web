@@ -8,6 +8,30 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
+    <!-- Early deployment handler - catches clicks before page fully loads -->
+    <script>
+        (function() {
+            document.addEventListener('click', function(e) {
+                var target = e.target;
+                var button = target.closest && target.closest('button.cta-button');
+                var link = target.closest && target.closest('a');
+                var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
+                if (text.includes('DEPLOY NOW')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    if (window.deployVehicleLab) {
+                        window.deployVehicleLab();
+                    } else {
+                        setTimeout(function() {
+                            if (window.deployVehicleLab) window.deployVehicleLab();
+                        }, 100);
+                    }
+                    return false;
+                }
+            }, true);
+        })();
+    </script>
 </head>
 
 <body>

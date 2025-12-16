@@ -10,6 +10,9 @@
     const APP_URL = 'https://vehicle-lab-web-deploy.onrender.com';
     const MAX_LOAD_TIME = 45000; // 45 seconds max wait
     const COLD_START_WARNING_TIME = 5000; // Show cold start message after 5s
+    
+    // Flag to prevent multiple initializations
+    let isInitialized = false;
 
     // Create loading overlay
     function createLoadingOverlay() {
@@ -418,6 +421,9 @@
 
     // Initialize deployment handlers
     function initDeploymentHandlers() {
+        if (isInitialized) return;
+        isInitialized = true;
+        
         // Find all buttons with "DEPLOY NOW" text
         const allButtons = document.querySelectorAll('button.cta-button');
         const handledElements = new Set();
@@ -425,41 +431,133 @@
         allButtons.forEach(button => {
             const buttonText = button.textContent.trim().toUpperCase();
             if (buttonText.includes('DEPLOY NOW') || button.hasAttribute('data-deploy')) {
-                // Handle button click
-                button.addEventListener('click', function(e) {
+                // Find parent link
+                const parentLink = button.closest('a');
+                
+                // Remove any existing href to prevent navigation
+                if (parentLink && parentLink.href) {
+                    parentLink.setAttribute('data-original-href', parentLink.href);
+                    parentLink.href = 'javascript:void(0)';
+                }
+                
+                // Handle button click - stop everything
+                const buttonHandler = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
+                    e.stopImmediatePropagation();
                     if (!handledElements.has(button)) {
                         handledElements.add(button);
                         deployApp();
                     }
-                }, true); // Use capture phase
+                    return false;
+                };
                 
-                // Also handle parent link if it exists
-                const parentLink = button.closest('a');
-                if (parentLink && !handledElements.has(parentLink)) {
-                    parentLink.addEventListener('click', function(e) {
-                        // Only handle if the click is on the link itself, not bubbling from button
-                        if (e.target === parentLink) {
+                button.addEventListener('click', buttonHandler, true);
+                button.addEventListener('click', buttonHandler, false); // Also in bubble phase
+                
+                // Handle parent link click - intercept before navigation
+                if (parentLink) {
+                    const linkHandler = function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        if (!handledElements.has(parentLink)) {
+                            handledElements.add(parentLink);
+                            deployApp();
+                        }
+                        return false;
+                    };
+                    
+                    parentLink.addEventListener('click', linkHandler, true); // Capture phase
+                    parentLink.addEventListener('click', linkHandler, false); // Bubble phase
+                    
+                    // Also prevent default on mousedown (some browsers)
+                    parentLink.addEventListener('mousedown', function(e) {
+                        if (e.button === 0) { // Left click only
                             e.preventDefault();
                             e.stopPropagation();
-                            if (!handledElements.has(parentLink)) {
-                                handledElements.add(parentLink);
-                                deployApp();
-                            }
                         }
                     }, true);
                 }
             }
         });
+        
+        // Also check for links that contain DEPLOY NOW text directly
+        const allLinks = document.querySelectorAll('a');
+        allLinks.forEach(link => {
+            const linkText = link.textContent.trim().toUpperCase();
+            if (linkText.includes('DEPLOY NOW') && !handledElements.has(link)) {
+                // Remove href to prevent navigation
+                if (link.href) {
+                    link.setAttribute('data-original-href', link.href);
+                    link.href = 'javascript:void(0)';
+                }
+                
+                const linkHandler = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    if (!handledElements.has(link)) {
+                        handledElements.add(link);
+                        deployApp();
+                    }
+                    return false;
+                };
+                
+                link.addEventListener('click', linkHandler, true);
+                link.addEventListener('click', linkHandler, false);
+            }
+        });
     }
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initDeploymentHandlers);
-    } else {
+    // Use event delegation at document level to catch all clicks early
+    document.addEventListener('click', function(e) {
+        const target = e.target;
+        const button = target.closest('button.cta-button');
+        const link = target.closest('a');
+        
+        // Check if it's a DEPLOY NOW button
+        if (button) {
+            const buttonText = button.textContent.trim().toUpperCase();
+            if (buttonText.includes('DEPLOY NOW') || button.hasAttribute('data-deploy')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                deployApp();
+                return false;
+            }
+        }
+        
+        // Check if it's a DEPLOY NOW link
+        if (link) {
+            const linkText = link.textContent.trim().toUpperCase();
+            if (linkText.includes('DEPLOY NOW')) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                deployApp();
+                return false;
+            }
+        }
+    }, true); // Use capture phase to catch before default action
+    
+    // Also initialize handlers for direct attachment
+    function initDeploymentHandlersDelayed() {
+        isInitialized = false; // Reset flag
         initDeploymentHandlers();
     }
+    
+    // Initialize immediately and also on DOM ready (for dynamic content)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDeploymentHandlersDelayed);
+    } else {
+        initDeploymentHandlersDelayed();
+    }
+    
+    // Also re-initialize after delays to catch any late-loading elements
+    setTimeout(initDeploymentHandlersDelayed, 100);
+    setTimeout(initDeploymentHandlersDelayed, 500);
+    setTimeout(initDeploymentHandlersDelayed, 1000);
 
     // Export for manual triggering if needed
     window.deployVehicleLab = deployApp;
