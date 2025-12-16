@@ -9,89 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Early deployment handler - catches clicks before page fully loads -->
-    <script>
-        // #region agent log
-        console.log('[DEPLOY DEBUG] ========== EARLY SCRIPT LOADING ==========');
-        console.log('[DEPLOY DEBUG] Early script executing, readyState:', document.readyState);
-        console.log('[DEPLOY DEBUG] Script location: index.html head section');
-        try {
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:12',message:'Early script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-        } catch(e) {
-            console.error('[DEPLOY DEBUG] Error in early script:', e);
-        }
-        // #endregion
-        (function() {
-            // #region agent log
-            console.log('[DEPLOY DEBUG] Early click listener attaching');
-            try {
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:15',message:'Early click listener attaching',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-            } catch(e) {
-                console.error('[DEPLOY DEBUG] Error attaching listener:', e);
-            }
-            // #endregion
-            document.addEventListener('click', function(e) {
-                // #region agent log
-                console.log('[DEPLOY DEBUG] ========== CLICK EVENT ==========');
-                console.log('[DEPLOY DEBUG] Click event caught', {
-                    tag: e.target.tagName,
-                    class: e.target.className,
-                    text: e.target.textContent?.substring(0,50),
-                    href: e.target.href
-                });
-                try {
-                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:18',message:'Click event caught',data:{targetTag:e.target.tagName,targetClass:e.target.className,targetText:e.target.textContent?.substring(0,50),targetHref:e.target.href},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-                } catch(e) {
-                    console.error('[DEPLOY DEBUG] Error logging click:', e);
-                }
-                // #endregion
-                var target = e.target;
-                // Check for button.cta-button OR a.cta-button
-                var button = target.closest && (target.closest('button.cta-button') || target.closest('a.cta-button'));
-                var link = target.closest && target.closest('a');
-                var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
-                var isCtaButton = target.classList && target.classList.contains('cta-button');
-                // #region agent log
-                console.log('[DEPLOY DEBUG] Checking deploy text', {text:text,hasButton:!!button,hasLink:!!link,isCtaButton:isCtaButton,targetIsCtaButton:target.classList?.contains('cta-button'),deployVehicleLabExists:!!window.deployVehicleLab});
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:24',message:'Checking deploy text',data:{text:text,hasButton:!!button,hasLink:!!link,isCtaButton:isCtaButton,targetIsCtaButton:target.classList?.contains('cta-button'),deployVehicleLabExists:!!window.deployVehicleLab},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-                // #endregion
-                // Check if it's a DEPLOY NOW button by text OR if it's a cta-button (more reliable)
-                if (text.includes('DEPLOY NOW') || isCtaButton || (button && button.classList.contains('cta-button'))) {
-                    // #region agent log
-                    console.log('[DEPLOY DEBUG] DEPLOY NOW detected!', {deployVehicleLabExists:!!window.deployVehicleLab});
-                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:24',message:'DEPLOY NOW detected',data:{deployVehicleLabExists:!!window.deployVehicleLab},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-                    // #endregion
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    if (window.deployVehicleLab) {
-                        // #region agent log
-                        console.log('[DEPLOY DEBUG] Calling deployVehicleLab');
-                        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:28',message:'Calling deployVehicleLab',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-                        // #endregion
-                        window.deployVehicleLab();
-                    } else {
-                        // #region agent log
-                        console.log('[DEPLOY DEBUG] deployVehicleLab not found, scheduling retry');
-                        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:30',message:'deployVehicleLab not found, scheduling retry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
-                        // #endregion
-                        setTimeout(function() {
-                            if (window.deployVehicleLab) {
-                                // #region agent log
-                                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:32',message:'Retry: calling deployVehicleLab',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                                // #endregion
-                                window.deployVehicleLab();
-                            } else {
-                                // #region agent log
-                                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:34',message:'Retry: deployVehicleLab still not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                                // #endregion
-                            }
-                        }, 100);
-                    }
-                    return false;
-                }
-            }, true);
-        })();
-    </script>
+    <!-- Debug script removed -->
 </head>
 
 <body>
@@ -106,7 +24,7 @@
             <a href="specs.html">Specs</a>
             <a href="contact.html">Contact</a>
         </div>
-        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
+        <button class="cta-button" onclick="startDeployment()">DEPLOY NOW</button>
     </nav>
 
     <section class="hero">
@@ -146,34 +64,7 @@
     </footer>
 
     <script src="assets/particles.js"></script>
-    <script>
-        console.log('[DEPLOY DEBUG] ========== LOADING deployment.js ==========');
-        console.log('[DEPLOY DEBUG] Script tag found, loading deployment.js');
-        // Fallback: If deployment.js doesn't load, create a minimal handler
-        setTimeout(function() {
-            if (!window.deployVehicleLab) {
-                console.warn('[DEPLOY DEBUG] deployment.js did not load! Creating fallback handler.');
-                window.deployVehicleLab = function() {
-                    console.log('[DEPLOY DEBUG] Fallback deployVehicleLab called');
-                    window.location.href = 'https://vehicle-lab-web-deploy.onrender.com';
-                };
-            }
-        }, 2000);
-    </script>
-    <script src="assets/deployment.js" onerror="console.error('[DEPLOY DEBUG] ERROR: Failed to load deployment.js -', this.src); window.deployVehicleLab = function() { console.log('[DEPLOY DEBUG] Fallback: redirecting'); window.location.href = 'https://vehicle-lab-web-deploy.onrender.com'; };" onload="console.log('[DEPLOY DEBUG] deployment.js loaded successfully from:', this.src)"></script>
-    <script>
-        console.log('[DEPLOY DEBUG] After deployment.js script tag');
-        console.log('[DEPLOY DEBUG] window.deployVehicleLab exists?', typeof window.deployVehicleLab);
-        // Verify script loaded after a delay
-        setTimeout(function() {
-            console.log('[DEPLOY DEBUG] Final check - deployVehicleLab type:', typeof window.deployVehicleLab);
-            if (typeof window.deployVehicleLab === 'function') {
-                console.log('[DEPLOY DEBUG] ✓ deployment.js is working!');
-            } else {
-                console.error('[DEPLOY DEBUG] ✗ deployment.js failed to load!');
-            }
-        }, 3000);
-    </script>
+        <script src="assets/deployment.js"></script>
 </body>
 
 </html>
