@@ -11,18 +11,38 @@
     <!-- Early deployment handler - catches clicks before page fully loads -->
     <script>
         // #region agent log
+        console.log('[DEPLOY DEBUG] ========== EARLY SCRIPT LOADING ==========');
         console.log('[DEPLOY DEBUG] Early script executing, readyState:', document.readyState);
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:12',message:'Early script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+        console.log('[DEPLOY DEBUG] Script location: index.html head section');
+        try {
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:12',message:'Early script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+        } catch(e) {
+            console.error('[DEPLOY DEBUG] Error in early script:', e);
+        }
         // #endregion
         (function() {
             // #region agent log
             console.log('[DEPLOY DEBUG] Early click listener attaching');
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:15',message:'Early click listener attaching',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+            try {
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:15',message:'Early click listener attaching',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+            } catch(e) {
+                console.error('[DEPLOY DEBUG] Error attaching listener:', e);
+            }
             // #endregion
             document.addEventListener('click', function(e) {
                 // #region agent log
-                console.log('[DEPLOY DEBUG] Click event caught', e.target.tagName, e.target.className, e.target.textContent?.substring(0,50));
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:18',message:'Click event caught',data:{targetTag:e.target.tagName,targetClass:e.target.className,targetText:e.target.textContent?.substring(0,50),targetHref:e.target.href},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+                console.log('[DEPLOY DEBUG] ========== CLICK EVENT ==========');
+                console.log('[DEPLOY DEBUG] Click event caught', {
+                    tag: e.target.tagName,
+                    class: e.target.className,
+                    text: e.target.textContent?.substring(0,50),
+                    href: e.target.href
+                });
+                try {
+                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:18',message:'Click event caught',data:{targetTag:e.target.tagName,targetClass:e.target.className,targetText:e.target.textContent?.substring(0,50),targetHref:e.target.href},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+                } catch(e) {
+                    console.error('[DEPLOY DEBUG] Error logging click:', e);
+                }
                 // #endregion
                 var target = e.target;
                 // Check for button.cta-button OR a.cta-button
@@ -126,7 +146,15 @@
     </footer>
 
     <script src="assets/particles.js"></script>
-    <script src="assets/deployment.js"></script>
+    <script>
+        console.log('[DEPLOY DEBUG] ========== LOADING deployment.js ==========');
+        console.log('[DEPLOY DEBUG] Script tag found, loading deployment.js');
+    </script>
+    <script src="assets/deployment.js" onerror="console.error('[DEPLOY DEBUG] ERROR: Failed to load deployment.js')" onload="console.log('[DEPLOY DEBUG] deployment.js loaded successfully')"></script>
+    <script>
+        console.log('[DEPLOY DEBUG] After deployment.js script tag');
+        console.log('[DEPLOY DEBUG] window.deployVehicleLab exists?', typeof window.deployVehicleLab);
+    </script>
 </body>
 
 </html>

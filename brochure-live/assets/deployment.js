@@ -8,8 +8,14 @@
     'use strict';
 
     // #region agent log
+    console.log('[DEPLOY DEBUG] ========== deployment.js EXECUTING ==========');
     console.log('[DEPLOY DEBUG] deployment.js script executing, readyState:', document.readyState);
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:8',message:'deployment.js script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+    console.log('[DEPLOY DEBUG] Script location: assets/deployment.js');
+    try {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:8',message:'deployment.js script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'B'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
+    } catch(e) {
+        console.error('[DEPLOY DEBUG] Error in deployment.js init:', e);
+    }
     // #endregion
 
     const APP_URL = 'https://vehicle-lab-web-deploy.onrender.com';
