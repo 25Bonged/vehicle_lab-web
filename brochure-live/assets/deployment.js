@@ -8,7 +8,8 @@
     'use strict';
 
     // #region agent log
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:8',message:'deployment.js script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    console.log('[DEPLOY DEBUG] deployment.js script executing, readyState:', document.readyState);
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:8',message:'deployment.js script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
     // #endregion
 
     const APP_URL = 'https://vehicle-lab-web-deploy.onrender.com';
@@ -535,21 +536,23 @@
     // Use event delegation at document level to catch all clicks early
     document.addEventListener('click', function(e) {
         // #region agent log
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:558',message:'Document click delegation triggered',data:{targetTag:e.target.tagName,targetClass:e.target.className},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:558',message:'Document click delegation triggered',data:{targetTag:e.target.tagName,targetClass:e.target.className,targetIsCtaButton:e.target.classList?.contains('cta-button')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
         // #endregion
         const target = e.target;
-        const button = target.closest('button.cta-button');
+        // Check for button.cta-button OR a.cta-button
+        const button = target.closest('button.cta-button') || target.closest('a.cta-button');
         const link = target.closest('a');
+        const isCtaButton = target.classList && target.classList.contains('cta-button');
         
-        // Check if it's a DEPLOY NOW button
-        if (button) {
-            const buttonText = button.textContent.trim().toUpperCase();
+        // Check if it's a DEPLOY NOW button by class OR text
+        if (button || isCtaButton) {
+            const buttonText = (button ? button.textContent : target.textContent).trim().toUpperCase();
             // #region agent log
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:565',message:'Button found in delegation',data:{buttonText:buttonText,hasDeployNow:buttonText.includes('DEPLOY NOW')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:567',message:'CTA button found in delegation',data:{buttonText:buttonText,hasDeployNow:buttonText.includes('DEPLOY NOW'),isCtaButton:isCtaButton},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
             // #endregion
-            if (buttonText.includes('DEPLOY NOW') || button.hasAttribute('data-deploy')) {
+            if (buttonText.includes('DEPLOY NOW') || button?.hasAttribute('data-deploy') || isCtaButton) {
                 // #region agent log
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:568',message:'DEPLOY NOW detected in delegation, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:570',message:'CTA button detected, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
                 // #endregion
                 e.preventDefault();
                 e.stopPropagation();
@@ -563,11 +566,11 @@
         if (link) {
             const linkText = link.textContent.trim().toUpperCase();
             // #region agent log
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:578',message:'Link found in delegation',data:{linkText:linkText,hasDeployNow:linkText.includes('DEPLOY NOW')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:582',message:'Link found in delegation',data:{linkText:linkText,hasDeployNow:linkText.includes('DEPLOY NOW')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
             // #endregion
             if (linkText.includes('DEPLOY NOW')) {
                 // #region agent log
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:581',message:'DEPLOY NOW link detected, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:585',message:'DEPLOY NOW link detected, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
                 // #endregion
                 e.preventDefault();
                 e.stopPropagation();
@@ -599,7 +602,8 @@
     // Export for manual triggering if needed
     window.deployVehicleLab = deployApp;
     // #region agent log
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:600',message:'deployment.js fully loaded, deployVehicleLab exported',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    console.log('[DEPLOY DEBUG] deployment.js fully loaded, deployVehicleLab exported');
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:600',message:'deployment.js fully loaded, deployVehicleLab exported',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(err=>console.error('[DEPLOY DEBUG] Log fetch failed:',err));
     // #endregion
 
 })();

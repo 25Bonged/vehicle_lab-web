@@ -13,10 +13,11 @@
         (function() {
             document.addEventListener('click', function(e) {
                 var target = e.target;
-                var button = target.closest && target.closest('button.cta-button');
+                var button = target.closest && (target.closest('button.cta-button') || target.closest('a.cta-button'));
                 var link = target.closest && target.closest('a');
                 var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
-                if (text.includes('DEPLOY NOW')) {
+                var isCtaButton = target.classList && target.classList.contains('cta-button');
+                if (text.includes('DEPLOY NOW') || isCtaButton || (button && button.classList.contains('cta-button'))) {
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
