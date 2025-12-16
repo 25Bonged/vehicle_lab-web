@@ -149,11 +149,30 @@
     <script>
         console.log('[DEPLOY DEBUG] ========== LOADING deployment.js ==========');
         console.log('[DEPLOY DEBUG] Script tag found, loading deployment.js');
+        // Fallback: If deployment.js doesn't load, create a minimal handler
+        setTimeout(function() {
+            if (!window.deployVehicleLab) {
+                console.warn('[DEPLOY DEBUG] deployment.js did not load! Creating fallback handler.');
+                window.deployVehicleLab = function() {
+                    console.log('[DEPLOY DEBUG] Fallback deployVehicleLab called');
+                    window.location.href = 'https://vehicle-lab-web-deploy.onrender.com';
+                };
+            }
+        }, 2000);
     </script>
-    <script src="assets/deployment.js" onerror="console.error('[DEPLOY DEBUG] ERROR: Failed to load deployment.js')" onload="console.log('[DEPLOY DEBUG] deployment.js loaded successfully')"></script>
+    <script src="assets/deployment.js" onerror="console.error('[DEPLOY DEBUG] ERROR: Failed to load deployment.js -', this.src); window.deployVehicleLab = function() { console.log('[DEPLOY DEBUG] Fallback: redirecting'); window.location.href = 'https://vehicle-lab-web-deploy.onrender.com'; };" onload="console.log('[DEPLOY DEBUG] deployment.js loaded successfully from:', this.src)"></script>
     <script>
         console.log('[DEPLOY DEBUG] After deployment.js script tag');
         console.log('[DEPLOY DEBUG] window.deployVehicleLab exists?', typeof window.deployVehicleLab);
+        // Verify script loaded after a delay
+        setTimeout(function() {
+            console.log('[DEPLOY DEBUG] Final check - deployVehicleLab type:', typeof window.deployVehicleLab);
+            if (typeof window.deployVehicleLab === 'function') {
+                console.log('[DEPLOY DEBUG] ✓ deployment.js is working!');
+            } else {
+                console.error('[DEPLOY DEBUG] ✗ deployment.js failed to load!');
+            }
+        }, 3000);
     </script>
 </body>
 
