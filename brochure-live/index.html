@@ -10,21 +10,51 @@
         rel="stylesheet">
     <!-- Early deployment handler - catches clicks before page fully loads -->
     <script>
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:12',message:'Early script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
         (function() {
+            // #region agent log
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:15',message:'Early click listener attaching',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            // #endregion
             document.addEventListener('click', function(e) {
+                // #region agent log
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:18',message:'Click event caught',data:{targetTag:e.target.tagName,targetClass:e.target.className,targetText:e.target.textContent?.substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                // #endregion
                 var target = e.target;
                 var button = target.closest && target.closest('button.cta-button');
                 var link = target.closest && target.closest('a');
                 var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
+                // #region agent log
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:22',message:'Checking deploy text',data:{text:text,hasButton:!!button,hasLink:!!link,deployVehicleLabExists:!!window.deployVehicleLab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                // #endregion
                 if (text.includes('DEPLOY NOW')) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:24',message:'DEPLOY NOW detected',data:{deployVehicleLabExists:!!window.deployVehicleLab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                    // #endregion
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
                     if (window.deployVehicleLab) {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:28',message:'Calling deployVehicleLab',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                        // #endregion
                         window.deployVehicleLab();
                     } else {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:30',message:'deployVehicleLab not found, scheduling retry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                        // #endregion
                         setTimeout(function() {
-                            if (window.deployVehicleLab) window.deployVehicleLab();
+                            if (window.deployVehicleLab) {
+                                // #region agent log
+                                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:32',message:'Retry: calling deployVehicleLab',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                                // #endregion
+                                window.deployVehicleLab();
+                            } else {
+                                // #region agent log
+                                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:34',message:'Retry: deployVehicleLab still not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                                // #endregion
+                            }
                         }, 100);
                     }
                     return false;

@@ -7,6 +7,10 @@
 (function() {
     'use strict';
 
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:8',message:'deployment.js script executing',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
+
     const APP_URL = 'https://vehicle-lab-web-deploy.onrender.com';
     const MAX_LOAD_TIME = 45000; // 45 seconds max wait
     const COLD_START_WARNING_TIME = 5000; // Show cold start message after 5s
@@ -311,7 +315,13 @@
 
     // Main deployment function
     async function deployApp() {
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:310',message:'deployApp function called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
         const overlay = createLoadingOverlay();
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:313',message:'Loading overlay created',data:{overlayExists:!!overlay},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
         let progressInterval = null;
         let coldStartShown = false;
         let coldStartTimeout = null;
@@ -430,7 +440,13 @@
         
         allButtons.forEach(button => {
             const buttonText = button.textContent.trim().toUpperCase();
+            // #region agent log
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:496',message:'Checking button',data:{buttonText:buttonText,hasDeployNow:buttonText.includes('DEPLOY NOW'),hasDataDeploy:button.hasAttribute('data-deploy')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+            // #endregion
             if (buttonText.includes('DEPLOY NOW') || button.hasAttribute('data-deploy')) {
+                // #region agent log
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:500',message:'Attaching handler to button',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+                // #endregion
                 // Find parent link
                 const parentLink = button.closest('a');
                 
@@ -442,11 +458,17 @@
                 
                 // Handle button click - stop everything
                 const buttonHandler = function(e) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:505',message:'Button handler triggered',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                    // #endregion
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
                     if (!handledElements.has(button)) {
                         handledElements.add(button);
+                        // #region agent log
+                        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:512',message:'Calling deployApp from button handler',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                        // #endregion
                         deployApp();
                     }
                     return false;
@@ -512,6 +534,9 @@
 
     // Use event delegation at document level to catch all clicks early
     document.addEventListener('click', function(e) {
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:558',message:'Document click delegation triggered',data:{targetTag:e.target.tagName,targetClass:e.target.className},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+        // #endregion
         const target = e.target;
         const button = target.closest('button.cta-button');
         const link = target.closest('a');
@@ -519,7 +544,13 @@
         // Check if it's a DEPLOY NOW button
         if (button) {
             const buttonText = button.textContent.trim().toUpperCase();
+            // #region agent log
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:565',message:'Button found in delegation',data:{buttonText:buttonText,hasDeployNow:buttonText.includes('DEPLOY NOW')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            // #endregion
             if (buttonText.includes('DEPLOY NOW') || button.hasAttribute('data-deploy')) {
+                // #region agent log
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:568',message:'DEPLOY NOW detected in delegation, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                // #endregion
                 e.preventDefault();
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -531,7 +562,13 @@
         // Check if it's a DEPLOY NOW link
         if (link) {
             const linkText = link.textContent.trim().toUpperCase();
+            // #region agent log
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:578',message:'Link found in delegation',data:{linkText:linkText,hasDeployNow:linkText.includes('DEPLOY NOW')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            // #endregion
             if (linkText.includes('DEPLOY NOW')) {
+                // #region agent log
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:581',message:'DEPLOY NOW link detected, calling deployApp',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                // #endregion
                 e.preventDefault();
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -561,6 +598,9 @@
 
     // Export for manual triggering if needed
     window.deployVehicleLab = deployApp;
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'deployment.js:600',message:'deployment.js fully loaded, deployVehicleLab exported',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
 
 })();
 
