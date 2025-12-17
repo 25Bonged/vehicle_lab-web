@@ -745,6 +745,8 @@ footer {
     z-index: 0;
     /* Brought forward, but behind content (which is z-index 1+) */
     pointer-events: none;
+    display: block;
+    background: transparent;
 }
 
 /* Schematic Diagrams */
