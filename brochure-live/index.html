@@ -85,6 +85,52 @@
 
     <script src="assets/particles.js"></script>
     <script src="assets/deployment.js"></script>
+    <script>
+        // Diagnostic script to compare local vs deployed
+        (function() {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const diagnostics = {
+                environment: isLocal ? 'local' : 'deployed',
+                url: window.location.href,
+                hostname: window.location.hostname,
+                protocol: window.location.protocol,
+                assets: {
+                    css: document.querySelector('link[href="style.css"]') ? 'found' : 'missing',
+                    particles: document.querySelector('script[src*="particles.js"]') ? 'found' : 'missing',
+                    deployment: document.querySelector('script[src*="deployment.js"]') ? 'found' : 'missing'
+                },
+                elements: {
+                    canvas: !!document.getElementById('particles'),
+                    nav: !!document.querySelector('nav'),
+                    hero: !!document.querySelector('.hero'),
+                    container: !!document.querySelector('.container'),
+                    footer: !!document.querySelector('footer')
+                },
+                stylesheets: Array.from(document.styleSheets).map(s => s.href || 'inline'),
+                scripts: Array.from(document.scripts).map(s => s.src || 'inline')
+            };
+            
+            console.log('🔍 Environment Diagnostics:', diagnostics);
+            
+            // Check if CSS is loaded
+            const testEl = document.createElement('div');
+            testEl.className = 'hero';
+            testEl.style.display = 'none';
+            document.body.appendChild(testEl);
+            const heroStyles = window.getComputedStyle(testEl);
+            const cssLoaded = heroStyles.height !== 'auto' || heroStyles.display !== 'none';
+            document.body.removeChild(testEl);
+            
+            console.log('📊 CSS Loaded:', cssLoaded);
+            console.log('📊 Canvas exists:', diagnostics.elements.canvas);
+            console.log('📊 All elements present:', Object.values(diagnostics.elements).every(v => v));
+            
+            // Log to console for debugging
+            if (!isLocal) {
+                console.warn('⚠️ Running on deployed environment - check if all assets load correctly');
+            }
+        })();
+    </script>
 </body>
 
 </html>
