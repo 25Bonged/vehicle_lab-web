@@ -8,46 +8,26 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
-    <!-- Early deployment handler - catches clicks before page fully loads -->
-    <script>
-        (function() {
-            document.addEventListener('click', function(e) {
-                var target = e.target;
-                var button = target.closest && (target.closest('button.cta-button') || target.closest('a.cta-button'));
-                var link = target.closest && target.closest('a');
-                var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
-                var isCtaButton = target.classList && target.classList.contains('cta-button');
-                if (text.includes('DEPLOY NOW') || isCtaButton || (button && button.classList.contains('cta-button'))) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    if (window.deployVehicleLab) {
-                        window.deployVehicleLab();
-                    } else {
-                        setTimeout(function() {
-                            if (window.deployVehicleLab) window.deployVehicleLab();
-                        }, 100);
-                    }
-                    return false;
-                }
-            }, true);
-        })();
-    </script>
 </head>
 
 <body>
     <canvas id="particles"></canvas>
     <nav>
-        <div class="logo">VEHICLE-LAB</div>
-        <div class="nav-links">
+        <a href="index.html" class="logo">VEHICLE-LAB</a>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" aria-hidden="true">
             <a href="index.html">Overview</a>
             <a href="features.html">Features</a>
             <a href="casestudy.html">Case Studies</a>
             <a href="diagai.html">DiagAI</a>
             <a href="specs.html" class="active">Specs</a>
             <a href="contact.html">Contact</a>
+            <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
         </div>
-        <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
     </nav>
 
     <div class="container" style="margin-top: 150px;">
@@ -179,7 +159,7 @@
     </footer>
 
     <script src="assets/particles.js"></script>
-    <script src="assets/deployment.js"></script>
+    <script src="assets/mobile-nav.js"></script>
 </body>
 
 </html>

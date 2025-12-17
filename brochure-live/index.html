@@ -9,17 +9,17 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vehiclelab.in/">
+    <meta property="og:url" content="https://vehicle-lab.com/">
     <meta property="og:title" content="VEHICLE-LAB | Future of Diagnostics">
     <meta property="og:description" content="Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system, automated OBD validation, and comprehensive diagnostic analysis.">
-    <meta property="og:image" content="https://vehiclelab.in/assets/dashboard-main.png">
+    <meta property="og:image" content="https://vehicle-lab.com/assets/dashboard-main.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://vehiclelab.in/">
+    <meta property="twitter:url" content="https://vehicle-lab.com/">
     <meta property="twitter:title" content="VEHICLE-LAB | Future of Diagnostics">
     <meta property="twitter:description" content="Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system, automated OBD validation, and comprehensive diagnostic analysis.">
-    <meta property="twitter:image" content="https://vehiclelab.in/assets/dashboard-main.png">
+    <meta property="twitter:image" content="https://vehicle-lab.com/assets/dashboard-main.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -27,205 +27,908 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     
     <title>VEHICLE-LAB | Future of Diagnostics</title>
-    <link rel="stylesheet" href="style.css" onload="console.log('✅ CSS loaded:', this.href)" onerror="console.error('❌ CSS failed:', this.href)">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <canvas id="particles"></canvas>
-    <nav>
-        <div class="logo">VEHICLE-LAB</div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Overview</a>
-            <a href="features.html">Features</a>
-            <a href="casestudy.html">Case Studies</a>
-            <a href="diagai.html">DiagAI</a>
-            <a href="specs.html">Specs</a>
-            <a href="contact.html">Contact</a>
-        </div>
-        <button class="cta-button" onclick="startDeployment()">DEPLOY NOW</button>
-    </nav>
-
-    <section class="hero">
-        <h1>The Future of<br>Vehicle Diagnostics</h1>
-        <p>Advanced MDF/MF4 analysis powered by Artificial Intelligence.
-            Transforming data into engineering insights instantly.</p>
-        <div style="display: flex; gap: 20px;">
-            <a href="features.html"><button class="cta-button">EXPLORE FEATURES</button></a>
-            <a href="diagai.html"><button class="cta-button"
-                    style="border-color: var(--accent-purple); color: var(--accent-purple);">MEET DIAGAI</button></a>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="grid">
-            <div class="card">
-                <img src="assets/icons/ai-powered.svg" class="card-icon" alt="AI Icon">
-                <h3>AI-Powered</h3>
-                <p>Natural language queries for complex diagnostic tasks. Ask questions, get answers.</p>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#hero" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">VEHICLE-LAB</div>
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
             </div>
-            <div class="card">
-                <img src="assets/icons/universal.svg" class="card-icon" alt="Universal Icon">
-                <h3>Universal Support</h3>
-                <p>Native support for MDF, MF4, CSV, and Excel files. No conversion needed.</p>
-            </div>
-            <div class="card">
-                <img src="assets/icons/secure.svg" class="card-icon" alt="Secure Icon">
-                <h3>Secure by Design</h3>
-                <p>Private LLM deployment with OEM-specific data isolation.</p>
-            </div>
+            <p class="loading-text">Initializing 3D Experience...</p>
         </div>
     </div>
+    
+    <!-- 3D Canvas Container -->
+    <div id="three-container"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero" class="logo">VEHICLE-LAB</a>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" aria-hidden="true">
+            <a href="#hero" class="nav-link">Overview</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#diagai" class="nav-link">DiagAI</a>
+            <a href="#casestudies" class="nav-link">Case Studies</a>
+            <a href="#specs" class="nav-link">Specs</a>
+            <a href="#newsletter" class="nav-link">Newsletter</a>
+            <a href="#work-together" class="nav-link">Work Together</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#work-together" class="cta-button">DEPLOY NOW</a>
+        </div>
+    </nav>
 
+    <!-- Section Indicators -->
+    <div class="section-indicators" role="navigation" aria-label="Section navigation">
+        <div class="section-indicator active" data-section="0" aria-label="Go to Overview section" tabindex="0"></div>
+        <div class="section-indicator" data-section="1" aria-label="Go to Features section" tabindex="0"></div>
+        <div class="section-indicator" data-section="2" aria-label="Go to DiagAI section" tabindex="0"></div>
+        <div class="section-indicator" data-section="3" aria-label="Go to Case Studies section" tabindex="0"></div>
+        <div class="section-indicator" data-section="4" aria-label="Go to Specs section" tabindex="0"></div>
+        <div class="section-indicator" data-section="5" aria-label="Go to Newsletter section" tabindex="0"></div>
+        <div class="section-indicator" data-section="6" aria-label="Go to Work Together section" tabindex="0"></div>
+        <div class="section-indicator" data-section="7" aria-label="Go to Contact section" tabindex="0"></div>
+    </div>
+
+    <!-- Section 1: Hero -->
+    <section class="scroll-section hero-section" id="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">The Future of<br>Vehicle Diagnostics</h1>
+                <p class="hero-subtitle">Advanced Vehicle data analysis powered by Artificial Intelligence.
+                    Transforming data into engineering insights instantly.</p>
+                <div class="hero-buttons">
+                    <a href="#features" class="cta-button">EXPLORE FEATURES</a>
+                    <a href="#diagai" class="cta-button cta-purple">MEET DIAGAI</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Features/Overview -->
+        <section class="scroll-section features-section" id="features">
+            <div class="container">
+                <!-- Secure by Design - 3 Boxes -->
+                <div class="schematic-section">
+                    <h3 style="text-align: center; margin-bottom: 40px; color: var(--accent-cyan);">Advanced Capabilities</h3>
+                    <div class="grid secure-design-grid">
+                        <div class="card card-3d" style="border-color: var(--accent-cyan);">
+                            <img src="assets/icons/secure.svg" class="card-icon" alt="Validation Icon">
+                            <h3>Validation and Testing</h3>
+                            <p>Smart customized scripts for validation analysis with automated test workflows. Intelligent signal validation, compliance checking, and comprehensive reporting. Engineered for precision and reliability.</p>
+                        </div>
+                        <div class="card card-3d" style="border-color: var(--accent-purple);">
+                            <img src="assets/icons/ai-powered.svg" class="card-icon" alt="Benchmarking Icon">
+                            <h3>Vehicle Benchmarking</h3>
+                            <p>Advanced comparative analysis across vehicle configurations and performance metrics. Cross-platform evaluation with statistical rigor and engineering-grade insights for data-driven decision making.</p>
+                        </div>
+                        <div class="card card-3d" style="border-color: var(--accent-cyan);">
+                            <img src="assets/icons/universal.svg" class="card-icon" alt="Fleet Analysis Icon">
+                            <h3>Fleet Data Analysis</h3>
+                            <p>Comprehensive fleet-wide diagnostics with scalable analytics. Multi-vehicle correlation, pattern recognition, and predictive insights. Transform fleet data into actionable engineering intelligence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 60px;">Secure by Design</h2>
+                
+                <div class="grid">
+                    <div class="card card-3d">
+                        <img src="assets/icons/ai-powered.svg" class="card-icon" alt="AI Icon">
+                        <h3>AI-Powered</h3>
+                        <p>Natural language queries for complex diagnostic tasks. Ask questions, get answers.</p>
+                    </div>
+                    <div class="card card-3d">
+                        <img src="assets/icons/universal.svg" class="card-icon" alt="Universal Icon">
+                        <h3>Universal Support</h3>
+                        <p>Native support for MDF, MF4, CSV, and Excel files. No conversion needed.</p>
+                    </div>
+                </div>
+
+                <!-- Data Pipeline -->
+                <div class="schematic-section" style="margin-top: 60px;">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-cyan);">End-to-End Data Pipeline</h3>
+                    <div class="diagram-container flow-diagram">
+                        <div class="diagram-node">
+                            <h4>Ingest</h4>
+                            <p>MDF, MF4, CSV, Excel</p>
+                        </div>
+                        <div class="flow-arrow">➜</div>
+                        <div class="diagram-node">
+                            <h4>Index</h4>
+                            <p>DuckDB + 330 DBCs</p>
+                        </div>
+                        <div class="flow-arrow">➜</div>
+                        <div class="diagram-node central">
+                            <h4>Analyze</h4>
+                            <p>DiagAI + Agents</p>
+                        </div>
+                        <div class="flow-arrow">➜</div>
+                        <div class="diagram-node">
+                            <h4>Report</h4>
+                            <p>PDF, Plots, Insights</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 Specialized Agents -->
+                <div class="schematic-section">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-purple);">8 Specialized Diagnostic Agents</h3>
+                    <div class="agent-grid">
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>MisfireAgent</h5>
+                            <p>CSVA, FFT, and ML-based detection of combustion anomalies.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>FuelAgent</h5>
+                            <p>BSFC calculation, consumption metrics, and efficiency analysis.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>GearAgent</h5>
+                            <p>Transmission analysis, gear hunting detection, shift quality.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>DrivabilityAgent</h5>
+                            <p>Anti-jerk analysis, pedal map evaluation, torque filter.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>WLTPAgent</h5>
+                            <p>Standardized cycle testing and emissions compliance checks.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>StartWarmupAgent</h5>
+                            <p>Cold start analysis and warmup phase optimization.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>DFCAgent</h5>
+                            <p>Diagnostic Trouble Code analysis and correlation.</p>
+                        </div>
+                        <div class="agent-card">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <h5>IUPRAgent</h5>
+                            <p>In-Use Performance Ratio monitoring for OBD-II.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: DiagAI -->
+        <section class="scroll-section diagai-section" id="diagai">
+            <div class="container">
+                <!-- DiagAI Hero Section -->
+                <div class="diagai-hero" style="margin-top: 40px; padding: 80px 40px; background: var(--glass-bg); border-radius: 20px; border: 2px solid rgba(0, 243, 255, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), inset 0 0 60px rgba(188, 19, 254, 0.02); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
+                    <div style="text-align: center; margin-bottom: 70px;">
+                        <h2 style="font-size: 4.5rem; color: var(--accent-purple); margin-bottom: 25px; text-shadow: 0 0 40px rgba(188, 19, 254, 0.8), 0 0 80px rgba(188, 19, 254, 0.4); font-weight: 700; letter-spacing: 4px;">DiagAI</h2>
+                        <p style="font-size: 1.8rem; color: var(--accent-cyan); margin-bottom: 20px; font-weight: 600; text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);">Advanced Multi-Agent Vehicle Diagnostic System</p>
+                        <p style="font-size: 1.2rem; color: #d0d6e0; max-width: 900px; margin: 0 auto; line-height: 1.9; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">
+                            AI-powered diagnostic platform that orchestrates multiple specialized agents to analyze vehicle data, 
+                            identify issues, and provide actionable insights with comprehensive diagnostic workflows.
+                        </p>
+                    </div>
+
+                    <!-- Key Features Grid -->
+                    <div class="grid" style="margin: 60px 0; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                        <div class="card card-3d diagai-feature-card" style="border: 2px solid var(--accent-purple); border-radius: 12px; text-align: center; padding: 35px 25px;">
+                            <div class="diagai-icon-container" style="margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(188, 19, 254, 0.6));">
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="32" cy="32" r="30" stroke="var(--accent-purple)" stroke-width="2" fill="none" opacity="0.3"/>
+                                    <circle cx="20" cy="20" r="4" fill="var(--accent-purple)"/>
+                                    <circle cx="44" cy="20" r="4" fill="var(--accent-purple)"/>
+                                    <circle cx="20" cy="44" r="4" fill="var(--accent-purple)"/>
+                                    <circle cx="44" cy="44" r="4" fill="var(--accent-purple)"/>
+                                    <circle cx="32" cy="32" r="6" fill="var(--accent-purple)" opacity="0.8"/>
+                                    <line x1="20" y1="20" x2="32" y2="32" stroke="var(--accent-purple)" stroke-width="1.5" opacity="0.5"/>
+                                    <line x1="44" y1="20" x2="32" y2="32" stroke="var(--accent-purple)" stroke-width="1.5" opacity="0.5"/>
+                                    <line x1="20" y1="44" x2="32" y2="32" stroke="var(--accent-purple)" stroke-width="1.5" opacity="0.5"/>
+                                    <line x1="44" y1="44" x2="32" y2="32" stroke="var(--accent-purple)" stroke-width="1.5" opacity="0.5"/>
+                                </svg>
+                            </div>
+                            <h4 style="color: var(--accent-purple); margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 15px rgba(188, 19, 254, 0.5);">Multi-Agent Architecture</h4>
+                            <p style="font-size: 1rem; line-height: 1.7; color: #e0e6ed;">8 specialized agents working in coordination for comprehensive analysis</p>
+                        </div>
+                        <div class="card card-3d diagai-feature-card" style="border: 2px solid var(--accent-cyan); border-radius: 12px; text-align: center; padding: 35px 25px;">
+                            <div class="diagai-icon-container" style="margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.6));">
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="12" y="28" width="16" height="8" rx="2" fill="var(--accent-cyan)" opacity="0.8"/>
+                                    <rect x="36" y="28" width="16" height="8" rx="2" fill="var(--accent-cyan)" opacity="0.8"/>
+                                    <path d="M28 32 L36 32" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-linecap="round"/>
+                                    <circle cx="20" cy="32" r="3" fill="var(--accent-cyan)"/>
+                                    <circle cx="44" cy="32" r="3" fill="var(--accent-cyan)"/>
+                                    <path d="M16 20 L20 16 L24 20" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M40 20 L44 16 L48 20" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M16 44 L20 48 L24 44" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M40 44 L44 48 L48 44" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            </div>
+                            <h4 style="color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);">Intelligent Correlation</h4>
+                            <p style="font-size: 1rem; line-height: 1.7; color: #e0e6ed;">Cross-references data from multiple systems to identify complex issues</p>
+                        </div>
+                        <div class="card card-3d diagai-feature-card" style="border: 2px solid var(--accent-purple); border-radius: 12px; text-align: center; padding: 35px 25px;">
+                            <div class="diagai-icon-container" style="margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(188, 19, 254, 0.6));">
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M32 8 L40 24 L56 26 L44 38 L46 54 L32 46 L18 54 L20 38 L8 26 L24 24 Z" stroke="var(--accent-purple)" stroke-width="2.5" fill="var(--accent-purple)" opacity="0.3"/>
+                                    <path d="M32 12 L38 24 L50 25.5 L40 35 L41.5 48 L32 42 L22.5 48 L24 35 L14 25.5 L26 24 Z" fill="var(--accent-purple)" opacity="0.6"/>
+                                    <path d="M32 16 L36 22 L42 23 L35 30 L36 40 L32 36 L28 40 L29 30 L22 23 L28 22 Z" fill="var(--accent-purple)"/>
+                                    <circle cx="32" cy="28" r="2" fill="#fff"/>
+                                </svg>
+                            </div>
+                            <h4 style="color: var(--accent-purple); margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 15px rgba(188, 19, 254, 0.5);">Real-time Analysis</h4>
+                            <p style="font-size: 1rem; line-height: 1.7; color: #e0e6ed;">Fast processing with immediate feedback and comprehensive reporting</p>
+                        </div>
+                        <div class="card card-3d diagai-feature-card" style="border: 2px solid var(--accent-cyan); border-radius: 12px; text-align: center; padding: 35px 25px;">
+                            <div class="diagai-icon-container" style="margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.6));">
+                                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M32 8 L48 16 L48 32 L32 40 L16 32 L16 16 Z" stroke="var(--accent-cyan)" stroke-width="2.5" fill="var(--accent-cyan)" opacity="0.2"/>
+                                    <path d="M32 12 L44 18 L44 30 L32 36 L20 30 L20 18 Z" fill="var(--accent-cyan)" opacity="0.4"/>
+                                    <path d="M24 24 L28 28 L40 16" stroke="var(--accent-cyan)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="32" cy="24" r="18" stroke="var(--accent-cyan)" stroke-width="1.5" fill="none" opacity="0.3"/>
+                                </svg>
+                            </div>
+                            <h4 style="color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);">Compliance Ready</h4>
+                            <p style="font-size: 1rem; line-height: 1.7; color: #e0e6ed;">IUPR, DFC violation detection, and diagnostic readiness evaluation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Demo Section -->
+                <div class="diagai-hero" style="margin-top: 80px; padding: 50px 40px; background: var(--glass-bg); border-radius: 20px; border: 1px solid rgba(0, 243, 255, 0.15); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start;">
+                    <div class="diagai-content">
+                        <h3 style="font-size: 2.2rem; color: var(--accent-purple); margin-bottom: 25px; text-shadow: 0 0 20px rgba(188, 19, 254, 0.5); font-weight: 700;">Interactive Diagnostic Experience</h3>
+                        <p style="font-size: 1.15rem; margin-bottom: 35px; line-height: 1.9; color: #d0d6e0; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">
+                            Experience DiagAI in action. Ask questions in natural language and watch as multiple agents work together to provide comprehensive diagnostic insights.
+                        </p>
+
+                        <!-- Terminal Simulation -->
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <div class="terminal-dots">
+                                    <div class="terminal-dot red"></div>
+                                    <div class="terminal-dot yellow"></div>
+                                    <div class="terminal-dot green"></div>
+                                </div>
+                                <div class="terminal-title">DiagAI_Session_409.log</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="term-line">
+                                    <span class="term-prompt">></span>
+                                    <span class="term-cmd">Run comprehensive diagnostic scan on Trip #409</span>
+                                </div>
+                                <div class="term-line">
+                                    <span class="term-output" style="color: var(--accent-cyan);">... Orchestrating multi-agent analysis ...</span>
+                                </div>
+                                <div class="term-line">
+                                    <span class="term-output"><span class="agent-badge">DFCAgent</span> Scanning for active DTCs...</span>
+                                </div>
+                                
+                                <div class="dtc-grid">
+                                    <div class="dtc-item critical">
+                                        <span class="dtc-code">P0304</span>
+                                        <span class="dtc-desc">Cylinder 4 Misfire Detected</span>
+                                    </div>
+                                    <div class="dtc-item warning">
+                                        <span class="dtc-code">P0171</span>
+                                        <span class="dtc-desc">System Too Lean (Bank 1)</span>
+                                    </div>
+                                </div>
+
+                                <div class="term-line">
+                                    <span class="term-output"><span class="agent-badge">MisfireAgent</span> Correlating lean condition with Cyl #4...</span>
+                                </div>
+                                <div class="term-line">
+                                    <span class="term-output" style="color: #fff;">> <strong>Result:</strong> Confirmed intermittent misfire caused by localized lean condition at high load (>80%).</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Multi-Agent Visualization -->
+                    <div class="diagai-visual">
+                        <div id="diagai-3d-container" style="width: 100%; height: 500px; background: var(--glass-bg); border-radius: 15px; border: 2px solid rgba(0, 243, 255, 0.4); box-shadow: 0 10px 40px rgba(0, 243, 255, 0.15), inset 0 0 30px rgba(188, 19, 254, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; background: var(--glass-bg); padding: 15px 30px; border-radius: 10px; border: 1px solid rgba(188, 19, 254, 0.3); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
+                                <h3 style="color: var(--accent-purple); margin-bottom: 8px; font-size: 1.6rem; text-shadow: 0 0 25px rgba(188, 19, 254, 0.7); font-weight: 700;">Multi-Agent Orchestration</h3>
+                                <p style="color: var(--accent-cyan); font-size: 1rem; text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);">8 Specialized Agents Working in Coordination</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(0, 243, 255, 0.2);">Expanded Capabilities</h2>
+                <div class="grid expanded-capabilities-grid" style="margin-top: 40px;">
+                    <div class="card card-3d" style="border-color: var(--accent-purple);">
+                        <h3>Multi-Agent System</h3>
+                        <p>Intelligent orchestration of 8 specialized diagnostic agents working in coordination. Automatically routes complex queries to appropriate agents for comprehensive multi-part analysis with seamless integration.</p>
+                    </div>
+                    <div class="card card-3d" style="border-color: var(--accent-cyan);">
+                        <h3>Advanced Signal Analysis</h3>
+                        <p>Comprehensive statistical and signal processing toolkit with built-in algorithms. Real-time correlation analysis, frequency domain transformations, and pattern recognition for engineering-grade insights.</p>
+                    </div>
+                    <div class="card card-3d" style="border-color: var(--accent-purple);">
+                        <h3>Automated Reporting</h3>
+                        <p>Instant PDF report generation with customizable templates and professional formatting. Automated chart generation, data visualization, and comprehensive documentation for any diagnostic domain.</p>
+                    </div>
+                    <div class="card card-3d" style="border-color: var(--accent-cyan);">
+                        <h3>Deep Diagnostic Logic</h3>
+                        <p>Advanced reasoning engine that understands complex vehicle conditions and event sequences. Context-aware analysis with multi-layer correlation detection and intelligent anomaly identification.</p>
+                    </div>
+                    <div class="card card-3d" style="border-color: var(--accent-purple);">
+                        <h3>Custom OEM Section</h3>
+                        <p>Manufacturer-specific diagnostic workflows with proprietary signal mappings and calibration protocols. Isolated knowledge bases ensure complete data separation and brand-specific engineering requirements.</p>
+                    </div>
+                    <div class="card card-3d" style="border-color: var(--accent-cyan);">
+                        <h3>Multi Logs Comparison</h3>
+                        <p>Synchronized cross-log analysis with intelligent time-series alignment. Advanced pattern detection, anomaly correlation, and statistical comparison across multiple test sessions for comprehensive validation.</p>
+                    </div>
+                </div>
+
+                <!-- Deep Dive Section - Expandable -->
+                <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(188, 19, 254, 0.2);">
+                    <button id="diagai-deep-dive-toggle" class="cta-button" style="display: block; margin: 0 auto 40px; font-size: 1.1rem; padding: 15px 40px;" aria-expanded="false" aria-controls="diagai-deep-dive">
+                        <span id="toggle-text">Explore Deep Features</span>
+                        <span id="toggle-icon" style="margin-left: 10px;">▼</span>
+                    </button>
+                    
+                    <div id="diagai-deep-dive" style="display: none; max-width: 1200px; margin: 0 auto;">
+                        <!-- Comprehensive Diagnostic Capabilities -->
+                        <div class="schematic-section" style="margin-bottom: 40px; border-color: var(--accent-cyan);">
+                            <h3 style="color: var(--accent-cyan); margin-bottom: 25px; text-align: center;">Comprehensive Diagnostic Capabilities</h3>
+                            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div class="card" style="border-color: var(--accent-cyan); padding: 20px;">
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: 12px;">Real-time DTC Analysis</h4>
+                                    <p style="font-size: 0.95rem; line-height: 1.6;">Automatically scans and identifies diagnostic trouble codes with severity classification and correlation analysis.</p>
+                                </div>
+                                <div class="card" style="border-color: var(--accent-purple); padding: 20px;">
+                                    <h4 style="color: var(--accent-purple); margin-bottom: 12px;">Pattern Recognition</h4>
+                                    <p style="font-size: 0.95rem; line-height: 1.6;">Correlates multiple data points to identify root causes, such as correlating lean conditions with specific cylinder misfires.</p>
+                                </div>
+                                <div class="card" style="border-color: var(--accent-cyan); padding: 20px;">
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: 12px;">Compliance Monitoring</h4>
+                                    <p style="font-size: 0.95rem; line-height: 1.6;">IUPR compliance analysis, DFC violation detection, and diagnostic readiness evaluation for regulatory adherence.</p>
+                                </div>
+                                <div class="card" style="border-color: var(--accent-purple); padding: 20px;">
+                                    <h4 style="color: var(--accent-purple); margin-bottom: 12px;">System Health Assessment</h4>
+                                    <p style="font-size: 0.95rem; line-height: 1.6;">Provides overall vehicle health scores with prioritized recommendations for maintenance and optimization.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Usage Scenarios -->
+                        <div class="schematic-section" style="margin-bottom: 40px; border-color: var(--accent-purple);">
+                            <h3 style="color: var(--accent-purple); margin-bottom: 25px; text-align: center;">Key Usage Scenarios</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                                <div class="card card-3d" style="border-color: var(--accent-cyan); padding: 25px;">
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.1rem;">IUPR Compliance Analysis</h4>
+                                    <p style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px;">Analyze all IUPR ratios across monitors, identify non-compliant monitors, and assess diagnostic readiness with comprehensive reporting.</p>
+                                </div>
+                                <div class="card card-3d" style="border-color: var(--accent-purple); padding: 25px;">
+                                    <h4 style="color: var(--accent-purple); margin-bottom: 15px; font-size: 1.1rem;">DFC Violation Analysis</h4>
+                                    <p style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px;">Identify all DFC violations, calculate violation rates, and provide root cause analysis with remediation strategies.</p>
+                                </div>
+                                <div class="card card-3d" style="border-color: var(--accent-cyan); padding: 25px;">
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.1rem;">Misfire Detection</h4>
+                                    <p style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px;">Detect misfire events with cylinder-level classification, analyze patterns, and determine root causes with event timelines.</p>
+                                </div>
+                                <div class="card card-3d" style="border-color: var(--accent-purple); padding: 25px;">
+                                    <h4 style="color: var(--accent-purple); margin-bottom: 15px; font-size: 1.1rem;">Vehicle Health Assessment</h4>
+                                    <p style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px;">Integrate analysis from all systems, provide health scores, and prioritize recommendations based on severity and impact.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Advantages -->
+                        <div class="schematic-section" style="border-color: var(--accent-cyan);">
+                            <h3 style="color: var(--accent-cyan); margin-bottom: 25px; text-align: center;">Technical Advantages</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                                <div style="padding: 15px; border-left: 3px solid var(--accent-cyan);">
+                                    <h5 style="color: var(--accent-cyan); margin-bottom: 8px;">Scalable Architecture</h5>
+                                    <p style="font-size: 0.9rem; color: #ccc;">Handles multiple diagnostic sessions simultaneously with efficient resource management.</p>
+                                </div>
+                                <div style="padding: 15px; border-left: 3px solid var(--accent-purple);">
+                                    <h5 style="color: var(--accent-purple); margin-bottom: 8px;">Real-time Processing</h5>
+                                    <p style="font-size: 0.9rem; color: #ccc;">Fast analysis with immediate feedback and comprehensive reporting capabilities.</p>
+                                </div>
+                                <div style="padding: 15px; border-left: 3px solid var(--accent-cyan);">
+                                    <h5 style="color: var(--accent-cyan); margin-bottom: 8px;">Context-Aware</h5>
+                                    <p style="font-size: 0.9rem; color: #ccc;">Maintains conversation history for follow-up queries and intelligent context retention.</p>
+                                </div>
+                                <div style="padding: 15px; border-left: 3px solid var(--accent-purple);">
+                                    <h5 style="color: var(--accent-purple); margin-bottom: 8px;">Enterprise Security</h5>
+                                    <p style="font-size: 0.9rem; color: #ccc;">Enterprise-grade security for sensitive vehicle data with complete isolation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Case Studies -->
+        <section class="scroll-section casestudies-section" id="casestudies">
+            <div class="container">
+                <h2 class="section-title">Real-World Impact</h2>
+
+                <!-- Case Study 1: OBD Validation & DFC Analysis -->
+                <div class="schematic-section" style="border-color: var(--accent-cyan);">
+                    <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="color: var(--accent-cyan); margin-bottom: 20px;">OBD Validation & DFC Analysis</h3>
+                            <p style="margin-bottom: 20px;">
+                                <strong>Challenge:</strong> Manual OBD-II validation took 8-12 hours per vehicle with high error rates.
+                            </p>
+                            <p style="margin-bottom: 20px;">
+                                <strong>Solution:</strong> <strong>DFCAgent</strong> + <strong>IUPRAgent</strong> auto-process MDF/MF4, correlate DTCs, compute IUPR, and generate evidence-backed reports.
+                            </p>
+                            <p>
+                                <strong>Result:</strong> Reports in <strong>under 3 minutes</strong> at <strong>99.7% accuracy</strong>. 3 critical compliance issues caught automatically.
+                            </p>
+                            <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+                                <span class="tech-badge">95% Time Reduction</span>
+                                <span class="tech-badge">99.7% Accuracy</span>
+                                <span class="tech-badge">OBD-II / IUPR</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <div class="plot-container-css">
+                                <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                                    <line x1="0" y1="20" x2="200" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                    <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                    <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                    <polyline points="0,60 20,40 40,20 60,30 80,15 100,25 120,20 140,40 160,30 180,50 200,45"
+                                              fill="none" stroke="rgba(255, 100, 100, 0.8)" stroke-width="2" stroke-dasharray="4" />
+                                    <polyline points="0,80 20,85 40,82 60,80 80,78 100,82 120,80 140,85 160,82 180,80 200,85"
+                                              fill="none" stroke="var(--accent-cyan)" stroke-width="2" />
+                                </svg>
+                                <div class="plot-label">OBD VALIDATION</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2: Advanced Misfire Detection -->
+                <div class="schematic-section" style="border-color: #ff2a2a;">
+                    <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap-reverse;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <div class="plot-container-css">
+                                <svg class="chart-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                                    <path d="M0,80 Q50,70 100,30 T200,20"
+                                          fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2" />
+                                    <polyline points="0,90 30,90 30,70 60,70 60,50 90,50 90,70 110,70 110,50 140,50 140,30 180,30 180,10 200,10"
+                                              fill="none" stroke="#ff2a2a" stroke-width="2" />
+                                    <circle cx="100" cy="60" r="12" fill="none" stroke="var(--accent-cyan)" stroke-width="1" stroke-dasharray="2" />
+                                </svg>
+                                <div class="plot-label" style="border-color: #ff2a2a; color: #ff2a2a; background: rgba(255,42,42,0.1);">MISFIRE</div>
+                                <div class="plot-label-alert" style="top: auto; bottom: 10px; left: 10px;">HUNTING DETECTED</div>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="color: #ff2a2a; margin-bottom: 20px;">Advanced Misfire Detection</h3>
+                            <p style="margin-bottom: 20px;">
+                                <strong>Challenge:</strong> Intermittent misfires were missed by standard OBD-II codes (only 60-70% detection).
+                            </p>
+                            <p style="margin-bottom: 20px;">
+                                <strong>Solution:</strong> <strong>MisfireAgent</strong> uses 9 algorithms (CSVA, FFT, ML, statistical, correlation) to detect subtle patterns.
+                            </p>
+                            <p>
+                                <strong>Result:</strong> Detection accuracy <strong>98.5%</strong>, 12 intermittent misfires found; full severity timelines for calibration fixes.
+                            </p>
+                            <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+                                <span class="tech-badge" style="border-color:#ff2a2a; color:#ff2a2a;">98.5% Accuracy</span>
+                                <span class="tech-badge" style="border-color:#ff2a2a; color:#ff2a2a;">9 Algorithms</span>
+                                <span class="tech-badge" style="border-color:#ff2a2a; color:#ff2a2a;">ML + CSVA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="casestudy.html" class="cta-button">VIEW ALL CASE STUDIES</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Specs -->
+        <section class="scroll-section specs-section" id="specs">
+            <div class="container">
+                <h2 class="section-title">Technical Specifications</h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 80px;">
+                    <div class="card card-3d">
+                        <h3 style="color: var(--accent-cyan); margin-bottom: 20px;">System Architecture</h3>
+                        <table class="specs-table" style="margin-top: 0;">
+                            <tr>
+                                <th>Core Engine</th>
+                                <td>Hybrid Neuro-Symbolic AI (LLM + Deterministic Agents)</td>
+                            </tr>
+                            <tr>
+                                <th>Orchestrator</th>
+                                <td>Multi-Agent Router with Intent Detection</td>
+                            </tr>
+                            <tr>
+                                <th>Supported Formats</th>
+                                <td>MDF (3.x, 4.x), MF4, CSV, Excel (.xlsx)</td>
+                            </tr>
+                            <tr>
+                                <th>Signal Indexing</th>
+                                <td>DuckDB (Columnar Storage) + 330 DBC Files</td>
+                            </tr>
+                            <tr>
+                                <th>Visualization</th>
+                                <td>Plotly.js (WebGL Accelerated) + LTTB Downsampling</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="card card-3d">
+                        <h3 style="color: var(--accent-purple); margin-bottom: 20px;">Diagnostic Engine</h3>
+                        <table class="specs-table" style="margin-top: 0;">
+                            <tr>
+                                <th>Signal Capacity</th>
+                                <td>1,269+ Unique Signal Types (Auto-Decoded)</td>
+                            </tr>
+                            <tr>
+                                <th>Analysis Functions</th>
+                                <td>50+ Built-in Tools (Stats, Correlation, Filtering)</td>
+                            </tr>
+                            <tr>
+                                <th>Specialized Agents</th>
+                                <td>8 Agents (Misfire, Fuel, Gear, Drivability, WLTP, etc.)</td>
+                            </tr>
+                            <tr>
+                                <th>Compliance</th>
+                                <td>IUPR (OBD-II), WLTP/RDE (EU6/7)</td>
+                            </tr>
+                            <tr>
+                                <th>Reporting</th>
+                                <td>PDF Generation (Charts, Tables, Insights)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Newsletter -->
+        <section class="scroll-section newsletter-section" id="newsletter">
+            <div class="container">
+                <div class="newsletter-container">
+                    <h2 class="section-title">Subscribe to Our Newsletter</h2>
+                    <p class="newsletter-subtitle">Stay updated with the latest in vehicle diagnostics, AI innovations, and engineering insights.</p>
+                    
+                    <form class="newsletter-form">
+                        <div class="newsletter-input-wrapper">
+                            <input 
+                                type="email" 
+                                class="newsletter-email" 
+                                placeholder="Enter your email address" 
+                                required
+                                aria-label="Email address"
+                            >
+                            <button type="submit" class="newsletter-submit cta-button">Subscribe</button>
+                        </div>
+                        <div class="newsletter-message"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Work Together -->
+        <section class="scroll-section work-together-section" id="work-together">
+            <div class="work-together-container">
+                <!-- Particle Canvas Container -->
+                <div class="work-together-particles-container"></div>
+                
+                <!-- Decorative Plus Signs -->
+                <div class="work-together-plus work-together-plus-top-left">+</div>
+                <div class="work-together-plus work-together-plus-top-right">+</div>
+                
+                <!-- Main Content -->
+                <div class="work-together-content">
+                    <h3 class="work-together-question">
+                        <span class="question-text">IS YOUR VEHICLE READY TO GO WILD?</span>
+                    </h3>
+                    
+                    <div class="work-together-headline">
+                        <h1 class="work-together-line-1">
+                            <span class="dynamic-letter">L</span>et's <span class="dynamic-letter">w</span>ork
+                        </h1>
+                        <h1 class="work-together-line-2">
+                            <span class="dynamic-letter">t</span>oget<span class="dynamic-letter">h</span>er!
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Contact -->
+        <section class="scroll-section contact-section" id="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+
+                <div class="card" style="max-width: 700px; width: 100%; border-color: var(--accent-cyan); margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <h3 style="font-size: 2.5rem; margin-bottom: 10px; color: #fff;">Chayan Das</h3>
+                        <p style="color: var(--accent-cyan); font-family: var(--font-display); letter-spacing: 2px;">Vehicle Diagnostics & AI Engineer</p>
+                        <p style="margin-top: 20px; color: #ccc; line-height: 1.8; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            Specializing in bridging the gap between traditional automotive engineering and advanced artificial intelligence.
+                            Building the next generation of diagnostic tools for the software-defined vehicle era.
+                        </p>
+                    </div>
+
+                    <div class="contact-grid">
+                        <a href="https://www.linkedin.com/in/chayan-das-807b24158" target="_blank" rel="noopener noreferrer" class="contact-card-minimal">
+                            <div class="icon">in</div>
+                            <div class="contact-info">
+                                <h4>LinkedIn</h4>
+                                <span>Connect with me</span>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/25Bonged" target="_blank" rel="noopener noreferrer" class="contact-card-minimal">
+                            <div class="icon">git</div>
+                            <div class="contact-info">
+                                <h4>GitHub</h4>
+                                <span>View Portfolio</span>
+                            </div>
+                        </a>
+
+                        <div class="contact-card-minimal">
+                            <div class="icon">📞</div>
+                            <div class="contact-info">
+                                <h4>Phone</h4>
+                                <span>+91 7908054878</span>
+                            </div>
+                        </div>
+
+                        <a href="mailto:chayandaschayan@gmail.com" class="contact-card-minimal">
+                            <div class="icon">✉️</div>
+                            <div class="contact-info">
+                                <h4>Email</h4>
+                                <span>Send a Message</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Footer -->
     <footer>
         <div class="footer-logo">VEHICLE-LAB</div>
         <p>&copy; 2025 Vehicle-Lab. All rights reserved.</p>
     </footer>
 
-    <script src="assets/particles.js" onload="console.log('✅ particles.js loaded')" onerror="console.error('❌ particles.js failed to load')"></script>
-    <script src="assets/deployment.js" onload="console.log('✅ deployment.js loaded')" onerror="console.error('❌ deployment.js failed to load')"></script>
+    <!-- Scripts -->
+    <!-- Load GSAP and ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    
+    <!-- Load Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    
+    <!-- Load custom scripts -->
+    <script src="assets/scroll-controller.js"></script>
+    <script src="assets/three-scene.js"></script>
+    <script src="assets/diagai-3d.js"></script>
+    <script src="assets/newsletter.js"></script>
+    <script src="assets/mobile-nav.js"></script>
+    <script src="assets/work-together-particles.js"></script>
+    
+    <!-- Initialize -->
     <script>
-        // #region agent log - Comprehensive environment diagnostics
-        (function() {
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const baseUrl = window.location.origin;
-            const pathname = window.location.pathname;
-            
-            // Test asset loading
-            const testAsset = (url) => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = () => resolve({url, status: 'loaded', error: null});
-                    img.onerror = () => resolve({url, status: 'failed', error: 'Failed to load'});
-                    img.src = url;
-                    setTimeout(() => resolve({url, status: 'timeout', error: 'Timeout'}), 2000);
-                });
-            };
-            
-            // Check CSS loading
-            const checkCSS = () => {
-                try {
-                    const testEl = document.createElement('div');
-                    testEl.className = 'hero';
-                    testEl.style.display = 'none';
-                    document.body.appendChild(testEl);
-                    const styles = window.getComputedStyle(testEl);
-                    const cssApplied = styles.height !== 'auto' && styles.height !== '';
-                    document.body.removeChild(testEl);
-                    return cssApplied;
-                } catch(e) {
-                    return false;
-                }
-            };
-            
-            // Check element visibility
-            const checkVisibility = (selector) => {
-                const el = document.querySelector(selector);
-                if (!el) return {exists: false, visible: false};
-                const rect = el.getBoundingClientRect();
-                const styles = window.getComputedStyle(el);
-                return {
-                    exists: true,
-                    visible: rect.width > 0 && rect.height > 0,
-                    display: styles.display,
-                    visibility: styles.visibility,
-                    opacity: parseFloat(styles.opacity),
-                    width: rect.width,
-                    height: rect.height
-                };
-            };
-            
-            const diagnostics = {
-                environment: isLocal ? 'local' : 'deployed',
-                url: window.location.href,
-                hostname: window.location.hostname,
-                protocol: window.location.protocol,
-                pathname: pathname,
-                baseUrl: baseUrl,
-                timestamp: Date.now(),
-                sessionId: 'debug-session',
-                runId: 'run1',
-                hypothesisId: 'A'
-            };
-            
-            // Check assets
-            window.addEventListener('load', async function() {
-                const cssLink = document.querySelector('link[href="style.css"]');
-                const cssHref = cssLink ? (cssLink.href || cssLink.getAttribute('href')) : null;
-                
-                const assetTests = {
-                    css: cssHref,
-                    particles: baseUrl + (pathname.endsWith('/') ? '' : '/') + 'assets/particles.js',
-                    deployment: baseUrl + (pathname.endsWith('/') ? '' : '/') + 'assets/deployment.js',
-                    icon1: baseUrl + (pathname.endsWith('/') ? '' : '/') + 'assets/icons/ai-powered.svg'
-                };
-                
-                const assetResults = {};
-                for (const [name, url] of Object.entries(assetTests)) {
-                    if (url) {
-                        assetResults[name] = await testAsset(url);
+        // Loading Screen Handler
+        const loadingScreen = document.getElementById('loading-screen');
+        let loadingComplete = false;
+        let threeSceneReady = false;
+        let scriptsReady = false;
+        
+        function hideLoadingScreen() {
+            if (loadingScreen && !loadingComplete) {
+                loadingScreen.classList.add('hidden');
+                loadingComplete = true;
+                // Remove from DOM after animation
+                setTimeout(() => {
+                    if (loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
                     }
-                }
-                
-                const fullDiagnostics = {
-                    ...diagnostics,
-                    assets: {
-                        cssLink: cssHref,
-                        cssLoaded: checkCSS(),
-                        stylesheets: Array.from(document.styleSheets).map(s => {
+                }, 500);
+            }
+        }
+        
+        function checkLoadingComplete() {
+            // Wait for both THREE.js and all scripts to be ready
+            if (threeSceneReady && scriptsReady && !loadingComplete) {
+                // Add a small delay for smooth transition
+                setTimeout(hideLoadingScreen, 500);
+            }
+        }
+        
+        // Wait for all scripts to load
+        window.addEventListener('load', () => {
+            scriptsReady = true;
+            checkLoadingComplete();
+            
+            // Small delay to ensure all scripts are ready
+            setTimeout(() => {
+                // Initialize 3D Scene
+                const threeContainer = document.getElementById('three-container');
+                if (threeContainer) {
+                    // Wait for THREE.js to be available
+                    const initThree = () => {
+                        if (typeof THREE !== 'undefined' && typeof ThreeScene !== 'undefined') {
                             try {
-                                return {href: s.href || 'inline', rules: s.cssRules ? s.cssRules.length : 0};
-                            } catch(e) {
-                                return {href: s.href || 'inline', error: 'CORS'};
+                                const threeScene = new ThreeScene(threeContainer);
+                                threeScene.animate();
+                                
+                                threeSceneReady = true;
+                                checkLoadingComplete();
+
+                                // Initialize Scroll Controller
+                                if (typeof ScrollController !== 'undefined') {
+                                    const scrollController = new ScrollController();
+                                    scrollController.setThreeScene(threeScene);
+
+                                    // Smooth scroll for anchor links
+                                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                                        anchor.addEventListener('click', function (e) {
+                                            e.preventDefault();
+                                            const target = document.querySelector(this.getAttribute('href'));
+                                            if (target) {
+                                                const sectionIndex = Array.from(document.querySelectorAll('.scroll-section')).indexOf(target);
+                                                if (sectionIndex >= 0) {
+                                                    scrollController.scrollToSection(sectionIndex);
+                                                }
+                                            }
+                                        });
+                                    });
+
+                                    // Section indicator click handlers
+                                    document.querySelectorAll('.section-indicator').forEach((indicator, index) => {
+                                        indicator.addEventListener('click', () => {
+                                            scrollController.scrollToSection(index);
+                                        });
+                                    });
+                                }
+                            } catch (error) {
+                                console.error('Error initializing 3D scene:', error);
+                                // Hide loading screen even if there's an error
+                                threeSceneReady = true;
+                                checkLoadingComplete();
                             }
-                        }),
-                        scripts: Array.from(document.scripts).map(s => s.src || 'inline'),
-                        assetTests: assetResults
-                    },
-                    elements: {
-                        canvas: checkVisibility('#particles'),
-                        nav: checkVisibility('nav'),
-                        hero: checkVisibility('.hero'),
-                        container: checkVisibility('.container'),
-                        footer: checkVisibility('footer')
-                    },
-                    computedStyles: {
-                        body: {
-                            minHeight: window.getComputedStyle(document.body).minHeight,
-                            height: window.getComputedStyle(document.body).height,
-                            backgroundColor: window.getComputedStyle(document.body).backgroundColor
-                        },
-                        html: {
-                            minHeight: window.getComputedStyle(document.documentElement).minHeight,
-                            height: window.getComputedStyle(document.documentElement).height
+                        } else {
+                            // Retry after a short delay
+                            setTimeout(initThree, 100);
                         }
-                    }
-                };
-                
-                console.log('🔍 FULL ENVIRONMENT DIAGNOSTICS:', fullDiagnostics);
-                
-                // #region agent log
-                // Only log to local debug server if available
-                if (isLocal) {
-                    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            location: 'index.html:diagnostics',
-                            message: 'Full environment diagnostics',
-                            data: fullDiagnostics,
-                            timestamp: Date.now(),
-                            sessionId: 'debug-session',
-                            runId: 'run1',
-                            hypothesisId: 'A'
-                        })
-                    }).catch(() => {});
+                    };
+                    initThree();
+                } else {
+                    // No 3D container, mark as ready
+                    threeSceneReady = true;
+                    checkLoadingComplete();
                 }
-                // #endregion
-            });
-        })();
-        // #endregion
+                
+                // Initialize DiagAI 3D Visualization
+                const diagaiContainer = document.getElementById('diagai-3d-container');
+                if (diagaiContainer && typeof DiagAI3D !== 'undefined') {
+                    const initDiagAI = () => {
+                        if (typeof THREE !== 'undefined' && typeof DiagAI3D !== 'undefined') {
+                            try {
+                                const diagai3d = new DiagAI3D(diagaiContainer);
+                                
+                                // Handle resize
+                                window.addEventListener('resize', () => {
+                                    if (diagai3d && diagai3d.onResize) {
+                                        diagai3d.onResize();
+                                    }
+                                });
+                            } catch (error) {
+                                console.error('Error initializing DiagAI 3D:', error);
+                            }
+                        } else {
+                            setTimeout(initDiagAI, 100);
+                        }
+                    };
+                    initDiagAI();
+                }
+
+                // Deep Dive Toggle Functionality
+                const deepDiveToggle = document.getElementById('diagai-deep-dive-toggle');
+                const deepDiveContent = document.getElementById('diagai-deep-dive');
+                const toggleText = document.getElementById('toggle-text');
+                const toggleIcon = document.getElementById('toggle-icon');
+                
+                if (deepDiveToggle && deepDiveContent) {
+                    deepDiveToggle.addEventListener('click', () => {
+                        const isVisible = deepDiveContent.style.display !== 'none';
+                        deepDiveContent.style.display = isVisible ? 'none' : 'block';
+                        toggleText.textContent = isVisible ? 'Explore Deep Features' : 'Hide Deep Features';
+                        toggleIcon.textContent = isVisible ? '▼' : '▲';
+                        deepDiveToggle.setAttribute('aria-expanded', !isVisible);
+                        
+                        // Smooth scroll to content when opening
+                        if (!isVisible) {
+                            setTimeout(() => {
+                                deepDiveContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 100);
+                        }
+                    });
+                }
+                
+                // Initialize Work Together Particles
+                const workTogetherContainer = document.querySelector('.work-together-particles-container');
+                if (workTogetherContainer && typeof WorkTogetherParticles !== 'undefined') {
+                    const workTogetherParticles = new WorkTogetherParticles(workTogetherContainer);
+                }
+                
+                // Animated Text Changer
+                const questionText = document.querySelector('.question-text');
+                if (questionText) {
+                    const textVariations = [
+                        'IS YOUR VEHICLE READY TO GO WILD?',
+                        'IS YOUR DATA READY TO GO WILD?',
+                        'IS YOUR DIAGNOSTIC READY TO GO WILD?',
+                        'IS YOUR VEHICLE READY TO GO WILD?',
+                    ];
+                    
+                    let currentIndex = 0;
+                    let isAnimating = false;
+                    
+                    const changeText = () => {
+                        if (isAnimating) return;
+                        isAnimating = true;
+                        
+                        // Fade out
+                        questionText.style.opacity = '0';
+                        questionText.style.transform = 'translateY(-10px)';
+                        
+                        setTimeout(() => {
+                            // Change text
+                            currentIndex = (currentIndex + 1) % textVariations.length;
+                            questionText.textContent = textVariations[currentIndex];
+                            
+                            // Fade in
+                            questionText.style.opacity = '1';
+                            questionText.style.transform = 'translateY(0)';
+                            
+                            setTimeout(() => {
+                                isAnimating = false;
+                            }, 300);
+                        }, 300);
+                    };
+                    
+                    // Change text every 3 seconds
+                    setInterval(changeText, 3000);
+                }
+            }, 500);
+            
+            // Fallback: Hide loading screen after max wait time (5 seconds)
+            setTimeout(() => {
+                if (!loadingComplete) {
+                    threeSceneReady = true;
+                    scriptsReady = true;
+                    hideLoadingScreen();
+                }
+            }, 5000);
+        });
     </script>
 </body>
 

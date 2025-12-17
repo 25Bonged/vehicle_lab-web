@@ -15,32 +15,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Early deployment handler - catches clicks before page fully loads -->
-    <script>
-        (function() {
-            document.addEventListener('click', function(e) {
-                var target = e.target;
-                var button = target.closest && (target.closest('button.cta-button') || target.closest('a.cta-button'));
-                var link = target.closest && target.closest('a');
-                var text = (button ? button.textContent : (link ? link.textContent : '')).trim().toUpperCase();
-                var isCtaButton = target.classList && target.classList.contains('cta-button');
-                if (text.includes('DEPLOY NOW') || isCtaButton || (button && button.classList.contains('cta-button'))) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    if (window.deployVehicleLab) {
-                        window.deployVehicleLab();
-                    } else {
-                        setTimeout(function() {
-                            if (window.deployVehicleLab) window.deployVehicleLab();
-                        }, 100);
-                    }
-                    return false;
-                }
-            }, true);
-        })();
-    </script>
-    
     <style>
         /* Expandable Section Styles */
         .more-case-studies {
@@ -116,23 +90,6 @@
             width: 100% !important;
             height: 100% !important;
             display: block;
-        }
-        
-        /* Hide any loading text or placeholder text in 3D containers */
-        .case-study-3d-container {
-            color: transparent !important;
-        }
-        
-        /* Hide any text nodes that might appear */
-        .case-study-3d-container::before,
-        .case-study-3d-container::after {
-            display: none !important;
-            content: none !important;
-        }
-        
-        /* Ensure canvas is visible */
-        .case-study-3d-container canvas {
-            display: block !important;
         }
     </style>
 </head>
@@ -334,7 +291,6 @@
     <!-- Scripts -->
     <script src="assets/particles.js"></script>
     <script src="assets/mobile-nav.js"></script>
-    <script src="assets/deployment.js"></script>
     
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
