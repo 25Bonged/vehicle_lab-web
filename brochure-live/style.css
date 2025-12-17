@@ -1579,7 +1579,8 @@ footer {
 
 .hero-content {
     max-width: 800px;
-    z-index: 2;
+    z-index: 10;
+    position: relative;
 }
 
 .hero-title {
@@ -1589,8 +1590,11 @@ footer {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: var(--accent-cyan); /* Fallback color if gradient doesn't work */
     text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
     animation: fadeInUp 1s ease-out;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-subtitle {
