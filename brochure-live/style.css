@@ -2624,3 +2624,208 @@ footer {
         transform: scale(1.05);
     }
 }
+
+/* Deployment Loader Overlay */
+#deployment-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 10, 20, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.deployment-loader {
+    text-align: center;
+    max-width: 500px;
+    padding: 40px;
+    color: var(--text-color);
+}
+
+.loader-logo {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.logo-pulse {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border: 3px solid var(--accent-cyan);
+    border-radius: 50%;
+    animation: pulseDeploy 2s infinite;
+    position: relative;
+}
+
+.logo-pulse::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: pulseInnerDeploy 2s infinite;
+}
+
+@keyframes pulseDeploy {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes pulseInnerDeploy {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.1; }
+}
+
+.loader-logo span {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--accent-cyan);
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: block;
+}
+
+.loader-status {
+    margin-bottom: 30px;
+}
+
+.status-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-bottom: 10px;
+    font-family: var(--font-display);
+}
+
+.status-subtext {
+    font-size: 1rem;
+    color: rgba(224, 230, 237, 0.7);
+}
+
+.loader-progress {
+    margin-bottom: 40px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.progress-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    animation: dotPulseDeploy 1.5s infinite;
+    opacity: 0.5;
+}
+
+.progress-dots .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.progress-dots .dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes dotPulseDeploy {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.loader-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+    border-color: var(--accent-cyan);
+    background: rgba(0, 243, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+}
+
+.step.completed {
+    opacity: 1;
+    border-color: var(--accent-cyan);
+    background: rgba(0, 243, 255, 0.05);
+}
+
+.step-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.step.completed .step-icon {
+    background: var(--accent-cyan);
+    color: var(--bg-color);
+}
+
+.step-text {
+    font-size: 1rem;
+    color: var(--text-color);
+    flex: 1;
+    text-align: left;
+}
+
+.step.active .step-text {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
