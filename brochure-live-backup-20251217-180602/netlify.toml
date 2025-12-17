@@ -6,14 +6,14 @@
 # This proxies /diagnostics/* requests to your Render app
 [[redirects]]
   from = "/diagnostics/*"
-  to = "https://vehicle-lab-web-deploy.onrender.com/diagnostics/:splat"
+  to = "https://vehicle-lab-web-deploy.onrender.com/:splat"
   status = 200
   force = true
 
 # Also handle /diagnostics without trailing path
 [[redirects]]
   from = "/diagnostics"
-  to = "https://vehicle-lab-web-deploy.onrender.com/diagnostics"
+  to = "https://vehicle-lab-web-deploy.onrender.com/"
   status = 200
   force = true
 

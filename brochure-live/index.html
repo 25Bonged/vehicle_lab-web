@@ -777,18 +777,28 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
             crossorigin="anonymous"></script>
     
-    <!-- Load Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"
-            crossorigin="anonymous"></script>
-    <script>
-        // Suppress Three.js deprecation warning
-        const originalWarn = console.warn;
-        console.warn = function(...args) {
-            if (args[0] && typeof args[0] === 'string' && args[0].includes('deprecated') && args[0].includes('three')) {
-                return; // Suppress deprecation warnings
+    <!-- Load Three.js - Using ES Modules to avoid deprecation warning -->
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+        // Make THREE globally available for non-module scripts
+        window.THREE = THREE;
+    </script>
+    <!-- Fallback for browsers that don't support ES modules -->
+    <script nomodule>
+        // Load legacy build for older browsers (IE11, etc.)
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
+        script.crossOrigin = 'anonymous';
+        script.onload = function() {
+            // Make THREE available globally for legacy scripts
+            if (typeof window.THREE === 'undefined' && typeof THREE !== 'undefined') {
+                window.THREE = THREE;
             }
-            originalWarn.apply(console, args);
         };
+        script.onerror = function() {
+            console.warn('Failed to load THREE.js legacy build');
+        };
+        document.head.appendChild(script);
     </script>
     
     <!-- Load particles.js first (for background animation) -->
@@ -807,6 +817,19 @@
     
     <!-- Initialize -->
     <script>
+        // Prevent reload issues - clear any blocking errors
+        window.addEventListener('error', function(e) {
+            // Log but don't block execution
+            console.error('Page error:', e.message, e.filename, e.lineno);
+            // Don't prevent default - allow page to continue
+        });
+        
+        // Prevent unhandled promise rejections from blocking
+        window.addEventListener('unhandledrejection', function(e) {
+            console.warn('Unhandled promise rejection:', e.reason);
+            e.preventDefault(); // Prevent default browser behavior
+        });
+        
         // Loading Screen Handler
         const loadingScreen = document.getElementById('loading-screen');
         let loadingComplete = false;
@@ -844,10 +867,21 @@
                 // Initialize 3D Scene
                 const threeContainer = document.getElementById('three-container');
                 if (threeContainer) {
-                    // Wait for THREE.js to be available
+                    // Wait for THREE.js to be available (with timeout)
+                    let threeAttempts = 0;
+                    const maxThreeAttempts = 100; // 10 seconds max wait
                     const initThree = () => {
-                        if (typeof THREE !== 'undefined' && typeof ThreeScene !== 'undefined') {
+                        threeAttempts++;
+                        // Check for both THREE and window.THREE (for ES modules and legacy)
+                        const threeAvailable = typeof THREE !== 'undefined' || typeof window.THREE !== 'undefined';
+                        
+                        if (threeAvailable && typeof ThreeScene !== 'undefined') {
                             try {
+                                // Use window.THREE if THREE is not directly available
+                                if (typeof THREE === 'undefined' && typeof window.THREE !== 'undefined') {
+                                    window.THREE = window.THREE;
+                                }
+                                
                                 const threeScene = new ThreeScene(threeContainer);
                                 threeScene.animate();
                                 
@@ -886,9 +920,14 @@
                                 threeSceneReady = true;
                                 checkLoadingComplete();
                             }
-                        } else {
+                        } else if (threeAttempts < maxThreeAttempts) {
                             // Retry after a short delay
                             setTimeout(initThree, 100);
+                        } else {
+                            // Timeout - mark as ready anyway
+                            console.warn('THREE.js loading timeout - continuing without 3D scene');
+                            threeSceneReady = true;
+                            checkLoadingComplete();
                         }
                     };
                     initThree();
@@ -953,8 +992,26 @@
                 
                 // Initialize Deploy Now button (security fix - remove inline onclick)
                 const deployBtn = document.getElementById('deploy-now-btn');
-                if (deployBtn && typeof startDeployment !== 'undefined') {
-                    deployBtn.addEventListener('click', startDeployment);
+                if (deployBtn) {
+                    if (typeof startDeployment !== 'undefined') {
+                        deployBtn.addEventListener('click', startDeployment);
+                    } else if (typeof window.startDeployment !== 'undefined') {
+                        deployBtn.addEventListener('click', window.startDeployment);
+                    } else {
+                        // Fallback: Wait for deployment.js to load
+                        let attempts = 0;
+                        const checkDeployment = setInterval(() => {
+                            attempts++;
+                            if (typeof startDeployment !== 'undefined' || typeof window.startDeployment !== 'undefined') {
+                                clearInterval(checkDeployment);
+                                const deployFunc = startDeployment || window.startDeployment;
+                                deployBtn.addEventListener('click', deployFunc);
+                            } else if (attempts > 50) {
+                                clearInterval(checkDeployment);
+                                console.warn('Deployment function not found after timeout');
+                            }
+                        }, 100);
+                    }
                 }
                 
                 // Animated Text Changer

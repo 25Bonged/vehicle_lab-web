@@ -1,4 +1,9 @@
 function startDeployment() {
+    // Prevent multiple clicks
+    if (document.getElementById('deployment-overlay')) {
+        return;
+    }
+    
     // Create overlay
     const overlay = document.createElement('div');
     overlay.id = 'deployment-overlay';
@@ -104,7 +109,18 @@ function startDeployment() {
         
         setTimeout(() => {
              // Redirect to diagnostics via Netlify proxy
-             window.location.href = '/diagnostics';
+             try {
+                 window.location.href = '/diagnostics';
+             } catch (error) {
+                 console.error('Redirect failed:', error);
+                 // Fallback: try direct Render URL
+                 window.location.href = 'https://vehicle-lab-web-deploy.onrender.com/';
+             }
         }, 800);
     }, 5000);
+}
+
+// Make function globally available
+if (typeof window !== 'undefined') {
+    window.startDeployment = startDeployment;
 }

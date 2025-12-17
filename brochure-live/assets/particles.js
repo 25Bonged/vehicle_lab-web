@@ -150,21 +150,24 @@ function init() {
 function animate() {
     const logger = getLogger();
     const frameLogInterval = window.CONFIG?.ANIMATION?.FRAME_LOG_INTERVAL || 60;
+    const isDebug = window.CONFIG?.DEBUG?.ENABLED || window.location.hostname === 'localhost';
     
     // Initialize frame counter
     if (typeof animate.frameCount === 'undefined') {
         animate.frameCount = 0;
-        logger.debug('particles.js:animate:start', 'Animation loop started', {
-            ctxExists: !!ctx,
-            particlesCount: particles.length,
-            width: width,
-            height: height
-        });
+        if (isDebug) {
+            logger.debug('particles.js:animate:start', 'Animation loop started', {
+                ctxExists: !!ctx,
+                particlesCount: particles.length,
+                width: width,
+                height: height
+            });
+        }
     }
     animate.frameCount++;
     
     // Log every N frames (only in debug mode)
-    if (animate.frameCount % frameLogInterval === 0) {
+    if (isDebug && animate.frameCount % frameLogInterval === 0) {
         logger.debug('particles.js:animate:frame', 'Animation frame executed', {
             frameCount: animate.frameCount,
             ctxExists: !!ctx,
@@ -200,18 +203,27 @@ function animate() {
         
         ctx.clearRect(0, 0, width, height);
 
-        // Optimized particle rendering - only check nearby particles
+        // Optimized particle rendering - batch operations for better performance
+        // Update all particles first
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
+        }
+        
+        // Draw particles
+        for (let i = 0; i < particles.length; i++) {
             particles[i].draw();
-
-            // Only check connections for particles ahead (avoid duplicate checks)
+        }
+        
+        // Draw connections - optimized to reduce calculations
+        // Only check connections for particles ahead (avoid duplicate checks)
+        for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < connectionDistance) {
+                const distSq = dx * dx + dy * dy; // Use squared distance to avoid sqrt
+                
+                if (distSq < connectionDistance * connectionDistance) {
+                    const distance = Math.sqrt(distSq);
                     ctx.beginPath();
                     ctx.strokeStyle = `rgba(0, 243, 255, ${1 - distance / connectionDistance})`;
                     ctx.lineWidth = 0.5;
@@ -243,28 +255,68 @@ getLogger().debug('particles.js:start', 'Starting particles animation', {
 });
 
 // Ensure canvas is available before initializing
+let particlesStarted = false;
 function startParticles() {
+    // Prevent multiple initializations
+    if (particlesStarted) return;
+    
     const canvasEl = getCanvas();
     if (!canvasEl) {
-        // Canvas not ready yet, try again
+        // Canvas not ready yet, try again (with limit)
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startParticles);
+            document.addEventListener('DOMContentLoaded', startParticles, { once: true });
         } else {
-            // Use setTimeout as fallback
-            setTimeout(startParticles, 100);
+            // Use setTimeout as fallback (max 5 attempts)
+            if (!startParticles.attempts) startParticles.attempts = 0;
+            startParticles.attempts++;
+            if (startParticles.attempts < 5) {
+                setTimeout(startParticles, 100);
+            } else {
+                getLogger().error('particles.js:start:timeout', null, {
+                    message: 'Canvas not found after multiple attempts'
+                });
+            }
         }
         return;
     }
     
     // Canvas is ready, initialize
+    particlesStarted = true;
     init();
     animate();
 }
 
-// Start particles animation
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startParticles);
-} else {
-    // DOM already loaded, but give a small delay to ensure canvas is in DOM
-    setTimeout(startParticles, 0);
+// Start particles animation - optimized for faster loading
+function initializeParticles() {
+    // Check if canvas exists immediately
+    const canvasEl = document.getElementById('particles');
+    if (canvasEl) {
+        // Canvas is already in DOM, start immediately
+        startParticles();
+    } else if (document.readyState === 'loading') {
+        // Wait for DOM
+        document.addEventListener('DOMContentLoaded', startParticles, { once: true });
+    } else {
+        // DOM loaded but canvas might not be ready yet
+        // Use a small timeout but don't retry indefinitely
+        let attempts = 0;
+        const maxAttempts = 10;
+        const checkCanvas = () => {
+            attempts++;
+            const canvasEl = document.getElementById('particles');
+            if (canvasEl) {
+                startParticles();
+            } else if (attempts < maxAttempts) {
+                setTimeout(checkCanvas, 50);
+            } else {
+                getLogger().error('particles.js:timeout', null, {
+                    message: 'Canvas element not found after multiple attempts'
+                });
+            }
+        };
+        checkCanvas();
+    }
 }
+
+// Start initialization
+initializeParticles();
