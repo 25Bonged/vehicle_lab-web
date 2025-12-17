@@ -1586,15 +1586,21 @@ footer {
 .hero-title {
     font-size: 4.5rem;
     margin-bottom: 30px;
-    background: linear-gradient(to right, #fff, var(--accent-cyan));
+    color: var(--accent-cyan); /* Primary color - visible */
+    background: linear-gradient(to right, #ffffff, var(--accent-cyan));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: var(--accent-cyan); /* Fallback color if gradient doesn't work */
-    text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+    /* Fallback: if gradient doesn't work, use solid color */
+    @supports not (-webkit-background-clip: text) {
+        color: var(--accent-cyan);
+        background: none;
+    }
+    text-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 0 60px rgba(0, 243, 255, 0.3);
     animation: fadeInUp 1s ease-out;
     position: relative;
     z-index: 10;
+    display: block;
 }
 
 .hero-subtitle {
