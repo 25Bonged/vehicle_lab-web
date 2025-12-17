@@ -12,11 +12,15 @@
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(logData)
-    }).catch(() => {});
+    // Only log to local debug server if available
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocal) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(logData)
+        }).catch(() => {});
+    }
 })();
 // #endregion
 
@@ -34,12 +38,17 @@ const canvasCheck = {
     runId: 'run1',
     hypothesisId: 'C'
 };
-fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(canvasCheck)
-}).catch(() => {});
-// #endregion
+// Only log to local debug server if available
+const isLocalCanvas = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+if (isLocalCanvas) {
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(canvasCheck)
+    }).catch(() => {});
+}
+    }
+    // #endregion
 const ctx = canvas ? canvas.getContext('2d') : null;
 
 let width, height;
@@ -66,11 +75,15 @@ function resize() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(resizeLog)
-    }).catch(() => {});
+        }).catch(() => {});
+    }
     // #endregion
     
     if (!canvas) return;
@@ -128,11 +141,15 @@ function init() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(logData)
-    }).catch(() => {});
+    // Only log to local debug server if available
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocal) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(logData)
+        }).catch(() => {});
+    }
     // #endregion
     
     if (!canvas || !ctx) {
@@ -149,12 +166,16 @@ function init() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(errorLog)
         }).catch(() => {});
-        // #endregion
+    }
+    // #endregion
         return;
     }
     
@@ -176,7 +197,10 @@ function init() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(sizeErrorLog)
@@ -202,11 +226,15 @@ function init() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(successLog)
-    }).catch(() => {});
+        }).catch(() => {});
+    }
     // #endregion
 }
 
@@ -228,11 +256,15 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(animateStartLog)
-        }).catch(() => {});
+        // Only log to local debug server if available
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isLocal) {
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(animateStartLog)
+            }).catch(() => {});
+        }
     }
     animate.frameCount++;
     
@@ -252,11 +284,15 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(frameLog)
-        }).catch(() => {});
+        // Only log to local debug server if available
+        const isLocalFrame = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isLocalFrame) {
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(frameLog)
+            }).catch(() => {});
+        }
     }
     // #endregion
     
@@ -275,7 +311,10 @@ function animate() {
                 runId: 'run1',
                 hypothesisId: 'C'
             };
-            fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(errorLog)
@@ -334,12 +373,16 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'B'
         };
-        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        // Only log to local debug server if available
+    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDebug) {
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(errorLog)
         }).catch(() => {});
-        // #endregion
+    }
+    // #endregion
         // Continue animation even after error to prevent complete failure
         requestAnimationFrame(animate);
     }
@@ -359,11 +402,15 @@ const startLog = {
     runId: 'run1',
     hypothesisId: 'C'
 };
-fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(startLog)
-}).catch(() => {});
+// Only log to local debug server if available
+const isLocalStart = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+if (isLocalStart) {
+    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(startLog)
+    }).catch(() => {});
+}
 // #endregion
 
 if (document.readyState === 'loading') {
