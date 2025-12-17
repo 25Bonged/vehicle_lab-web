@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VEHICLE-LAB | Future of Diagnostics</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" onload="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:style.css',message:'CSS loaded successfully',data:{href:'style.css'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{})" onerror="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:style.css',message:'CSS failed to load',data:{href:'style.css'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{})">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Early deployment handler - catches clicks before page fully loads -->
@@ -65,6 +65,109 @@
 
     <script src="assets/particles.js"></script>
         <script src="assets/deployment.js"></script>
+    <script>
+        // #region agent log
+        (function() {
+            const logData = {
+                location: 'index.html:70',
+                message: 'Page load started',
+                data: {
+                    url: window.location.href,
+                    userAgent: navigator.userAgent,
+                    timestamp: Date.now()
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'A'
+            };
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(logData)
+            }).catch(() => {});
+        })();
+        // #endregion
+        
+        // #region agent log
+        window.addEventListener('DOMContentLoaded', function() {
+            const logData = {
+                location: 'index.html:DOMContentLoaded',
+                message: 'DOM loaded - checking assets',
+                data: {
+                    canvasExists: !!document.getElementById('particles'),
+                    navExists: !!document.querySelector('nav'),
+                    heroExists: !!document.querySelector('.hero'),
+                    containerExists: !!document.querySelector('.container'),
+                    footerExists: !!document.querySelector('footer')
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'B'
+            };
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(logData)
+            }).catch(() => {});
+        });
+        // #endregion
+        
+        // #region agent log
+        window.addEventListener('load', function() {
+            const stylesheets = Array.from(document.styleSheets).map(s => s.href || 'inline');
+            const scripts = Array.from(document.scripts).map(s => s.src || 'inline');
+            const images = Array.from(document.images).map(img => ({src: img.src, complete: img.complete}));
+            
+            const logData = {
+                location: 'index.html:load',
+                message: 'All resources loaded - checking status',
+                data: {
+                    stylesheets: stylesheets,
+                    scripts: scripts,
+                    images: images,
+                    cssLoaded: stylesheets.length > 0,
+                    jsLoaded: scripts.length > 0
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'A'
+            };
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(logData)
+            }).catch(() => {});
+        });
+        // #endregion
+        
+        // #region agent log
+        window.addEventListener('error', function(e) {
+            const logData = {
+                location: 'index.html:error',
+                message: 'JavaScript error detected',
+                data: {
+                    message: e.message,
+                    filename: e.filename,
+                    lineno: e.lineno,
+                    colno: e.colno,
+                    error: e.error ? e.error.toString() : null
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'B'
+            };
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(logData)
+            }).catch(() => {});
+        }, true);
+        // #endregion
+    </script>
 </body>
 
 </html>
