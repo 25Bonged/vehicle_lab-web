@@ -4,12 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system, automated OBD validation, and comprehensive diagnostic analysis.">
+    <meta name="keywords" content="vehicle diagnostics, AI diagnostics, OBD validation, automotive engineering, DiagAI, vehicle data analysis">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vehiclelab.in/">
+    <meta property="og:title" content="VEHICLE-LAB | Future of Diagnostics">
+    <meta property="og:description" content="Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system, automated OBD validation, and comprehensive diagnostic analysis.">
+    <meta property="og:image" content="https://vehiclelab.in/assets/dashboard-main.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vehiclelab.in/">
+    <meta property="twitter:title" content="VEHICLE-LAB | Future of Diagnostics">
+    <meta property="twitter:description" content="Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system, automated OBD validation, and comprehensive diagnostic analysis.">
+    <meta property="twitter:image" content="https://vehiclelab.in/assets/dashboard-main.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="alternate icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    
     <title>VEHICLE-LAB | Future of Diagnostics</title>
-    <link rel="stylesheet" href="style.css" onload="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:style.css',message:'CSS loaded successfully',data:{href:'style.css'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{})" onerror="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:style.css',message:'CSS failed to load',data:{href:'style.css'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{})">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
-    <!-- Early deployment handler - catches clicks before page fully loads -->
-    <!-- Debug script removed -->
 </head>
 
 <body>
@@ -63,8 +83,8 @@
         <p>&copy; 2025 Vehicle-Lab. All rights reserved.</p>
     </footer>
 
-    <script src="assets/particles.js"></script>
-        <script src="assets/deployment.js"></script>
+    <script src="assets/particles.js" onload="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script:particles',message:'particles.js loaded',data:{src:'assets/particles.js'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{})" onerror="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script:particles',message:'particles.js failed to load',data:{src:'assets/particles.js'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{})"></script>
+        <script src="assets/deployment.js" onload="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script:deployment',message:'deployment.js loaded',data:{src:'assets/deployment.js'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{})" onerror="fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script:deployment',message:'deployment.js failed to load',data:{src:'assets/deployment.js'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{})"></script>
     <script>
         // #region agent log
         (function() {
@@ -91,15 +111,42 @@
         
         // #region agent log
         window.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('particles');
+            const nav = document.querySelector('nav');
+            const hero = document.querySelector('.hero');
+            const container = document.querySelector('.container');
+            const footer = document.querySelector('footer');
+            
+            // Check element visibility and dimensions
+            const checkElement = (el, name) => {
+                if (!el) return {exists: false};
+                const rect = el.getBoundingClientRect();
+                const styles = window.getComputedStyle(el);
+                return {
+                    exists: true,
+                    visible: rect.width > 0 && rect.height > 0,
+                    display: styles.display,
+                    visibility: styles.visibility,
+                    opacity: styles.opacity,
+                    width: rect.width,
+                    height: rect.height,
+                    top: rect.top,
+                    left: rect.left,
+                    zIndex: styles.zIndex
+                };
+            };
+            
             const logData = {
                 location: 'index.html:DOMContentLoaded',
-                message: 'DOM loaded - checking assets',
+                message: 'DOM loaded - checking assets and visibility',
                 data: {
-                    canvasExists: !!document.getElementById('particles'),
-                    navExists: !!document.querySelector('nav'),
-                    heroExists: !!document.querySelector('.hero'),
-                    containerExists: !!document.querySelector('.container'),
-                    footerExists: !!document.querySelector('footer')
+                    canvas: checkElement(canvas, 'canvas'),
+                    nav: checkElement(nav, 'nav'),
+                    hero: checkElement(hero, 'hero'),
+                    container: checkElement(container, 'container'),
+                    footer: checkElement(footer, 'footer'),
+                    viewportWidth: window.innerWidth,
+                    viewportHeight: window.innerHeight
                 },
                 timestamp: Date.now(),
                 sessionId: 'debug-session',
@@ -116,9 +163,40 @@
         
         // #region agent log
         window.addEventListener('load', function() {
-            const stylesheets = Array.from(document.styleSheets).map(s => s.href || 'inline');
+            const stylesheets = Array.from(document.styleSheets).map(s => {
+                try {
+                    return {href: s.href || 'inline', rules: s.cssRules ? s.cssRules.length : 0, disabled: s.disabled};
+                } catch(e) {
+                    return {href: s.href || 'inline', error: 'CORS or access denied'};
+                }
+            });
             const scripts = Array.from(document.scripts).map(s => s.src || 'inline');
-            const images = Array.from(document.images).map(img => ({src: img.src, complete: img.complete}));
+            const images = Array.from(document.images).map(img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight}));
+            
+            // Check canvas computed styles
+            const canvas = document.getElementById('particles');
+            let canvasStyles = null;
+            let canvasInfo = null;
+            if (canvas) {
+                try {
+                    canvasStyles = window.getComputedStyle(canvas);
+                    canvasInfo = {
+                        display: canvasStyles.display,
+                        position: canvasStyles.position,
+                        width: canvasStyles.width,
+                        height: canvasStyles.height,
+                        zIndex: canvasStyles.zIndex,
+                        opacity: canvasStyles.opacity,
+                        visibility: canvasStyles.visibility,
+                        canvasWidth: canvas.width,
+                        canvasHeight: canvas.height,
+                        clientWidth: canvas.clientWidth,
+                        clientHeight: canvas.clientHeight
+                    };
+                } catch(e) {
+                    canvasInfo = {error: e.toString()};
+                }
+            }
             
             const logData = {
                 location: 'index.html:load',
@@ -128,7 +206,9 @@
                     scripts: scripts,
                     images: images,
                     cssLoaded: stylesheets.length > 0,
-                    jsLoaded: scripts.length > 0
+                    jsLoaded: scripts.length > 0,
+                    canvasStyles: canvasInfo,
+                    canvasExists: !!canvas
                 },
                 timestamp: Date.now(),
                 sessionId: 'debug-session',
@@ -139,7 +219,10 @@
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(logData)
-            }).catch(() => {});
+            }).catch((err) => {
+                // Log fetch errors to console as fallback
+                console.error('Debug log fetch failed:', err);
+            });
         });
         // #endregion
         
@@ -153,7 +236,8 @@
                     filename: e.filename,
                     lineno: e.lineno,
                     colno: e.colno,
-                    error: e.error ? e.error.toString() : null
+                    error: e.error ? e.error.toString() : null,
+                    stack: e.error && e.error.stack ? e.error.stack : null
                 },
                 timestamp: Date.now(),
                 sessionId: 'debug-session',
@@ -167,6 +251,29 @@
             }).catch(() => {});
         }, true);
         // #endregion
+        
+        // #region agent log
+        window.addEventListener('unhandledrejection', function(e) {
+            const logData = {
+                location: 'index.html:unhandledrejection',
+                message: 'Unhandled promise rejection',
+                data: {
+                    reason: e.reason ? e.reason.toString() : null,
+                    promise: e.promise ? 'Promise object' : null
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'B'
+            };
+            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(logData)
+            }).catch(() => {});
+        });
+        // #endregion
+        
     </script>
 </body>
 
