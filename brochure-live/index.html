@@ -766,8 +766,8 @@
 
     <!-- Scripts -->
     <!-- Load Configuration and Logger First -->
-    <script src="assets/js/utils/config.js"></script>
-    <script src="assets/js/utils/logger.js"></script>
+    <script src="/assets/js/utils/config.js"></script>
+    <script src="/assets/js/utils/logger.js"></script>
     
     <!-- Load GSAP and ScrollTrigger -->
     <!-- TODO: Add SRI (Subresource Integrity) hashes for security -->
@@ -802,21 +802,36 @@
     </script>
     
     <!-- Load particles.js first (for background animation) -->
-    <script src="assets/particles.js?v=2"></script>
+    <script src="/assets/particles.js?v=2"></script>
     
     <!-- Load deployment.js for DEPLOY NOW button -->
-    <script src="assets/deployment.js"></script>
+    <script src="/assets/deployment.js"></script>
     
     <!-- Load custom scripts -->
-    <script src="assets/scroll-controller.js"></script>
-    <script src="assets/three-scene.js"></script>
-    <script src="assets/diagai-3d.js"></script>
-    <script src="assets/newsletter.js"></script>
-    <script src="assets/mobile-nav.js"></script>
-    <script src="assets/work-together-particles.js"></script>
+    <script src="/assets/scroll-controller.js"></script>
+    <script src="/assets/three-scene.js"></script>
+    <script src="/assets/diagai-3d.js"></script>
+    <script src="/assets/newsletter.js"></script>
+    <script src="/assets/mobile-nav.js"></script>
+    <script src="/assets/work-together-particles.js"></script>
     
     <!-- Initialize -->
     <script>
+        // Unregister any existing service workers that might be causing issues
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister().then(function(success) {
+                        if (success) {
+                            console.log('Service worker unregistered successfully');
+                        }
+                    }).catch(function(error) {
+                        console.warn('Error unregistering service worker:', error);
+                    });
+                }
+            });
+        }
+        
         // Prevent reload issues - clear any blocking errors
         window.addEventListener('error', function(e) {
             // Log but don't block execution
