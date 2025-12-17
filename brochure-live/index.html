@@ -27,9 +27,53 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     
     <title>VEHICLE-LAB | Future of Diagnostics</title>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preload" href="style.css" as="style">
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "VEHICLE-LAB",
+        "url": "https://vehicle-lab.com",
+        "logo": "https://vehicle-lab.com/assets/favicon.svg",
+        "description": "Advanced Vehicle Diagnostics powered by AI. Transform vehicle data into engineering insights with DiagAI multi-agent system.",
+        "sameAs": [
+            "https://www.linkedin.com/in/chayan-das-807b24158",
+            "https://github.com/25Bonged"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-7908054878",
+            "contactType": "Customer Service",
+            "email": "chayandaschayan@gmail.com"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DiagAI",
+        "applicationCategory": "DiagnosticApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "AI-powered diagnostic platform that orchestrates multiple specialized agents to analyze vehicle data, identify issues, and provide actionable insights."
+    }
+    </script>
 </head>
 
 <body>
@@ -72,7 +116,7 @@
             <a href="#newsletter" class="nav-link">Newsletter</a>
             <a href="#work-together" class="nav-link">Work Together</a>
             <a href="#contact" class="nav-link">Contact</a>
-             <button class="cta-button" onclick="startDeployment()">DEPLOY NOW</button>
+             <button class="cta-button" id="deploy-now-btn" aria-label="Deploy application now">DEPLOY NOW</button>
         </div>
     </nav>
 
@@ -109,7 +153,7 @@
                     <h3 style="text-align: center; margin-bottom: 40px; color: var(--accent-cyan);">Advanced Capabilities</h3>
                     <div class="grid secure-design-grid">
                         <div class="card card-3d" style="border-color: var(--accent-cyan);">
-                            <img src="assets/icons/secure.svg" class="card-icon" alt="Validation Icon">
+                            <img src="assets/icons/secure.svg" class="card-icon" alt="Validation and Testing Icon" loading="lazy">
                             <h3>Validation and Testing</h3>
                             <p>Smart customized scripts for validation analysis with automated test workflows. Intelligent signal validation, compliance checking, and comprehensive reporting. Engineered for precision and reliability.</p>
                         </div>
@@ -130,12 +174,12 @@
                 
         <div class="grid">
                     <div class="card card-3d">
-                <img src="assets/icons/ai-powered.svg" class="card-icon" alt="AI Icon">
+                            <img src="assets/icons/ai-powered.svg" class="card-icon" alt="AI-Powered Diagnostics Icon" loading="lazy">
                 <h3>AI-Powered</h3>
                 <p>Natural language queries for complex diagnostic tasks. Ask questions, get answers.</p>
             </div>
                     <div class="card card-3d">
-                <img src="assets/icons/universal.svg" class="card-icon" alt="Universal Icon">
+                            <img src="assets/icons/universal.svg" class="card-icon" alt="Universal File Support Icon" loading="lazy">
                 <h3>Universal Support</h3>
                 <p>Native support for MDF, MF4, CSV, and Excel files. No conversion needed.</p>
             </div>
@@ -172,42 +216,42 @@
                     <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-purple);">8 Specialized Diagnostic Agents</h3>
                     <div class="agent-grid">
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>MisfireAgent</h5>
                             <p>CSVA, FFT, and ML-based detection of combustion anomalies.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>FuelAgent</h5>
                             <p>BSFC calculation, consumption metrics, and efficiency analysis.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>GearAgent</h5>
                             <p>Transmission analysis, gear hunting detection, shift quality.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>DrivabilityAgent</h5>
                             <p>Anti-jerk analysis, pedal map evaluation, torque filter.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>WLTPAgent</h5>
                             <p>Standardized cycle testing and emissions compliance checks.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>StartWarmupAgent</h5>
                             <p>Cold start analysis and warmup phase optimization.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>DFCAgent</h5>
                             <p>Diagnostic Trouble Code analysis and correlation.</p>
                         </div>
                         <div class="agent-card">
-                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Agent Icon">
+                            <img src="assets/icons/agent.svg" class="agent-icon" alt="Diagnostic Agent Icon" loading="lazy">
                             <h5>IUPRAgent</h5>
                             <p>In-Use Performance Ratio monitoring for OBD-II.</p>
                         </div>
@@ -721,12 +765,21 @@
     </footer>
 
     <!-- Scripts -->
+    <!-- Load Configuration and Logger First -->
+    <script src="assets/js/utils/config.js"></script>
+    <script src="assets/js/utils/logger.js"></script>
+    
     <!-- Load GSAP and ScrollTrigger -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- TODO: Add SRI (Subresource Integrity) hashes for security -->
+    <!-- Generate with: curl -s <url> | openssl dgst -sha384 -binary | openssl base64 -A -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
+            crossorigin="anonymous"></script>
     
     <!-- Load Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"
+            crossorigin="anonymous"></script>
     <script>
         // Suppress Three.js deprecation warning
         const originalWarn = console.warn;
@@ -896,6 +949,12 @@
                 const workTogetherContainer = document.querySelector('.work-together-particles-container');
                 if (workTogetherContainer && typeof WorkTogetherParticles !== 'undefined') {
                     const workTogetherParticles = new WorkTogetherParticles(workTogetherContainer);
+                }
+                
+                // Initialize Deploy Now button (security fix - remove inline onclick)
+                const deployBtn = document.getElementById('deploy-now-btn');
+                if (deployBtn && typeof startDeployment !== 'undefined') {
+                    deployBtn.addEventListener('click', startDeployment);
                 }
                 
                 // Animated Text Changer

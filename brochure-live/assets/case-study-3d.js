@@ -22,23 +22,6 @@ class CaseStudy3D {
             return;
         }
 
-        // Clear any text content or loading messages from container
-        // Remove text nodes but keep the container structure
-        const textNodes = [];
-        const walker = document.createTreeWalker(
-            this.container,
-            NodeFilter.SHOW_TEXT,
-            null,
-            false
-        );
-        let node;
-        while (node = walker.nextNode()) {
-            if (node.textContent.trim()) {
-                textNodes.push(node);
-            }
-        }
-        textNodes.forEach(textNode => textNode.remove());
-
         // Scene setup
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x050a14);

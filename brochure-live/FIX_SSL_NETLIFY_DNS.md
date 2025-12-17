@@ -146,3 +146,4 @@ Since the certificate is from Dec 3 (old), renew it:
 3. **Wait 15-30 minutes** for certificate renewal
 4. **Test the site** in incognito mode
 
+

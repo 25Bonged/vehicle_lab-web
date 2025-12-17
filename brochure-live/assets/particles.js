@@ -1,32 +1,33 @@
-// #region agent log
-(function() {
-    const logData = {
-        location: 'particles.js:1',
-        message: 'particles.js script loaded',
-        data: {
-            canvasExists: !!document.getElementById('particles'),
-            timestamp: Date.now()
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'C'
-    };
-    // Only log to local debug server if available
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocal) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(logData)
-        }).catch(() => {});
-    }
-})();
-// #endregion
+/**
+ * Particle Background Animation
+ * Creates an interactive particle network background effect
+ */
 
 // Get canvas element - will be retrieved when DOM is ready
 let canvas = null;
 let ctx = null;
+
+// Configuration from CONFIG (fallback to defaults)
+const getConfig = () => {
+    if (window.CONFIG) {
+        return window.CONFIG.PARTICLES;
+    }
+    return {
+        COUNT: 60,
+        CONNECTION_DISTANCE: 150,
+        SPEED: 0.5,
+        MIN_SIZE: 1,
+        MAX_SIZE: 3
+    };
+};
+
+// Get logger (fallback to console)
+const getLogger = () => {
+    return window.logger || {
+        debug: () => {},
+        error: (msg, err) => console.error(msg, err)
+    };
+};
 
 // Function to initialize canvas
 function getCanvas() {
@@ -34,29 +35,10 @@ function getCanvas() {
         canvas = document.getElementById('particles');
         if (canvas) {
             ctx = canvas.getContext('2d');
-            // #region agent log
-            const canvasCheck = {
-                location: 'particles.js:canvas',
-                message: 'Canvas element check',
-                data: {
-                    canvasFound: !!canvas,
-                    canvasContext: !!ctx
-                },
-                timestamp: Date.now(),
-                sessionId: 'debug-session',
-                runId: 'run1',
-                hypothesisId: 'C'
-            };
-            // Only log to local debug server if available
-            const isLocalCanvas = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            if (isLocalCanvas) {
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(canvasCheck)
-                }).catch(() => {});
-            }
-            // #endregion
+            getLogger().debug('particles.js:canvas', 'Canvas element initialized', {
+                canvasFound: !!canvas,
+                canvasContext: !!ctx
+            });
         }
     }
     return canvas;
@@ -65,40 +47,22 @@ function getCanvas() {
 let width, height;
 let particles = [];
 
-// Configuration
-const particleCount = 60;
-const connectionDistance = 150;
-const particleSpeed = 0.5;
+// Get configuration values
+let config = getConfig();
+const particleCount = config.COUNT;
+const connectionDistance = config.CONNECTION_DISTANCE;
+const particleSpeed = config.SPEED;
 
 function resize() {
     const canvasEl = getCanvas();
     if (!canvasEl) return;
     
-    // #region agent log
-    const resizeLog = {
-        location: 'particles.js:resize',
-        message: 'Resize function called',
-        data: {
-            canvasExists: !!canvasEl,
-            ctxExists: !!ctx,
-            windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'C'
-    };
-    // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(resizeLog)
-        }).catch(() => {});
-    }
-    // #endregion
+    getLogger().debug('particles.js:resize', 'Resize function called', {
+        canvasExists: !!canvasEl,
+        ctxExists: !!ctx,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight
+    });
     
     width = window.innerWidth || 1920;
     height = window.innerHeight || 1080;
@@ -109,6 +73,9 @@ function resize() {
     
     canvasEl.width = width;
     canvasEl.height = height;
+    
+    // Update config if available
+    config = getConfig();
 }
 
 class Particle {
@@ -117,7 +84,7 @@ class Particle {
         this.y = Math.random() * height;
         this.vx = (Math.random() - 0.5) * particleSpeed;
         this.vy = (Math.random() - 0.5) * particleSpeed;
-        this.size = Math.random() * 2 + 1;
+        this.size = Math.random() * (config.MAX_SIZE - config.MIN_SIZE) + config.MIN_SIZE;
     }
 
     update() {
@@ -139,204 +106,80 @@ class Particle {
 
 function init() {
     const canvasEl = getCanvas();
+    const logger = getLogger();
     
-    // #region agent log
-    const logData = {
-        location: 'particles.js:init',
-        message: 'Particles init started',
-        data: {
-            canvasExists: !!canvasEl,
-            ctxExists: !!ctx,
-            windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'C'
-    };
-    // Only log to local debug server if available
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocal) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(logData)
-        }).catch(() => {});
-    }
-    // #endregion
+    logger.debug('particles.js:init', 'Particles init started', {
+        canvasExists: !!canvasEl,
+        ctxExists: !!ctx,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight
+    });
     
     if (!canvasEl || !ctx) {
-        // #region agent log
-        const errorLog = {
-            location: 'particles.js:init:error',
-            message: 'Canvas or context missing - init failed',
-            data: {
-                canvasExists: !!canvasEl,
-                ctxExists: !!ctx
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'C'
-        };
-        // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(errorLog)
-        }).catch(() => {});
-    }
-    // #endregion
+        logger.error('particles.js:init:error', null, {
+            canvasExists: !!canvasEl,
+            ctxExists: !!ctx
+        });
         return;
     }
     
     resize();
     
-    // #region agent log
     if (!width || !height || width === 0 || height === 0) {
-        const sizeErrorLog = {
-            location: 'particles.js:init:sizeError',
-            message: 'Canvas dimensions invalid',
-            data: {
-                width: width,
-                height: height,
-                windowWidth: window.innerWidth,
-                windowHeight: window.innerHeight
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'C'
-        };
-        // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(sizeErrorLog)
-        }).catch(() => {});
+        logger.error('particles.js:init:sizeError', null, {
+            width: width,
+            height: height,
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight
+        });
+        return;
     }
-    // #endregion
     
+    particles = [];
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
     
-    // #region agent log
-    const successLog = {
-        location: 'particles.js:init:success',
-        message: 'Particles init completed',
-        data: {
-            particleCount: particles.length,
-            width: width,
-            height: height
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'C'
-    };
-    // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(successLog)
-        }).catch(() => {});
-    }
-    // #endregion
+    logger.debug('particles.js:init:success', 'Particles init completed', {
+        particleCount: particles.length,
+        width: width,
+        height: height
+    });
 }
 
 function animate() {
-    // #region agent log
+    const logger = getLogger();
+    const frameLogInterval = window.CONFIG?.ANIMATION?.FRAME_LOG_INTERVAL || 60;
+    
+    // Initialize frame counter
     if (typeof animate.frameCount === 'undefined') {
         animate.frameCount = 0;
-        const animateStartLog = {
-            location: 'particles.js:animate:start',
-            message: 'Animation loop started',
-            data: {
-                ctxExists: !!ctx,
-                particlesCount: particles.length,
-                width: width,
-                height: height
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'C'
-        };
-        // Only log to local debug server if available
-        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        if (isLocal) {
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(animateStartLog)
-            }).catch(() => {});
-        }
+        logger.debug('particles.js:animate:start', 'Animation loop started', {
+            ctxExists: !!ctx,
+            particlesCount: particles.length,
+            width: width,
+            height: height
+        });
     }
     animate.frameCount++;
     
-    // Log every 60 frames (roughly once per second at 60fps)
-    if (animate.frameCount % 60 === 0) {
-        const frameLog = {
-            location: 'particles.js:animate:frame',
-            message: 'Animation frame executed',
-            data: {
-                frameCount: animate.frameCount,
-                ctxExists: !!ctx,
-                canvasExists: !!canvasEl,
-                particlesCount: particles.length
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'C'
-        };
-        // Only log to local debug server if available
-        const isLocalFrame = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        if (isLocalFrame) {
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(frameLog)
-            }).catch(() => {});
-        }
+    // Log every N frames (only in debug mode)
+    if (animate.frameCount % frameLogInterval === 0) {
+        logger.debug('particles.js:animate:frame', 'Animation frame executed', {
+            frameCount: animate.frameCount,
+            ctxExists: !!ctx,
+            particlesCount: particles.length
+        });
     }
-    // #endregion
     
     const canvasEl = getCanvas();
     if (!ctx || !canvasEl) {
-        // #region agent log
         if (animate.frameCount === 1) {
-            const errorLog = {
-                location: 'particles.js:animate:error',
-                message: 'Animation failed - ctx or canvas missing',
-                data: {
-                    ctxExists: !!ctx,
-                    canvasExists: !!canvasEl
-                },
-                timestamp: Date.now(),
-                sessionId: 'debug-session',
-                runId: 'run1',
-                hypothesisId: 'C'
-            };
-            // Only log to local debug server if available
-            const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            if (isLocalDebug) {
-                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(errorLog)
-                }).catch(() => {});
-            }
+            logger.error('particles.js:animate:error', null, {
+                ctxExists: !!ctx,
+                canvasExists: !!canvasEl
+            });
         }
-        // #endregion
         // Try to get canvas again on next frame
         if (animate.frameCount < 10) {
             requestAnimationFrame(animate);
@@ -357,11 +200,13 @@ function animate() {
         
         ctx.clearRect(0, 0, width, height);
 
+        // Optimized particle rendering - only check nearby particles
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
 
-            for (let j = i; j < particles.length; j++) {
+            // Only check connections for particles ahead (avoid duplicate checks)
+            for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
@@ -379,59 +224,23 @@ function animate() {
 
         requestAnimationFrame(animate);
     } catch (e) {
-        // #region agent log
-        const errorLog = {
-            location: 'particles.js:animate:exception',
-            message: 'Exception in animate loop',
-            data: {
-                error: e.toString(),
-                message: e.message,
-                stack: e.stack
-            },
-            timestamp: Date.now(),
-            sessionId: 'debug-session',
-            runId: 'run1',
-            hypothesisId: 'B'
-        };
-        // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(errorLog)
-        }).catch(() => {});
-    }
-    // #endregion
+        logger.error('particles.js:animate:exception', e, {
+            error: e.toString(),
+            message: e.message,
+            stack: e.stack
+        });
         // Continue animation even after error to prevent complete failure
         requestAnimationFrame(animate);
     }
 }
 
 window.addEventListener('resize', resize);
-// #region agent log
-const startLog = {
-    location: 'particles.js:start',
-    message: 'Starting particles animation',
-    data: {
-        documentReady: document.readyState,
-        canvasExists: !!getCanvas()
-    },
-    timestamp: Date.now(),
-    sessionId: 'debug-session',
-    runId: 'run1',
-    hypothesisId: 'C'
-};
-// Only log to local debug server if available
-const isLocalStart = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-if (isLocalStart) {
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(startLog)
-    }).catch(() => {});
-}
-// #endregion
+
+// Initialize on load
+getLogger().debug('particles.js:start', 'Starting particles animation', {
+    documentReady: document.readyState,
+    canvasExists: !!getCanvas()
+});
 
 // Ensure canvas is available before initializing
 function startParticles() {

@@ -48,6 +48,9 @@ html {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
     background-color: var(--bg-color);
+    /* Mobile smooth scrolling enhancement */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -59,6 +62,9 @@ body {
     overflow-y: auto;
     -webkit-font-smoothing: antialiased; /* Crisper text on Mac */
     -moz-osx-font-smoothing: grayscale;
+    /* Mobile touch optimization */
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: rgba(0, 243, 255, 0.2);
 }
 
 h1,
@@ -1355,10 +1361,18 @@ footer {
     /* Navigation */
     nav {
         padding: 15px 20px;
+        /* Prevent scroll on mobile nav */
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 
     .hamburger {
         display: flex;
+        /* Better touch target */
+        min-width: 44px;
+        min-height: 44px;
     }
 
     .nav-links {
@@ -1380,11 +1394,45 @@ footer {
         gap: 40px;
         box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         visibility: hidden; /* Accessibility fix: Hide completely when closed */
+        /* Prevent body scroll when menu is open */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-links.active {
         right: 0;
         visibility: visible;
+    }
+    
+    /* Prevent body scroll when mobile menu is open */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* Smooth mobile menu transitions */
+    .nav-links a,
+    .nav-links button {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(0);
+    }
+    
+    .nav-links.active a,
+    .nav-links.active button {
+        animation: slideInRight 0.3s ease-out forwards;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     .nav-links a {
@@ -1536,6 +1584,9 @@ footer {
     scroll-snap-stop: always;
     box-sizing: border-box;
     background: transparent;
+    /* Mobile smooth scroll optimization */
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
 }
 
 /* Section Indicators */
@@ -1548,6 +1599,8 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    /* Mobile touch optimization */
+    touch-action: none;
 }
 
 .section-indicator {
@@ -1558,6 +1611,10 @@ footer {
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    /* Better touch target */
+    padding: 8px;
+    margin: -8px;
 }
 
 .section-indicator:hover {
@@ -2116,11 +2173,28 @@ footer {
     .section-indicators {
         right: 15px;
         gap: 10px;
+        /* Better touch targets on mobile */
+        padding: 10px 5px;
     }
     
     .section-indicator {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
+        /* Better touch target */
+        min-width: 24px;
+        min-height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .section-indicator::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: inherit;
+        border: inherit;
     }
     
     .hero-title {
@@ -2164,6 +2238,20 @@ footer {
     .scroll-section {
         padding: 100px 15px 40px;
         min-height: auto;
+        /* Enhanced mobile scrolling */
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Mobile scroll performance */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    * {
+        -webkit-tap-highlight-color: rgba(0, 243, 255, 0.2);
     }
     
     /* Hero Section */
@@ -2484,6 +2572,26 @@ footer {
     .cta-button {
         padding: 12px 20px;
         font-size: 0.85rem;
+        /* Better touch target */
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Improve text readability on mobile */
+    body {
+        font-size: 16px; /* Prevent zoom on iOS */
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    /* Better spacing for mobile */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    /* Smooth transitions for mobile */
+    * {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -2491,23 +2599,28 @@ footer {
 @media (max-width: 480px) {
     .hero-title {
         font-size: 1.6rem;
+        line-height: 1.3;
     }
     
     .hero-subtitle {
         font-size: 0.85rem;
+        line-height: 1.5;
     }
     
     .section-title {
         font-size: 1.3rem;
+        line-height: 1.4;
     }
     
     /* Agent Grid - Single column on very small screens */
     .agent-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
     
     .diagai-hero h2 {
         font-size: 2rem !important;
+        line-height: 1.2;
     }
     
     #diagai-3d-container {
@@ -2516,16 +2629,29 @@ footer {
     
     .card {
         padding: 15px;
+        margin-bottom: 15px;
     }
     
     .schematic-section {
         padding: 20px 12px;
+        margin: 30px 0;
     }
     
     .specs-table th,
     .specs-table td {
         padding: 6px 8px;
         font-size: 0.7rem;
+    }
+    
+    /* Enhanced mobile scrolling */
+    .scroll-section {
+        padding: 90px 12px 30px;
+    }
+    
+    /* Better touch targets */
+    button, a.cta-button {
+        min-height: 44px;
+        min-width: 44px;
     }
 }
 

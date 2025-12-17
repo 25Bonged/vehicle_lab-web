@@ -89,3 +89,4 @@ After adding the missing records in Netlify, you should see:
 - All pointing to Netlify IPs
 - www CNAME (if you want www subdomain)
 
+

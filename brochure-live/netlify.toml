@@ -1,5 +1,5 @@
 [build]
-  publish = "brochure-live"
+  publish = "."
   command = ""
 
 # Redirect rules for routing diagnostics to Render app

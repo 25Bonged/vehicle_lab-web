@@ -174,3 +174,4 @@ If something goes wrong:
 - **SSL Certificate:** 1-2 hours after DNS detected
 - **Total:** ~2-26 hours (most likely 2-6 hours)
 
+

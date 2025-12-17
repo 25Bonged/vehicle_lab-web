@@ -143,3 +143,4 @@ User visits vehiclelab.in/diagnostics/* → Netlify proxies to Render ✅
 - `brochure-live/` - Your brochure site files
 - Render app - Separate deployment on Render
 
+
