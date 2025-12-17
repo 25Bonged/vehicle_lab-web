@@ -110,11 +110,13 @@ function startDeployment() {
         setTimeout(() => {
              // Redirect to diagnostics via Netlify proxy
              try {
-                 window.location.href = '/diagnostics';
+                 // Use full URL to ensure it works across all scenarios
+                 const diagnosticsUrl = window.location.origin + '/diagnostics';
+                 window.location.href = diagnosticsUrl;
              } catch (error) {
                  console.error('Redirect failed:', error);
                  // Fallback: try direct Render URL
-                 window.location.href = 'https://vehicle-lab-web-deploy.onrender.com/';
+                 window.location.href = 'https://vehicle-lab-web-deploy.onrender.com/diagnostics';
              }
         }, 800);
     }, 5000);
@@ -123,4 +125,8 @@ function startDeployment() {
 // Make function globally available
 if (typeof window !== 'undefined') {
     window.startDeployment = startDeployment;
+    
+    // Export for debugging
+    window.deploymentReady = true;
+    console.log('Deployment function ready:', typeof startDeployment === 'function');
 }

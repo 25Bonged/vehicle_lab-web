@@ -779,6 +779,10 @@ footer {
     pointer-events: none;
     display: block;
     background: transparent;
+    /* Mobile optimization */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: contents;
 }
 
 /* Schematic Diagrams */
@@ -2676,6 +2680,13 @@ footer {
     .specs-table td {
         padding: 6px 8px;
         font-size: 0.7rem;
+    }
+    
+    /* Particles optimization for small mobile screens */
+    #particles {
+        /* Reduce rendering quality slightly for better performance on small devices */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
     }
     
     /* Enhanced mobile scrolling */

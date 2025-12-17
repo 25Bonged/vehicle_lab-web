@@ -12,12 +12,16 @@ const getConfig = () => {
     if (window.CONFIG) {
         return window.CONFIG.PARTICLES;
     }
+    
+    // Mobile optimization: reduce particles and connection distance on small screens
+    const isMobile = window.innerWidth <= 768;
+    
     return {
-        COUNT: 60,
-        CONNECTION_DISTANCE: 150,
+        COUNT: isMobile ? 40 : 60, // Fewer particles on mobile for better performance
+        CONNECTION_DISTANCE: isMobile ? 120 : 150, // Shorter connections on mobile
         SPEED: 0.5,
         MIN_SIZE: 1,
-        MAX_SIZE: 3
+        MAX_SIZE: isMobile ? 2 : 3 // Smaller particles on mobile
     };
 };
 
@@ -67,15 +71,29 @@ function resize() {
     width = window.innerWidth || 1920;
     height = window.innerHeight || 1080;
     
-    // Ensure minimum dimensions
-    if (width <= 0) width = 1920;
-    if (height <= 0) height = 1080;
+    // Ensure minimum dimensions (smaller defaults for mobile)
+    if (width <= 0) width = window.innerWidth > 0 ? window.innerWidth : 375;
+    if (height <= 0) height = window.innerHeight > 0 ? window.innerHeight : 667;
     
     canvasEl.width = width;
     canvasEl.height = height;
     
-    // Update config if available
+    // Update config if available (will adjust for mobile)
     config = getConfig();
+    
+    // Reinitialize particles with new count if screen size changed significantly
+    const isMobile = width <= 768;
+    const wasMobile = particles.length > 0 && particles.length <= 45; // Approximate check
+    if (isMobile !== wasMobile && particles.length > 0) {
+        // Adjust particle count for mobile/desktop switch
+        const targetCount = isMobile ? 40 : 60;
+        if (particles.length !== targetCount) {
+            particles = [];
+            for (let i = 0; i < targetCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+    }
 }
 
 class Particle {
@@ -320,3 +338,20 @@ function initializeParticles() {
 
 // Start initialization
 initializeParticles();
+
+// Export for debugging (optional)
+if (typeof window !== 'undefined') {
+    window.particlesInitialized = false;
+    // Check initialization status after a delay
+    setTimeout(() => {
+        const canvas = document.getElementById('particles');
+        if (canvas && canvas.width > 0 && canvas.height > 0) {
+            window.particlesInitialized = true;
+            getLogger().debug('particles.js:export', 'Particles initialized successfully', {
+                canvasWidth: canvas.width,
+                canvasHeight: canvas.height,
+                particlesCount: particles.length
+            });
+        }
+    }, 2000);
+}

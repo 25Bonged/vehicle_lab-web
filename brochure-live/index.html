@@ -788,23 +788,28 @@
         import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
         // Make THREE globally available for non-module scripts
         window.THREE = THREE;
+        console.log('✅ THREE.js loaded via ES modules (no deprecation warning)');
     </script>
-    <!-- Fallback for browsers that don't support ES modules -->
+    <!-- Fallback for browsers that don't support ES modules (IE11, etc.) -->
+    <!-- Note: This will show deprecation warning, but only for very old browsers -->
     <script nomodule>
-        // Load legacy build for older browsers (IE11, etc.)
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
-        script.crossOrigin = 'anonymous';
-        script.onload = function() {
-            // Make THREE available globally for legacy scripts
-            if (typeof window.THREE === 'undefined' && typeof THREE !== 'undefined') {
-                window.THREE = THREE;
-            }
-        };
-        script.onerror = function() {
-            console.warn('Failed to load THREE.js legacy build');
-        };
-        document.head.appendChild(script);
+        // Only load legacy build if ES modules are NOT supported
+        if (!window.THREE) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
+            script.crossOrigin = 'anonymous';
+            script.onload = function() {
+                // Make THREE available globally for legacy scripts
+                if (typeof window.THREE === 'undefined' && typeof THREE !== 'undefined') {
+                    window.THREE = THREE;
+                    console.warn('⚠️ THREE.js loaded via legacy build (deprecation warning expected)');
+                }
+            };
+            script.onerror = function() {
+                console.warn('⚠️ Failed to load THREE.js legacy build');
+            };
+            document.head.appendChild(script);
+        }
     </script>
     
     <!-- Load particles.js first (for background animation) -->
@@ -823,20 +828,57 @@
     
     <!-- Initialize -->
     <script>
-        // Unregister any existing service workers that might be causing issues
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister().then(function(success) {
-                        if (success) {
-                            console.log('Service worker unregistered successfully');
-                        }
+        // AGGRESSIVE: Unregister service workers IMMEDIATELY before anything else loads
+        // This prevents service worker from intercepting asset requests with wrong URLs
+        (function() {
+            if ('serviceWorker' in navigator) {
+                // Unregister all service workers
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    const unregisterPromises = [];
+                    for(let registration of registrations) {
+                        unregisterPromises.push(
+                            registration.unregister().then(function(success) {
+                                if (success) {
+                                    console.log('✅ Service worker unregistered:', registration.scope);
+                                }
+                                return success;
+                            }).catch(function(error) {
+                                console.warn('⚠️ Error unregistering service worker:', error);
+                                return false;
+                            })
+                        );
+                    }
+                    return Promise.all(unregisterPromises);
+                }).then(function(results) {
+                    if (results.length > 0) {
+                        console.log('✅ All service workers unregistered');
+                    }
+                }).catch(function(error) {
+                    console.warn('⚠️ Error getting service worker registrations:', error);
+                });
+                
+                // Also try to unregister by scope (in case registration list is stale)
+                if (navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({type: 'SKIP_WAITING'});
+                }
+                
+                // Clear service worker cache
+                if ('caches' in window) {
+                    caches.keys().then(function(cacheNames) {
+                        return Promise.all(
+                            cacheNames.map(function(cacheName) {
+                                console.log('🗑️ Deleting cache:', cacheName);
+                                return caches.delete(cacheName);
+                            })
+                        );
+                    }).then(function() {
+                        console.log('✅ All caches cleared');
                     }).catch(function(error) {
-                        console.warn('Error unregistering service worker:', error);
+                        console.warn('⚠️ Error clearing caches:', error);
                     });
                 }
-            });
-        }
+            }
+        })();
         
         // Prevent reload issues - clear any blocking errors
         window.addEventListener('error', function(e) {
@@ -1014,26 +1056,54 @@
                 // Initialize Deploy Now button (security fix - remove inline onclick)
                 const deployBtn = document.getElementById('deploy-now-btn');
                 if (deployBtn) {
-                    if (typeof startDeployment !== 'undefined') {
-                        deployBtn.addEventListener('click', startDeployment);
-                    } else if (typeof window.startDeployment !== 'undefined') {
-                        deployBtn.addEventListener('click', window.startDeployment);
+                    const attachDeploymentHandler = () => {
+                        const deployFunc = startDeployment || window.startDeployment;
+                        if (deployFunc && typeof deployFunc === 'function') {
+                            deployBtn.addEventListener('click', deployFunc);
+                            console.log('✅ DEPLOY NOW button initialized');
+                            return true;
+                        }
+                        return false;
+                    };
+                    
+                    if (attachDeploymentHandler()) {
+                        // Already attached
                     } else {
                         // Fallback: Wait for deployment.js to load
                         let attempts = 0;
+                        const maxAttempts = 50;
                         const checkDeployment = setInterval(() => {
                             attempts++;
-                            if (typeof startDeployment !== 'undefined' || typeof window.startDeployment !== 'undefined') {
+                            if (attachDeploymentHandler()) {
                                 clearInterval(checkDeployment);
-                                const deployFunc = startDeployment || window.startDeployment;
-                                deployBtn.addEventListener('click', deployFunc);
-                            } else if (attempts > 50) {
+                            } else if (attempts >= maxAttempts) {
                                 clearInterval(checkDeployment);
-                                console.warn('Deployment function not found after timeout');
+                                console.warn('⚠️ Deployment function not found after timeout');
                             }
                         }, 100);
                     }
+                } else {
+                    console.warn('⚠️ DEPLOY NOW button not found in DOM');
                 }
+                
+                // Verify particles initialization
+                setTimeout(() => {
+                    const particlesCanvas = document.getElementById('particles');
+                    if (particlesCanvas) {
+                        const ctx = particlesCanvas.getContext('2d');
+                        const isInitialized = particlesCanvas.width > 0 && particlesCanvas.height > 0;
+                        if (isInitialized) {
+                            console.log('✅ Particle background initialized', {
+                                width: particlesCanvas.width,
+                                height: particlesCanvas.height
+                            });
+                        } else {
+                            console.warn('⚠️ Particle canvas not properly sized');
+                        }
+                    } else {
+                        console.warn('⚠️ Particle canvas element not found');
+                    }
+                }, 2000);
                 
                 // Animated Text Changer
                 const questionText = document.querySelector('.question-text');
