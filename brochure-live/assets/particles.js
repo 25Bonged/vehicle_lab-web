@@ -95,8 +95,8 @@ function resize() {
     if (width <= 0) width = 1920;
     if (height <= 0) height = 1080;
     
-    canvas.width = width;
-    canvas.height = height;
+    canvasEl.width = width;
+    canvasEl.height = height;
 }
 
 class Particle {
@@ -126,12 +126,14 @@ class Particle {
 }
 
 function init() {
+    const canvasEl = getCanvas();
+    
     // #region agent log
     const logData = {
         location: 'particles.js:init',
         message: 'Particles init started',
         data: {
-            canvasExists: !!canvas,
+            canvasExists: !!canvasEl,
             ctxExists: !!ctx,
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
@@ -152,13 +154,13 @@ function init() {
     }
     // #endregion
     
-    if (!canvas || !ctx) {
+    if (!canvasEl || !ctx) {
         // #region agent log
         const errorLog = {
             location: 'particles.js:init:error',
             message: 'Canvas or context missing - init failed',
             data: {
-                canvasExists: !!canvas,
+                canvasExists: !!canvasEl,
                 ctxExists: !!ctx
             },
             timestamp: Date.now(),
@@ -276,7 +278,7 @@ function animate() {
             data: {
                 frameCount: animate.frameCount,
                 ctxExists: !!ctx,
-                canvasExists: !!canvas,
+                canvasExists: !!canvasEl,
                 particlesCount: particles.length
             },
             timestamp: Date.now(),
@@ -296,7 +298,8 @@ function animate() {
     }
     // #endregion
     
-    if (!ctx || !canvas) {
+    const canvasEl = getCanvas();
+    if (!ctx || !canvasEl) {
         // #region agent log
         if (animate.frameCount === 1) {
             const errorLog = {
@@ -304,7 +307,7 @@ function animate() {
                 message: 'Animation failed - ctx or canvas missing',
                 data: {
                     ctxExists: !!ctx,
-                    canvasExists: !!canvas
+                    canvasExists: !!canvasEl
                 },
                 timestamp: Date.now(),
                 sessionId: 'debug-session',
@@ -312,15 +315,20 @@ function animate() {
                 hypothesisId: 'C'
             };
             // Only log to local debug server if available
-    const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (isLocalDebug) {
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(errorLog)
-            }).catch(() => {});
+            const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            if (isLocalDebug) {
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(errorLog)
+                }).catch(() => {});
+            }
         }
         // #endregion
+        // Try to get canvas again on next frame
+        if (animate.frameCount < 10) {
+            requestAnimationFrame(animate);
+        }
         return;
     }
     
@@ -395,7 +403,7 @@ const startLog = {
     message: 'Starting particles animation',
     data: {
         documentReady: document.readyState,
-        canvasExists: !!canvas
+        canvasExists: !!getCanvas()
     },
     timestamp: Date.now(),
     sessionId: 'debug-session',
@@ -413,12 +421,29 @@ if (isLocalStart) {
 }
 // #endregion
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        init();
-        animate();
-    });
-} else {
+// Ensure canvas is available before initializing
+function startParticles() {
+    const canvasEl = getCanvas();
+    if (!canvasEl) {
+        // Canvas not ready yet, try again
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startParticles);
+        } else {
+            // Use setTimeout as fallback
+            setTimeout(startParticles, 100);
+        }
+        return;
+    }
+    
+    // Canvas is ready, initialize
     init();
     animate();
+}
+
+// Start particles animation
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startParticles);
+} else {
+    // DOM already loaded, but give a small delay to ensure canvas is in DOM
+    setTimeout(startParticles, 0);
 }
