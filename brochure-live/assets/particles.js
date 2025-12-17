@@ -75,8 +75,13 @@ function resize() {
     
     if (!canvas) return;
     
-    width = window.innerWidth;
-    height = window.innerHeight;
+    width = window.innerWidth || 1920;
+    height = window.innerHeight || 1080;
+    
+    // Ensure minimum dimensions
+    if (width <= 0) width = 1920;
+    if (height <= 0) height = 1080;
+    
     canvas.width = width;
     canvas.height = height;
 }
@@ -154,6 +159,31 @@ function init() {
     }
     
     resize();
+    
+    // #region agent log
+    if (!width || !height || width === 0 || height === 0) {
+        const sizeErrorLog = {
+            location: 'particles.js:init:sizeError',
+            message: 'Canvas dimensions invalid',
+            data: {
+                width: width,
+                height: height,
+                windowWidth: window.innerWidth,
+                windowHeight: window.innerHeight
+            },
+            timestamp: Date.now(),
+            sessionId: 'debug-session',
+            runId: 'run1',
+            hypothesisId: 'C'
+        };
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(sizeErrorLog)
+        }).catch(() => {});
+    }
+    // #endregion
+    
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
@@ -205,6 +235,29 @@ function animate() {
         }).catch(() => {});
     }
     animate.frameCount++;
+    
+    // Log every 60 frames (roughly once per second at 60fps)
+    if (animate.frameCount % 60 === 0) {
+        const frameLog = {
+            location: 'particles.js:animate:frame',
+            message: 'Animation frame executed',
+            data: {
+                frameCount: animate.frameCount,
+                ctxExists: !!ctx,
+                canvasExists: !!canvas,
+                particlesCount: particles.length
+            },
+            timestamp: Date.now(),
+            sessionId: 'debug-session',
+            runId: 'run1',
+            hypothesisId: 'C'
+        };
+        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(frameLog)
+        }).catch(() => {});
+    }
     // #endregion
     
     if (!ctx || !canvas) {
@@ -233,6 +286,16 @@ function animate() {
     }
     
     try {
+        // Ensure width and height are valid before clearing
+        if (!width || !height || width <= 0 || height <= 0) {
+            // Resize if dimensions are invalid
+            resize();
+            if (!width || !height) {
+                requestAnimationFrame(animate);
+                return;
+            }
+        }
+        
         ctx.clearRect(0, 0, width, height);
 
         for (let i = 0; i < particles.length; i++) {
@@ -277,6 +340,8 @@ function animate() {
             body: JSON.stringify(errorLog)
         }).catch(() => {});
         // #endregion
+        // Continue animation even after error to prevent complete failure
+        requestAnimationFrame(animate);
     }
 }
 

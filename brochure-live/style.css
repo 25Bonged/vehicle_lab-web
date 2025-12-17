@@ -15,12 +15,18 @@
     padding: 0;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-main);
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
 }
 
 h1,
