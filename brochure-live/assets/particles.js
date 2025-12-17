@@ -24,32 +24,43 @@
 })();
 // #endregion
 
-const canvas = document.getElementById('particles');
-// #region agent log
-const canvasCheck = {
-    location: 'particles.js:canvas',
-    message: 'Canvas element check',
-    data: {
-        canvasFound: !!canvas,
-        canvasContext: canvas ? !!canvas.getContext('2d') : false
-    },
-    timestamp: Date.now(),
-    sessionId: 'debug-session',
-    runId: 'run1',
-    hypothesisId: 'C'
-};
-// Only log to local debug server if available
-const isLocalCanvas = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-if (isLocalCanvas) {
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(canvasCheck)
-    }).catch(() => {});
-}
+// Get canvas element - will be retrieved when DOM is ready
+let canvas = null;
+let ctx = null;
+
+// Function to initialize canvas
+function getCanvas() {
+    if (!canvas) {
+        canvas = document.getElementById('particles');
+        if (canvas) {
+            ctx = canvas.getContext('2d');
+            // #region agent log
+            const canvasCheck = {
+                location: 'particles.js:canvas',
+                message: 'Canvas element check',
+                data: {
+                    canvasFound: !!canvas,
+                    canvasContext: !!ctx
+                },
+                timestamp: Date.now(),
+                sessionId: 'debug-session',
+                runId: 'run1',
+                hypothesisId: 'C'
+            };
+            // Only log to local debug server if available
+            const isLocalCanvas = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            if (isLocalCanvas) {
+                fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(canvasCheck)
+                }).catch(() => {});
+            }
+            // #endregion
+        }
     }
-    // #endregion
-const ctx = canvas ? canvas.getContext('2d') : null;
+    return canvas;
+}
 
 let width, height;
 let particles = [];
@@ -60,12 +71,15 @@ const connectionDistance = 150;
 const particleSpeed = 0.5;
 
 function resize() {
+    const canvasEl = getCanvas();
+    if (!canvasEl) return;
+    
     // #region agent log
     const resizeLog = {
         location: 'particles.js:resize',
         message: 'Resize function called',
         data: {
-            canvasExists: !!canvas,
+            canvasExists: !!canvasEl,
             ctxExists: !!ctx,
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
@@ -79,14 +93,12 @@ function resize() {
     const isLocalDebug = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (isLocalDebug) {
         fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(resizeLog)
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(resizeLog)
         }).catch(() => {});
     }
     // #endregion
-    
-    if (!canvas) return;
     
     width = window.innerWidth || 1920;
     height = window.innerHeight || 1080;
