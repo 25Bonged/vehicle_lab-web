@@ -17,6 +17,13 @@
   status = 200
   force = true
 
+# Proxy for ingest endpoint
+[[redirects]]
+  from = "/ingest/*"
+  to = "https://vehicle-lab-web-deploy.onrender.com/ingest/:splat"
+  status = 200
+  force = true
+
 # Headers for security and performance
 [[headers]]
   for = "/*"

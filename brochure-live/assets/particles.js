@@ -12,7 +12,7 @@
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(logData)
@@ -34,7 +34,7 @@ const canvasCheck = {
     runId: 'run1',
     hypothesisId: 'C'
 };
-fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(canvasCheck)
@@ -66,7 +66,7 @@ function resize() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(resizeLog)
@@ -128,7 +128,7 @@ function init() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(logData)
@@ -149,7 +149,7 @@ function init() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(errorLog)
@@ -176,7 +176,7 @@ function init() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(sizeErrorLog)
@@ -202,7 +202,7 @@ function init() {
         runId: 'run1',
         hypothesisId: 'C'
     };
-    fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+    fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(successLog)
@@ -228,7 +228,7 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(animateStartLog)
@@ -252,7 +252,7 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'C'
         };
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(frameLog)
@@ -275,7 +275,7 @@ function animate() {
                 runId: 'run1',
                 hypothesisId: 'C'
             };
-            fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+            fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(errorLog)
@@ -334,7 +334,7 @@ function animate() {
             runId: 'run1',
             hypothesisId: 'B'
         };
-        fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+        fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(errorLog)
@@ -359,7 +359,7 @@ const startLog = {
     runId: 'run1',
     hypothesisId: 'C'
 };
-fetch('http://127.0.0.1:7244/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
+fetch('/ingest/ef78c447-0c3f-4b0e-8b1c-7bb88ff78e42', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(startLog)
