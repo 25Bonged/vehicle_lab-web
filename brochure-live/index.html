@@ -36,7 +36,10 @@
     
     <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
     
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -132,6 +135,8 @@
         <div class="section-indicator" data-section="7" aria-label="Go to Contact section" tabindex="0"></div>
     </div>
 
+    <!-- Main Content -->
+    <main id="main-content">
     <!-- Section 1: Hero -->
     <section class="scroll-section hero-section" id="hero">
             <div class="hero-content">
@@ -174,12 +179,12 @@
                 
         <div class="grid">
                     <div class="card card-3d">
-                            <img src="assets/icons/ai-powered.svg" class="card-icon" alt="AI-Powered Diagnostics Icon" loading="lazy">
+                            <img src="/assets/icons/ai-powered.svg" class="card-icon" alt="AI-Powered Diagnostics Icon" loading="lazy">
                 <h3>AI-Powered</h3>
                 <p>Natural language queries for complex diagnostic tasks. Ask questions, get answers.</p>
             </div>
                     <div class="card card-3d">
-                            <img src="assets/icons/universal.svg" class="card-icon" alt="Universal File Support Icon" loading="lazy">
+                            <img src="/assets/icons/universal.svg" class="card-icon" alt="Universal File Support Icon" loading="lazy">
                 <h3>Universal Support</h3>
                 <p>Native support for MDF, MF4, CSV, and Excel files. No conversion needed.</p>
             </div>

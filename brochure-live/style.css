@@ -121,6 +121,15 @@ nav {
     font-size: 0.9rem;
     font-weight: 500;
     position: relative;
+    /* Accessibility: Focus states */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.nav-links a:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    color: var(--accent-cyan);
 }
 
 .nav-links a:hover,
@@ -177,6 +186,15 @@ nav {
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    /* Accessibility: Focus states */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.cta-button:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.3);
 }
 
 /* Make anchor buttons look like buttons */
@@ -217,6 +235,14 @@ a.cta-button {
     margin-right: -10px; /* Compensate for padding */
     background: transparent;
     border: none;
+    /* Accessibility: Focus states */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.hamburger:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
 }
 
 .hamburger span {
@@ -1615,6 +1641,15 @@ footer {
     /* Better touch target */
     padding: 8px;
     margin: -8px;
+    /* Accessibility: Focus states */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.section-indicator:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    background: rgba(0, 243, 255, 0.6);
 }
 
 .section-indicator:hover {
