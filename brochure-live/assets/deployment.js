@@ -103,7 +103,8 @@ function startDeployment() {
         }
         
         setTimeout(() => {
-             window.location.href = 'https://vehicle-lab-web-deploy.onrender.com';
+             // Redirect to diagnostics via Netlify proxy
+             window.location.href = '/diagnostics';
         }, 800);
     }, 5000);
 }
