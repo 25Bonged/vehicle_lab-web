@@ -147,3 +147,5 @@ openssl s_client -connect vehiclelab.in:443 -servername vehiclelab.in < /dev/nul
 This is the #1 fix for your SSL error. Everything else is secondary.
 
 
+
+

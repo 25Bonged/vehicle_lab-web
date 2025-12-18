@@ -1,5 +1,6 @@
 [build]
-  publish = "."
+  publish = "." # Deploy trigger: Fix 404s
+
   command = ""
 
 # Redirect rules for routing diagnostics to Render app

@@ -178,3 +178,4 @@ console.log('Nav links:', !!navLinks);
 
 **Test the mobile view now - everything should be working perfectly!**
 
+
