@@ -1,0 +1,9 @@
+# Allow JavaScript files in assets directory
+!assets/**/*.js
+!assets/*.js
+
+# Ignore other JS files (node_modules, build files, etc.)
+node_modules/
+*.log
+.DS_Store
+
