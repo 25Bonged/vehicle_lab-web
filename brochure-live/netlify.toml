@@ -1,54 +1,45 @@
 [build]
-  publish = "." # Deploy trigger: Fix 404s
-
+  publish = "."
   command = ""
 
 # Redirect rules for routing diagnostics to Render app
 # This proxies /diagnostics/* requests to your Render app
+# Proxy rules
 [[redirects]]
   from = "/diagnostics/*"
   to = "https://vehicle-lab-web-deploy.onrender.com/diagnostics/:splat"
   status = 200
   force = true
-
-# Also handle /diagnostics without trailing path
 [[redirects]]
   from = "/diagnostics"
   to = "https://vehicle-lab-web-deploy.onrender.com/diagnostics"
   status = 200
   force = true
-
-# Proxy for ingest endpoint
 [[redirects]]
-  from = "/ingest/*"
-  to = "https://vehicle-lab-web-deploy.onrender.com/ingest/:splat"
+  from = "/api/*"
+  to = "https://vehicle-lab-web-deploy.onrender.com/api/:splat"
   status = 200
   force = true
-
-# Proxy for analytics endpoint
 [[redirects]]
-  from = "/analytics/*"
-  to = "https://vehicle-lab-web-deploy.onrender.com/analytics/:splat"
+  from = "/smart_merge_upload"
+  to = "https://vehicle-lab-web-deploy.onrender.com/smart_merge_upload"
   status = 200
   force = true
-
-# Also handle /analytics without trailing path
 [[redirects]]
   from = "/analytics"
   to = "https://vehicle-lab-web-deploy.onrender.com/analytics"
   status = 200
   force = true
-
-# Block service worker to prevent URL construction issues
 [[redirects]]
-  from = "/sw.js"
-  to = "/404.html"
-  status = 404
-
+  from = "/health"
+  to = "https://vehicle-lab-web-deploy.onrender.com/health"
+  status = 200
+  force = true
 [[redirects]]
-  from = "/service-worker.js"
-  to = "/404.html"
-  status = 404
+  from = "/ingest/*"
+  to = "https://vehicle-lab-web-deploy.onrender.com/ingest/:splat"
+  status = 200
+  force = true
 
 # Headers for security and performance
 [[headers]]
@@ -90,16 +81,3 @@
   for = "/assets/*.png"
   [headers.values]
     Content-Type = "image/png"
-
-# Ensure proper MIME type for JavaScript files
-[[headers]]
-  for = "/assets/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-
-# Ensure proper MIME type for root-level JS files
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-

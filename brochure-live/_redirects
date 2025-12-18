@@ -1,6 +1,13 @@
-# Fallback for SPA-like behavior (optional)
-# /index.html 200
-
-# Ensure assets are served correctly
-/assets/*  /assets/:splat  200
-
+# Redirects for Vehicle Lab
+# Format: /path  to_url  status
+# Main App Proxy
+/diagnostics/*  https://vehicle-lab-web-deploy.onrender.com/diagnostics/:splat  200!
+/diagnostics    https://vehicle-lab-web-deploy.onrender.com/diagnostics        200!
+# API Proxies
+/api/*              https://vehicle-lab-web-deploy.onrender.com/api/:splat              200!
+/smart_merge_upload https://vehicle-lab-web-deploy.onrender.com/smart_merge_upload      200!
+/analytics          https://vehicle-lab-web-deploy.onrender.com/analytics               200!
+/health             https://vehicle-lab-web-deploy.onrender.com/health                  200!
+/ingest/*           https://vehicle-lab-web-deploy.onrender.com/ingest/:splat           200!
+# Fallback for SPA (if we were hosting locally, but here we proxy everything)
+# /* /index.html 200
