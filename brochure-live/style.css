@@ -2312,6 +2312,11 @@ footer {
     .hero-buttons .cta-button {
         width: 100%;
         text-align: center;
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
+        padding: 12px 20px;
+        font-size: 0.85rem;
     }
     
     /* Section Titles */
