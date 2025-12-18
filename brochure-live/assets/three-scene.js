@@ -15,7 +15,7 @@ class ThreeScene {
         this.scrollProgress = 0;
         this.isMobile = window.innerWidth < 768;
         this.initialized = false;
-        
+
         // Wait for THREE to be available (check both THREE and window.THREE)
         const threeAvailable = typeof THREE !== 'undefined' || typeof window.THREE !== 'undefined';
         if (!threeAvailable) {
@@ -36,7 +36,7 @@ class ThreeScene {
                 resolve();
                 return;
             }
-            
+
             // Fallback: Load legacy build if ES modules didn't work
             const script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
@@ -64,17 +64,17 @@ class ThreeScene {
             console.warn('THREE.js not loaded yet');
             return;
         }
-        
+
         // Use ThreeLib throughout this function
-        const THREE = ThreeLib;
-        
+        const Three = ThreeLib;
+
         // Scene setup
-        this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.Fog(0x050a14, 10, 50);
+        this.scene = new Three.Scene();
+        this.scene.fog = new Three.Fog(0x050a14, 10, 50);
         this.initialized = true;
 
         // Camera setup
-        this.camera = new THREE.PerspectiveCamera(
+        this.camera = new Three.PerspectiveCamera(
             75,
             window.innerWidth / window.innerHeight,
             0.1,
@@ -83,7 +83,7 @@ class ThreeScene {
         this.camera.position.z = 5;
 
         // Renderer setup
-        this.renderer = new THREE.WebGLRenderer({
+        this.renderer = new Three.WebGLRenderer({
             antialias: true,
             alpha: true,
             powerPreference: "high-performance"
@@ -94,14 +94,14 @@ class ThreeScene {
         this.container.appendChild(this.renderer.domElement);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new Three.AmbientLight(0xffffff, 0.5);
         this.scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0x00f3ff, 0.8);
+        const directionalLight = new Three.DirectionalLight(0x00f3ff, 0.8);
         directionalLight.position.set(5, 5, 5);
         this.scene.add(directionalLight);
 
-        const pointLight = new THREE.PointLight(0xbc13fe, 0.6, 100);
+        const pointLight = new Three.PointLight(0xbc13fe, 0.6, 100);
         pointLight.position.set(-5, -5, 5);
         this.scene.add(pointLight);
 
@@ -112,17 +112,17 @@ class ThreeScene {
 
     createParticleSystem() {
         const particleCount = this.isMobile ? 500 : 2000;
-        const geometry = new THREE.BufferGeometry();
+        const geometry = new Three.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        const color1 = new THREE.Color(0x00f3ff); // Cyan
-        const color2 = new THREE.Color(0xbc13fe); // Purple
+        const color1 = new Three.Color(0x00f3ff); // Cyan
+        const color2 = new Three.Color(0xbc13fe); // Purple
 
         for (let i = 0; i < particleCount; i++) {
             const i3 = i * 3;
-            
+
             // Positions
             positions[i3] = (Math.random() - 0.5) * 20;
             positions[i3 + 1] = (Math.random() - 0.5) * 20;
@@ -130,7 +130,7 @@ class ThreeScene {
 
             // Colors (interpolate between cyan and purple)
             const colorMix = Math.random();
-            const color = new THREE.Color().lerpColors(color1, color2, colorMix);
+            const color = new Three.Color().lerpColors(color1, color2, colorMix);
             colors[i3] = color.r;
             colors[i3 + 1] = color.g;
             colors[i3 + 2] = color.b;
@@ -139,19 +139,19 @@ class ThreeScene {
             sizes[i] = Math.random() * 2 + 0.5;
         }
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+        geometry.setAttribute('position', new Three.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new Three.BufferAttribute(colors, 3));
+        geometry.setAttribute('size', new Three.BufferAttribute(sizes, 1));
 
-        const material = new THREE.PointsMaterial({
+        const material = new Three.PointsMaterial({
             size: 0.05,
             vertexColors: true,
             transparent: true,
             opacity: 0.8,
-            blending: THREE.AdditiveBlending
+            blending: Three.AdditiveBlending
         });
 
-        this.particles = new THREE.Points(geometry, material);
+        this.particles = new Three.Points(geometry, material);
         this.scene.add(this.particles);
     }
 
@@ -159,7 +159,7 @@ class ThreeScene {
         // Use stored THREE reference
         const ThreeLib = this.ThreeLib || (typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null));
         if (!ThreeLib) return;
-        
+
         // Floating cubes
         for (let i = 0; i < (this.isMobile ? 3 : 8); i++) {
             const geometry = new ThreeLib.BoxGeometry(0.3, 0.3, 0.3);
@@ -171,7 +171,7 @@ class ThreeScene {
                 opacity: 0.6
             });
             const cube = new ThreeLib.Mesh(geometry, material);
-            
+
             cube.position.set(
                 (Math.random() - 0.5) * 10,
                 (Math.random() - 0.5) * 10,
@@ -182,7 +182,7 @@ class ThreeScene {
                 Math.random() * Math.PI,
                 Math.random() * Math.PI
             );
-            
+
             cube.userData = {
                 speed: {
                     rotation: {
@@ -196,7 +196,7 @@ class ThreeScene {
                 },
                 initialY: cube.position.y
             };
-            
+
             this.geometricShapes.push(cube);
             this.scene.add(cube);
         }
@@ -211,13 +211,13 @@ class ThreeScene {
                 opacity: 0.3
             });
             const torus = new ThreeLib.Mesh(geometry, material);
-            
+
             torus.position.set(
                 (Math.random() - 0.5) * 8,
                 (Math.random() - 0.5) * 8,
                 (Math.random() - 0.5) * 8
             );
-            
+
             torus.userData = {
                 speed: {
                     rotation: {
@@ -227,7 +227,7 @@ class ThreeScene {
                     }
                 }
             };
-            
+
             this.geometricShapes.push(torus);
             this.scene.add(torus);
         }
@@ -235,16 +235,16 @@ class ThreeScene {
 
     updateParticles() {
         if (!this.particles) return;
-        
+
         const positions = this.particles.geometry.attributes.position.array;
         const time = Date.now() * 0.0005;
-        
+
         for (let i = 0; i < positions.length; i += 3) {
             positions[i] += Math.sin(time + positions[i]) * 0.001;
             positions[i + 1] += Math.cos(time + positions[i + 1]) * 0.001;
             positions[i + 2] += Math.sin(time + positions[i + 2]) * 0.001;
         }
-        
+
         this.particles.geometry.attributes.position.needsUpdate = true;
         this.particles.rotation.y += 0.0005;
     }
@@ -257,13 +257,13 @@ class ThreeScene {
                 shape.rotation.y += shape.userData.speed.rotation.y;
                 shape.rotation.z += shape.userData.speed.rotation.z;
             }
-            
+
             // Floating animation
             if (shape.userData.speed.float) {
                 const time = Date.now() * 0.001;
                 shape.position.y = shape.userData.initialY + Math.sin(time + index) * 0.5;
             }
-            
+
             // Mouse interaction
             const mouseInfluence = 0.1;
             shape.position.x += (this.mouse.x * mouseInfluence - shape.position.x) * 0.05;
@@ -285,17 +285,17 @@ class ThreeScene {
     onScroll(progress) {
         this.scrollProgress = progress;
         this.updateCamera(progress);
-        
+
         // Update particle colors based on scroll
         if (this.particles && this.scene) {
             // Use stored THREE reference
             const ThreeLib = this.ThreeLib || (typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null));
             if (!ThreeLib) return;
-            
+
             const colors = this.particles.geometry.attributes.color.array;
             const color1 = new ThreeLib.Color(0x00f3ff);
             const color2 = new ThreeLib.Color(0xbc13fe);
-            
+
             for (let i = 0; i < colors.length; i += 3) {
                 const mix = (Math.sin(progress * Math.PI * 2 + i) + 1) / 2;
                 const color = new ThreeLib.Color().lerpColors(color1, color2, mix);
@@ -303,7 +303,7 @@ class ThreeScene {
                 colors[i + 1] = color.g;
                 colors[i + 2] = color.b;
             }
-            
+
             this.particles.geometry.attributes.color.needsUpdate = true;
         }
     }
@@ -313,12 +313,12 @@ class ThreeScene {
             requestAnimationFrame(() => this.animate());
             return;
         }
-        
+
         requestAnimationFrame(() => this.animate());
-        
+
         this.updateParticles();
         this.updateGeometricShapes();
-        
+
         this.renderer.render(this.scene, this.camera);
     }
 
@@ -339,12 +339,12 @@ class ThreeScene {
             this.particles.geometry.dispose();
             this.particles.material.dispose();
         }
-        
+
         this.geometricShapes.forEach(shape => {
             shape.geometry.dispose();
             shape.material.dispose();
         });
-        
+
         this.renderer.dispose();
     }
 }
