@@ -25,6 +25,20 @@
   status = 200
   force = true
 
+# Proxy for analytics endpoint
+[[redirects]]
+  from = "/analytics/*"
+  to = "https://vehicle-lab-web-deploy.onrender.com/analytics/:splat"
+  status = 200
+  force = true
+
+# Also handle /analytics without trailing path
+[[redirects]]
+  from = "/analytics"
+  to = "https://vehicle-lab-web-deploy.onrender.com/analytics"
+  status = 200
+  force = true
+
 # Block service worker to prevent URL construction issues
 [[redirects]]
   from = "/sw.js"
