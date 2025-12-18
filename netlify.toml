@@ -58,3 +58,15 @@
   [headers.values]
     Content-Type = "image/png"
 
+# Ensure proper MIME type for JavaScript files
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+# Ensure proper MIME type for root-level JS files
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
