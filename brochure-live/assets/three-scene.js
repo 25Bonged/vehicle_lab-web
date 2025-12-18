@@ -156,17 +156,21 @@ class ThreeScene {
     }
 
     createGeometricShapes() {
+        // Use stored THREE reference
+        const ThreeLib = this.ThreeLib || (typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null));
+        if (!ThreeLib) return;
+        
         // Floating cubes
         for (let i = 0; i < (this.isMobile ? 3 : 8); i++) {
-            const geometry = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-            const material = new THREE.MeshStandardMaterial({
+            const geometry = new ThreeLib.BoxGeometry(0.3, 0.3, 0.3);
+            const material = new ThreeLib.MeshStandardMaterial({
                 color: i % 2 === 0 ? 0x00f3ff : 0xbc13fe,
                 emissive: i % 2 === 0 ? 0x00f3ff : 0xbc13fe,
                 emissiveIntensity: 0.3,
                 transparent: true,
                 opacity: 0.6
             });
-            const cube = new THREE.Mesh(geometry, material);
+            const cube = new ThreeLib.Mesh(geometry, material);
             
             cube.position.set(
                 (Math.random() - 0.5) * 10,
@@ -199,14 +203,14 @@ class ThreeScene {
 
         // Torus knots
         for (let i = 0; i < (this.isMobile ? 1 : 3); i++) {
-            const geometry = new THREE.TorusKnotGeometry(0.5, 0.2, 64, 16);
-            const material = new THREE.MeshStandardMaterial({
+            const geometry = new ThreeLib.TorusKnotGeometry(0.5, 0.2, 64, 16);
+            const material = new ThreeLib.MeshStandardMaterial({
                 color: 0x00f3ff,
                 wireframe: true,
                 transparent: true,
                 opacity: 0.3
             });
-            const torus = new THREE.Mesh(geometry, material);
+            const torus = new ThreeLib.Mesh(geometry, material);
             
             torus.position.set(
                 (Math.random() - 0.5) * 8,
@@ -283,14 +287,18 @@ class ThreeScene {
         this.updateCamera(progress);
         
         // Update particle colors based on scroll
-        if (this.particles) {
+        if (this.particles && this.scene) {
+            // Use stored THREE reference
+            const ThreeLib = this.ThreeLib || (typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null));
+            if (!ThreeLib) return;
+            
             const colors = this.particles.geometry.attributes.color.array;
-            const color1 = new THREE.Color(0x00f3ff);
-            const color2 = new THREE.Color(0xbc13fe);
+            const color1 = new ThreeLib.Color(0x00f3ff);
+            const color2 = new ThreeLib.Color(0xbc13fe);
             
             for (let i = 0; i < colors.length; i += 3) {
                 const mix = (Math.sin(progress * Math.PI * 2 + i) + 1) / 2;
-                const color = new THREE.Color().lerpColors(color1, color2, mix);
+                const color = new ThreeLib.Color().lerpColors(color1, color2, mix);
                 colors[i] = color.r;
                 colors[i + 1] = color.g;
                 colors[i + 2] = color.b;
