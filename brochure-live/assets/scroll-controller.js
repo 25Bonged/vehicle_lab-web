@@ -209,10 +209,10 @@ class ScrollController {
             if (typeof requestAnimationFrame === 'function') {
                 requestAnimationFrame(animateScroll);
             } else {
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
                 setTimeout(() => {
                     this.isScrolling = false;
                 }, duration);
