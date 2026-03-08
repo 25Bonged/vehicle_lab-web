@@ -2,6 +2,24 @@
   publish = "."
   command = ""
 
+# Clean product URLs (4 products) — rewrite so URL stays /diagai, /helix, /cie, /mdx
+[[redirects]]
+  from = "/diagai"
+  to = "/diagai.html"
+  status = 200
+[[redirects]]
+  from = "/helix"
+  to = "/helix.html"
+  status = 200
+[[redirects]]
+  from = "/cie"
+  to = "/cie.html"
+  status = 200
+[[redirects]]
+  from = "/mdx"
+  to = "/mdx.html"
+  status = 200
+
 # Redirect rules for routing diagnostics to Render app
 # This proxies /diagnostics/* requests to your Render app
 # Proxy rules
@@ -40,6 +58,64 @@
   to = "https://vehicle-lab-web-deploy.onrender.com/ingest/:splat"
   status = 200
   force = true
+
+# Old frontend (web_deploy_res) → New frontend — 301 permanent for easy transfer
+[[redirects]]
+  from = "/web_deploy_res/index.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/diagai.html"
+  to = "/diagai.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/contact_us.html"
+  to = "/contact.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/case_studies.html"
+  to = "/casestudy.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/pricing.html"
+  to = "/specs.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/more_info.html"
+  to = "/features.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/security.html"
+  to = "/contact.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/docs.html"
+  to = "/specs.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/helix.html"
+  to = "/features.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/mdx.html"
+  to = "/features.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/cie_pro.html"
+  to = "/features.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/solutions.html"
+  to = "/features.html"
+  status = 301
+[[redirects]]
+  from = "/web_deploy_res/*"
+  to = "/"
+  status = 301
 
 # Headers for security and performance
 [[headers]]

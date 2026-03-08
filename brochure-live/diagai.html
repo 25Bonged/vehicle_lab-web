@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capabilities | VEHICLE-LAB</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="alternate icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap"
         rel="stylesheet">
@@ -26,7 +28,7 @@
             <a href="diagai.html" class="active">DiagAI</a>
             <a href="specs.html">Specs</a>
             <a href="contact.html">Contact</a>
-            <a href="specs.html"><button class="cta-button">DEPLOY NOW</button></a>
+            <button type="button" class="cta-button" id="nav-deploy-now-btn" aria-label="Deploy and launch DiagAI">DEPLOY NOW</button>
         </div>
     </nav>
 
@@ -36,6 +38,11 @@
                 <h2 style="font-size: 3rem; color: var(--accent-purple); margin-bottom: 20px;">Meet DiagAI</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 30px;">Your intelligent diagnostic assistant. Stop digging
                     through data manually. Just ask.</p>
+
+                <!-- Launch DiagAI (Render) CTA -->
+                <div style="margin-bottom: 30px;">
+                    <button type="button" class="cta-button cta-purple" id="launch-diagai-btn" aria-label="Launch DiagAI application">LAUNCH DIAGAI</button>
+                </div>
 
                 <!-- Terminal Simulation -->
                 <div class="terminal-window">
@@ -162,6 +169,19 @@
     </footer>
     <script src="assets/particles.js"></script>
     <script src="assets/mobile-nav.js"></script>
+    <script src="assets/deployment.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function runDeploy() {
+                var fn = typeof startDeployment !== 'undefined' ? startDeployment : (window.startDeployment || null);
+                if (fn) fn(); else console.warn('Deployment script not loaded.');
+            }
+            var launchBtn = document.getElementById('launch-diagai-btn');
+            if (launchBtn) launchBtn.addEventListener('click', runDeploy);
+            var navDeployBtn = document.getElementById('nav-deploy-now-btn');
+            if (navDeployBtn) navDeployBtn.addEventListener('click', runDeploy);
+        });
+    </script>
 </body>
 
 </html>

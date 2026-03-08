@@ -1,0 +1,748 @@
+vCDM 
+vCDMcenter – vCDMstudio – CANape Option vCDM – vCDM Tool-Set
+Product Information 
+vCDM 
+2 
+<Product Name> 
+Product Information 
+Table of Contents
+1 Introduction ................................ ................................ ................................ ................................ ................................ ............... 3
+1.1 Challenges in ECU calibration ................................ ................................ ................................ ................................ .................. 3
+1.2 The vCDM Solution ................................ ................................ ................................ ................................ ................................ ... 4
+2 A calibrators workbench – vCDMstudio ................................ ................................ ................................ ................................ . 6
+2.1 Excel for automotive calibration data ................................ ................................ ................................ ................................ .... 6
+2.2 Add extra functionality with Plug-in Apps ................................ ................................ ................................ .............................  7
+2.3 Ensuring compliance with calibration check rules (Parameter Rule App) ................................ ................................ ........... 7
+2.4 Function Inhibition Matrix (FIM App) ................................ ................................ ................................ ................................ ...... 9
+2.5 Connecting 3rd-party calibration tools  (INCA App) ................................ ................................ ................................ ............ 10
+2.6 Data set Management on the local PC (Data set Management App) ................................ ................................ ............... 11
+2.7 Advantages vCDMstudio ................................ ................................ ................................ ................................ ....................... 12
+3 Collaboration for success – Option vCDM................................ ................................ ................................ ............................  13
+3.1 Integration of Desktop and Cloud ................................ ................................ ................................ ................................ ......... 14
+3.2 Advantages Option vCDM ................................ ................................ ................................ ................................ ..................... 17
+4 Manage and control and the calibration process – vCDMcenter ................................ ................................ ....................... 18
+4.1 Manage calibration projects ................................ ................................ ................................ ................................ .................. 18
+4.2 Traceability for all calibration changes ................................ ................................ ................................ ................................ . 20
+4.3 Configure and control process quality ................................ ................................ ................................ ................................ .. 23
+4.4 Efficient Management of calibration variants ................................ ................................ ................................ ..................... 26
+4.5 Managing Parameter Dependencies ................................ ................................ ................................ ................................ ..... 27
+4.6 Monitor – Manage – Improve by Analysis and Reporting ................................ ................................ ................................ .... 28
+4.7 Advantages vCDMcenter ................................ ................................ ................................ ................................ ....................... 30
+5 Easy access to the vCDM Database – vCDMweb ................................ ................................ ................................ ................ 31
+5.1 Advantages vCDMweb ................................ ................................ ................................ ................................ ...........................  31
+6 Continuous Integration (CI) – vCDM Tool-Set ................................ ................................ ................................ ..................... 32
+6.1 Automate – Automate – Automate ................................ ................................ ................................ ................................ ...... 32
+6.2 Compare, Copy (Merge), Extract (vCDM Tool-Set) ................................ ................................ ................................ ............ 32
+6.3 Continous Rule Checks (vCDM Parameter Rules) ................................ ................................ ................................ ............... 32
+6.4 Application Programming Interfaces ................................ ................................ ................................ ................................ .... 33
+6.5 Jenkins Integration ................................ ................................ ................................ ................................ ................................ . 33
+7 A software architecture for today and tomorrow ................................ ................................ ................................ ............... 34
+7.1 Cloud-ready 3-Tier architecture ................................ ................................ ................................ ................................ ............ 34
+7.2 Cloud-based vCDM - Software as a Service ................................ ................................ ................................ ........................ 34
+7.3 Open Source ................................ ................................ ................................ ................................ ................................ ............ 35
+7.4 Microsoft Azure ................................ ................................ ................................ ................................ ................................ ....... 35
+8 Training Classes ................................ ................................ ................................ ................................ ................................ ...... 36
+V5.0 2022-02 - Valid for vCDM from version 20.1.  
+ vCDM 
+ 3 
+1  Introduction 
+1.1 Challenges in ECU calibration 
+In ECU development, short innovation cycles and high cost pressure lead to a distribution of work, in which the software 
+development process is separate from the process of adapting it to its desired behavior in the vehicle. In today's vehicles, tens 
+of thousands of calibration data values must be determined and managed for each individual vehicle variant. To avoid errors, 
+quality standards are needed for calibration data similar to those used in the development of the embedded software.  
+ 
+ 
+Figure 1: Is your calibration process a puzzle game? 
+In the functional development of ECU software, high quality standards (SPICE, CMMI) must be maintained. The correct 
+parameterization of the ECUs is as crucial as the correct functionality of the software in the ECU. Consequently, modifying 
+parameters must meet the same quality levels. It is essential for process adherence, legal compliance and quality assurance to 
+trace calibrations precisely and to ensure consistent parameterization of every conceivable variant. 
+The trend toward shorter innovation cycles and more stringent requirements for quality and efficiency make it essential to 
+achieve a higher degree of reusability. It must be possible to reuse the software in many models and vehicle variants. Each 
+variant of an ECU leads to a separate parameter set, and this increases the number of parameter sets substantially. 
+Today, some 80,000 parameters must be calibrated in the ECUs of a d iesel engine that conforms to the Euro -6 emissions 
+standard. Although ECUs in the chassis and car body areas involve fewer parameters, they typically exhibit higher numbers of 
+variants, and this also requires a dedicated data management solution.  
+In summary, OEMs and their Tier-1 suppliers must generate and manage thousands of parameter set files. The use of a special-
+purpose data management solution offers significant support in the complex process of managing calibration data. It 
+guarantees that the thousands of parameters are used in the correct variants in precisely defined combinations for hundreds 
+of vehicle calibrations. At the same time, each change must be precisely traceable for quality assurance purposes. 
+Such a clearly defined approach creates p rocess reliability and increases data quality. The original files of the engineers who 
+maintain their work results in a Calibration Data Management (CDM) system are subject to version management. This means 
+that the user can tell immediately which parameter sets have flowed into a specific variant and where they are being reused. 
+This assures automatic updating of a new parameterization version in all relevant variants. 
+Within the project, a quality and maturity level model help in documenting changes for data integration and monitoring the  
+
+ vCDM 
+ 4 
+progress of the project. The CDM system takes a multi -stage approach to data integration. After all results from the 
+calibration engineers have been delivered into the system, it is able to resolve conflicts due to fault y or duplicate 
+parameterization by means of assigned parameter responsibilities and rules. The results can then be validated by the four-eye 
+principle -or- by defined rules and checked for completeness. Only then is the data ready for consolidation for the  next data 
+revision level and release for the next phase. This also facilitates cooperation with development partners, and it assures access 
+to correct data in different competency areas. 
+1.2 The vCDM Solution 
+vCDM provides a scalable solution that delivers hi gh productivity for individual calibration engineers, small teams or the 
+complete enterprise. vCDMstudio is a powerful workbench for calibration data. It includes data set management for local files 
+and can easily be used with all other tools for calibrati on. Option vCDM can be used with Vector CANape, or with single user 
+vCDMstudio to connect the local data set management with the multi-user vCDM database. vCDMcenter is used by data set 
+managers to create and configure calibration projects in the vCDM server. It can also be used by calibration engineers to use  
+calibration projects and contribute calibration changes. 
+ 
+Figure 2: vCDM - A scalable solution for Calibration Data Management 
+  
+
+ vCDM 
+ 5 
+ Capability / Product - Matrix vCDMweb vCDMstudio Option vCDM 
+(CANape & vCDMstudio) vCDMcenter 
+Target user profiles Consumer of 
+calibrations, 
+i.e. Testbench 
+Calibration 
+engineers with 
+local data mngt 
+Calibration engineers with 
+multi-user, central data 
+management 
+Calibration engineers, 
+Calibration managers 
+Reporting and analysis on calibration and maturity  √ √ √(*) √ 
+Automation  √ √(*) √ 
+Variant data set management and rich meta data  download 
+only 
+local files database database 
+Multi-column edit, copy, compare of calibrations files   √ √(*) √ 
+Import/Export of arbitrary calibration formats   √ √(*) √ 
+Calibration check and compute rules   local files database & flow control database & flow control 
+Tracking of changes using the history  only quality data  quality & values quality & values 
+Collaborative work on shared data sets   √ √ 
+Detection and resolution of conflicts   √ √ 
+Creation of shared data sets   √ √ 
+Creation of vCDM projects   using only  √ 
+Multi-user roles & rights   using only √ 
+Working packages and parameter permissions   using only √ 
+Automatic variant management   using only √ 
+Version management for software and data sets    using only √ 
+Migration of calibration to new software (A2L)    √ 
+Figure 3: Capabilities/Product – Matrix                  (*) provided by base product CANape or vCDMstudio 
+ 
+Note:  vCDM Tool-Set is a configuration of vCDMstudio, that just provides the automation interfaces  
+ vCDM 
+ 6 
+2  A calibrators workbench – vCDMstudio 
+ 
+Figure 4: vCDMstudio lets you manage the extensive parameter sets of your ECUs easily and with full traceability 
+2.1 Excel for automotive calibration data 
+Its ease-of-use led to a wide adoption of Microsoft Excel – even for automotive calibration data. However – for application in 
+automotive use-cases Microsoft Excel has significant disadvantages. It does not support typical automotive data formats and 
+has no decent editors for maps and curves – to name just a few.  
+vCDMstudio brings the benefits of Excel to the domain of automotive calibration data. A parameter set contains the values 
+of parameters that are specified in the ECU description file (A2L). vCDMstudio manages these parameter sets and supports 
+all typical file formats. vCDMstudio offers the following functionality: 
+> Load, visualize and edit parameter sets from symbolic, address-independent parameter set files or from binary files. This 
+makes their processing independent of the ECU program revision level at which the file was generated. 
+> Simultaneous loading of multiple parameter set files from your calibration process. Because standard formats are used, 
+you can edit parameter files from various tools on the market (CANape, ETAS INCA, ATI Vision). 
+> User-friendly interface for displaying and editing parameter set files with suitable controls (maps, curves) 
+> Configurable display of meta-information (Unit, Address, Quality, etc.)  
+> Execution of various editing steps via an automation interface  
+> Interpolation is performed when copying characteristic curves and maps with different numbers of interpolation points 
+> Graphic representation of characteristic curves and maps to efficiently compare differences 
+> Clever filter mechanisms for defining individual views of parameter sets give users a better comprehensive view 
+> Generate reports in different formats, e.g. MS Excel format or HTML 
+> Export and import configurations 
+
+ vCDM 
+ 7 
+ 
+Supported File Formats 
+> DCM, PAR, KON, CSV, CVX, PaCo, CDF2.0. In the XML-based PaCo and CDF formats, additional meta-information can 
+be stored for each parameter value, e.g. maturity level, value history, author, date and comments 
+> To reintroduce parameter values back to the development process, vCDMstudio also saves the data as an M-script for 
+model-based development and as code files in C, Hex and ASM formats. Here you can use templates to control exactly 
+what the files should contain.  
+> Modification of flashable binary files from parameter sets in Intel-Hex and Motorola-S formats 
+2.2 Add extra functionality with Plug-in Apps 
+vCDMstudio provides application programming interfaces (API) to create your own plug -in Apps. Instead of developing your 
+own tool for the application task from scratch, you can use the powerful functions already contained in vCDMstudio (e.g. 
+parsing the A2L file or writing CDF2.0 files). You only need to implement your own requirements based on this. 
+Your advantages: 
+> Integrated, powerful C # development environment to implement your requirements 
+> Access to standard automotive software functions (read A2L, write CDF)  
+> Concentrate on solving your actual tasks 
+The following chapter introduce Apps that come with the base product. 
+2.3 Ensuring compliance with calibration check rules (Parameter Rule App) 
+Software algorithms monitor and control essential functions for safety and emissions. Incorrect calibration or configuration 
+can easily result in critical failures or violate legal requirements. This may result in damaged reputation or expensive fine s. 
+Consequently, monitoring functional safety and compliance to legal requirements became increasingly important for all 
+engineering domains and calibration data.  
+A best -practice approach is to capture rules that are used to verify correctness or plausibility of c urrent calibrations. A 
+calibration tooling that supports rule creation and parameter validation throughout the process provides great value to achieve 
+this goal. 
+The vCDM CSERP Rules (Check for Safety and Emission Relevant Parameters) provide an easy-to-use, domain-specific set of 
+rules that can used by calibration engineers to compile rule sets for validation. The CSERP rules provide checks for ranges, 
+gradients, enveloping curves and many more. Logical operators and conditional expressions can be used to formulate complex 
+rules – all without programming skills required. Rulesets can be combined and re-used.  
+With programming skills it is even possible to extend the rules by scripting. 
+ vCDM 
+ 8 
+ 
+Figure 5:  vCDM Ruleset Editor 
+ 
+vCDM offers various check points to validate the current calibrations against such ruleset and log results. One possibility for 
+this is the vCDMstudio Parameter Rule App. Its deployment in vCDMstudio enables using rules even without a complete vCDM 
+solution in the backend – just for local files. 
+ 
+Figure 6: vCDMstudio Ruleset Add 
+  
+
+ vCDM 
+ 9 
+2.4 Function Inhibition Matrix (FIM App) 
+The FIM-Editor (Function-Inhibition-Matrix) supports Onboard Diagnostic (OBD) calibration engineers in configuring the ECU 
+behavior on diagnostic events. This is a daunting task with a standard calibration tool when an engineer has only the A2L fil e 
+available. Often it is even impossible because the ECU FIM is implemented in a way that does not expose its behavior in an A2L 
+description.  
+The FIM editor App presents a domain -specific view on the current HEX/A2L and displays directly  the relation of diagnostic 
+events to software functions. Closely related to the function inhibits is the configuration of properties for the diagnostic event. 
+The App enables users to configure the DEM (Diagnostic Event Manager). 
+The editor is only available for selected ECU architectures. 
+ 
+Figure 7: FIM-Editor enables the configuration inhibitions for selected functions based on diagnostic events 
+  
+
+ vCDM 
+ 10 
+2.5 Connecting 3rd-party calibration tools  (INCA App) 
+Customers use different tools for online measurement and calibration. Besides standard applications like Vector CANape many 
+proprietary tools from OEMs or ECU suppliers are used in the industry. Managing offline calibration data with a powerful 
+calibration workbench such as vCDMstudio is an important step and the rich functionality is rarely provided by such proprietary 
+tools. Hence many users want to use vCDMstudio together with their own online tools. 
+vCDMstudio provides a Plugin App to connect to ETAS INCA 
+ 
+Figure 8: vCDMstudio with standard interface to ETAS INCA  
+  
+
+ vCDM 
+ 11 
+2.6 Data set Management on the local PC (Data set Management App) 
+Besides its capabilities to work with calibration data vCDMstudio offers built-in calibration data set management. Managing 
+multiple data sets becomes particularly important should you need to deal with calibration variants or software versions.  
+You can manage multiple local data sets (A2L/HEX) in one data set project. The data set project is stored in a folder 
+structure in the local file system of the desktop PC. Groups of data sets can be managed as one.  
+ 
+Figure 9: Data set management in vCDMstudio 
+In large calibration projects many calibrations engineers contribute to the overall result. Local data set management cannot 
+deliver the necessary process support to achieve quality. Multi-user access, parameter permissions and versioning is required. 
+With the product Option vCDM it is possible to connect CANape or vCDMstudio to the central vCDM database. Calibration 
+engineers can now deliver quality results. vCDMcenter can be used by calibration project managers or data set integrators to 
+create calibration projects and configure the workflow.  
+  
+
+ vCDM 
+ 12 
+2.7 Advantages vCDMstudio 
+> Easy copy and merge of parameter set files 
+> Simultaneous comparison of multiple parameter set files 
+> Filter functions to select parameters for processing  
+> Supports all commonly used data formats, including CDF 2.0, DCM, Intel hex, Motorola-S, PAR and PaCo 
+> Saving of parameter set files as M script or code files (in C or hex format) 
+> Generate various reports, including MS Excel format 
+> Automation interface for merging, exporting and comparing parameter set files 
+> Plugin App concept to create your custom applications 
+> Integrated data set management  
+ 
+ 
+Figure 10: vCDMstudio – Easy like MS Excel, but designed for automotive calibration data  
+  
+
+ vCDM 
+ 13 
+3  Collaboration for success – Option vCDM 
+ECU calibration is largely teamwork. These teams frequently consist of members from different companies (automotive OEMs, 
+ECU suppliers and engineering service providers). With increasing globalization and specialization, efficient co -working of 
+calibration teams is continually growing in importance. It must be possible to distribute work results quickly. Networking via e-
+mail and Internet is helpful - however - a lot of manual work steps are often required to exchange data between different 
+systems. This is a process that is time-consuming and prone to errors. The vCDM data management system now gives teams 
+the ability to automa tically distribute the information. Integration of the e -mail system informs all participants about data 
+changes, new releases and software changes. This guarantees that the teams are working with identical data in a timely 
+manner. 
+Just as important as automated distribution is the availability of data at work sites with difficult network connections. Ideally, 
+an engineer should be able to “check out” a calibration project from the central database on a laptop, so that it is available in 
+the local network for shared access.  
+A solution for data management is closely linked to the tool chain for developing electronic systems. Changes to the calibration 
+data have a direct relationship to requirements management systems, change management systems and many other  ALM 
+applications (ALM: Application Lifecycle Management). Efficient CDM systems exhibit high flexibility and can be integrated in 
+existing systems via automation interfaces, APIs (Application Programming Interfaces) or Web services. An integration with 
+OSLC (Open Services for Lifecycle Collaboration), for instance, makes it possible to implement universal traceability of 
+changes. 
+The vCDM system has specific capabilities when it is used across different automotive domains. That is because the work 
+procedures for calibrating a chassis controller differ noticeably from those for an engine controller. The different requirements 
+of the domain and the business organization result in different methodologies. When introducing calibration data 
+management, it is important to represent the different workflows of the technical departments as closely as possible, instead 
+of prescribing a “standard process”. 
+ 
+ 
+Figure 11: Collaboration within the team for calibrating ECUs 
+
+ vCDM 
+ 14 
+3.1 Integration of Desktop and Cloud  
+Users will work with CANape’s data set management. Any data sets can easily be shared with other users. Invited colleagues 
+can subsequently download these data sets directly onto CANape. 
+Changes to parameters can be send to vCDM over the network. 
+Conflicts which arise fr om simultaneous changes to the same parameter will be displayed immediately and resolved by the 
+user. You can see who made changes to individual parameters and when. 
+3.1.1 Sharing Data Sets 
+The user has created one or several data sets and has perhaps already set parameters. Until now the data has only been saved 
+on the user’s PC and now needs to be shared and saved. To do this, the user selects “Share data sets” from the ribbon. 
+ 
+Figure 12: Quick sharing of data directly from the CANape interface  
+Following this, the data sets and the names of colleagues, with whom data is to be shared, are selected. These data sets are 
+then loaded onto the server and are available to invited colleagues. The server can be in your business network or you can make 
+use of the benefits of the Vector Cloud solution. 
+Shared data sets are marked with a special icon in CANape. The user can see immediately that the data set is available on 
+their PC as well as on the server.  
+3.1.2 Loading Data Sets in CANape 
+CANape users can very easily access shared sets. Instead of manually creating a new record for A2L and HEX files in CANape, 
+with just a few clicks a device can be loaded from the server along with its A2L and data set onto the user’s PC and then be 
+made available for editing. 
+ 
+Figure 14: Simple loading of a shared data set in CANape 
+
+ vCDM 
+ 15 
+3.1.3 Exchanging Changed Parameter Values 
+Data sets that have been shared can be edited by several users. In addition to this, each adjustment procedure can only be 
+seen on your local PC. Your own work results can be transferred to the server by selecting “Upload changes” from the menu. 
+With “View current status” you can load colleagues’ latest work results onto your own PC.  
+ 
+Figure 15: CANape changes and upload changes 
+3.1.4  Sharing of Parameter Sets 
+Changes are shared between vCDM projects as parameter set files. These changes are often imported into several vCDM data 
+sets. If work packages are defined in vCDM, CANape not only exports the changed parameters to the exchange file, it also fills 
+the entire work package. 
+ 
+Figure 16: Data exchange by means of files 
+3.1.5 Handling Parameter Conflicts 
+If the same parameter is adjusted at the same time, CANape displays a conflict when synchronizing the shared data set. These 
+conflicts can be displayed by selecting “Merge in resolve conflict view” from the menu and can be resolved by selecting the 
+correct value. 
+
+ vCDM 
+ 16 
+ 
+Figure 16: Resolving parameter conflicts is made easy through the clear presentation of different values  
+3.1.6 Changes History on the Server 
+The server records any change to a parameter and displays it in the Change History. This means that every team member 
+knows which parameters have been changed by which colleagues and at what time. 
+ 
+Figure 17: Tracking changes in the Change History 
+ 
+3.1.7 Additional Functions 
+Calibration engineers are provided with additional useful functions that can be invoked directly from CANape. 
+> Parameter set files imported into a data set can be displayed in CANape. This also applies to files from other users. 
+> Attachments can be added to the data set. 
+
+ vCDM 
+ 17 
+> A data set can be written with metadata (attributes) 
+> Changes can be rolled back 
+> Calibration progress is displayed in the data set administration 
+> Parameter set files can be submitted to vCDM Component libraries 
+ 
+Figure 18: Calibration progress in the data set administration 
+3.2 Advantages Option vCDM 
+> Seamless connection from the desktop to the database 
+> Conflict detection and resolution though the central vCDM Database 
+> Change tracking and history for parameter values 
+> Simple sharing of data sets with colleagues – no vCDM dataset manager required 
+> Easy access to vCDM calibration projects – created by a vCDM dataset manager 
+> Contribute calibrations to vCDM calibration projects and shared data sets  
+> High user acceptance by seamless integration with CANape and vCDMstudio  
+  
+
+ vCDM 
+ 18 
+4  Manage and control and the calibration process – vCDMcenter 
+4.1 Manage calibration projects 
+vCDM offers an array of functions for managing projects and data variants. These functions are normally executed by a project 
+manager or data integrator: 
+> Managing projects and data variants: vCDM can be used to manage any number of projects. In each project, there may 
+be any number of independent data variants, each of which contains the defined range of parameters. 
+> Product properties: Product properties such as engine displacement, legal emission limits or gearbox properties may be 
+assigned to the data variants. The list of product properties can be supplemented in any desired way. 
+> Meta information:  can be used throughout the product to complement calibration data. Some examples are : 
+parameter classifications, additional ECU documentation, software function descriptions 
+ 
+Figure 19: Definition of product properties 
+> Structuring of data variants: Project managers can structure the variants in folders in any way they want. Alternatively, 
+the tree structure can also be calculated from the product properties. These views can be configured to meet user-
+specific requirements. 
+ 
+Figure 20: Data set variants grouped in folders 
+> Automatic history tracking: All changes to the data variants are automatically tracked in a history. Development over 
+time and parameter set imports are tracked precisely and can be retrieved later in a few seconds. 
+> Defining work packages: To coordinate the import of calibration data in a team, work packages and rights can be 
+defined. Rights may be assigned in a scaled way – from the project to the variant to the even individual parameter. 
+
+ vCDM 
+ 19 
+ 
+Figure 21: Work packages can be easily defined in the editor 
+4.1.1 Permissions 
+Administrators can control the access to vCDM by multiple means and fine-tune what data is available to which users. 
+Role Management grants or denies access to use-cases in vCDM and permissions control the access to projects and datasets 
+in the database. 
+Parameter permissions determine which users can change which parameter 
+ 
+ 
+Figure 22: Parameter Permission Editor 
+
+ vCDM 
+ 20 
+4.1.2 Software Changes 
+When a new software (A2L/Hex) is introduced to a calibration project, the existing calibrations for all affected calibration 
+variants must be migrated to this new software. 
+> Optimized for mass operation: This operation can be executed on many dozens or even hundreds of variants 
+simultaneously. 
+> Parameter renaming: Renaming of parameters is supported. 
+> Seamless history: The software change does not interrupt the history. 
+> Parallel work on different software versions: Even after the software change, older software versions can still be worked 
+on. Software versions are managed as parallel lines of development. 
+> Reports: Differences between A2L files can be exported into a report.  
+> Rule based data migration: vCDM and vCDMstudio feature an integrated wizard which enables suppliers, software 
+developers and experienced calibration engineers to define complex acceptance rules for when parameter properties are 
+changed. These rules are then imported and executed when the software is changed. This enables calibration data to be 
+accepted automatically even when extensive changes are made to the ECU software. 
+> Possible scenarios that can be handled in this way:  
+> Unit changes: Automatic conversion of seconds to milliseconds.  
+> Parameter type changes: Convert curve to map. 
+4.1.3 Data management Mode 
+vCDM supports the different calibration data management modes: 
+> A2L/Hex : The A2L file contains the parameter declaration, and the data is delivered in its binary representation – ready 
+to flash it to the control unit. This mode is typically used for powertrain calibration 
+> Hexless: The A2L file contains the parameter declaration, and the calibration data is managed in its physical 
+representation. Released calibrations can be submitted to a software build process. This mode is typically used for 
+chassis calibration 
+> Parameter Editor: The parameter declaration are entered with an editor or are imported from other tools (i.e. MS Excel) 
+and the calibration data is managed in its physical representation 
+4.2 Traceability for all calibration changes 
+vCDM has all necessary capabilities of a version management system. Every dataset and paramet er file has its version and 
+lifecycle. Objects can be frozen and branched. 
+Every change of calibration data sets, parameter files or a single parameter can be tracked. 
+ 
+Figure 23: Trace Dataset Changes 
+
+ vCDM 
+ 21 
+ 
+Figure 24: Trace Parameter Changes 
+  
+
+ vCDM 
+ 22 
+4.2.1 Rich Meta model for calibration 
+Parameters can be loaded from many typical data formats for calibration. Text- or XML-based formats can be processed, as 
+well as binary formats (S19, Hex). 
+All parameter information is managed in an internal data model. This data mode l extends ASAM MCD -2MC (A2L) with rich 
+meta information. This enables easy transformation of parameter sources into other formats. 
+vCDM also supports parameter formats for model-based calibration and software development 
+ 
+ 
+Figure 25: vCDMs internal data model supports easy conversion from and to many formats  
+  
+
+ vCDM 
+ 23 
+4.3 Configure and control process quality 
+The functions of vCDM support all phases of the calibration process: 
+ 
+Figure 26: Overview calibration process in vCDM 
+> Create calibration projects 
+> Define calibration variants and their attributes (features) 
+> Set up work packages and permissions 
+> Import parameter files 
+> Review changes 
+> Merge changes 
+> Detect and resolve conflicts 
+> Generate updated ECU files 
+> Transform existing calibration data to new ECU software 
+> Graphically compare and manually manipulate data with vCDMstudio 
+> Establish consistency criteria and checks  
+> Calibration history and overview of incorporated work packages 
+> Prepare ECU software for production 
+> Access to all functions via automation interfaces 
+> Reporting and data mining functions 
+> Guided mode for new and sporadic users 
+> Export and import of projects to support test states 
+> Management of component libraries 
+> Documentation of calibration expertise 
+> Special views for special tasks (e.g. OBD blocking behavior) 
+
+ vCDM 
+ 24 
+4.3.1 Import Calibration Data  
+These actions are performed by the calibrators or data integrators. 
+ 
+Figure 27: Import wizard for parameter sets 
+> Consistency check at parameter set import: When importing calibration data, consistency conditions such as 
+permissions, work packages, value ranges and other properties are checked. 
+> Optimizing for large numbers of variants: Filters and intuitive user controls help the user to identify all the variants 
+needed for a parameter set import. 
+> Merging the data: Imports by calibration engineers can be conveniently compared and merged. If conflicts occur, they 
+are detected and resolved. 
+> Quality data: When a parameter set is imported, status information and comments can be added and attachments 
+included. It is also possible to link imports to issue tracker and requirements management systems. 
+> Optimized user interface: The complexity of the user interface can be reduced to a minimum for the data import. This 
+lets occasional users quickly learn how to use it. 
+> Integration in calibration tools: A supplemental feature is the direct parameter set import from the CANape and INCA 
+calibration tools. 
+> Excel import and export: Import templates can be exported and reused in Excel. 
+  
+
+ vCDM 
+ 25 
+4.3.2 Merge Calibration Data  
+These actions are performed by the calibrators or data integrators. 
+ 
+Figure 27: Approval of parameter changes 
+4.3.3 Generate ECU Files 
+Once all the necessary calibration data has been imported and merged; the project manager or data integrator generates a 
+new, updated revision of the ECU software: 
+> Consistency checks: Configurable consistency checks are also performed for Intel-HEX and Motorola S-Record 
+generation. 
+> Naming rules: New HEX file names can be generated automatically based on configurable rules. 
+> Preparation for production: The new ECU software can be generated in a form which allows it to flow directly into the 
+production process. Checksums and signatures may be inserted in the ECU file for this purpose (HEX post treatment). 
+4.3.4 Validation Framework 
+vCDM provides a validation framework to configure the required data quality for every process step 
+
+ vCDM 
+ 26 
+ 
+Figure 28: Setup Required Data Quality for the vCDM Validation Framework  
+4.4 Efficient Management of calibration variants 
+vCDM offers various methods for keeping a large number of calibration variants consistent. These mechanisms can be applied 
+independently or combined as needed: 
+ 
+Figure 29: Methods for variant management in vCDM 
+> Attribute: Attributes can be attached to variants to define their semantics more precisely. These attributes are used 
+later on to filter data and for automatic assignment of data from libraries. 
+
+ vCDM 
+ 27 
+> Calibration matrix: The calibration matrix clearly presents the available work packages, their instances and where they 
+are used. Work packages can be exchanged from the calibration matrix. Exporting to Excel and the import of changes 
+from Excel are possible. 
+> Derived variants: If there are only minimal differences between variants, this can be handled using derived variants (e.g. 
+test bench versus street test variants). Most parameters in a derived variant originate from the basic variant. Only a 
+small number of parameter values are managed within the derived variant. The values from the basic variant are 
+determined dynamically, and changes are immediately available in the derived variant as well. 
+> Component libraries: Work packages which could serve as a good basis for new variants can be managed in component 
+libraries. Through assignment of the attributes, the libraries can be aligned with the data sets. 
+ 
+Figure 30: Basic principle of component libraries 
+> Dependency management of parameters: This function is elaborated on in the following chapter. 
+4.5 Managing Parameter Dependencies 
+You use this function to manage the dependencies between parameters and variant properties and boost the efficiency of the 
+calibration process: 
+> Data distribution to variants: Data can automatically be distributed to variants. The individual calibration engineer only 
+requires a little knowledge about the structuring of the variants. 
+> Consistency check: Automatic checking of variants for consistency. 
+> Automatic filling of variants: New variants can be pre-filled from ongoing project data to the greatest extent possible. 
+Inconsistent variants are automatically repaired. 
+> Calculating dependency relations: The dependency relations in a project can be calculated by means of a correlation 
+analysis based on existing data. The results are used to configure dependency management and validate new data 
+variants in the light of the dependencies. 
+ 
+  
+
+ vCDM 
+ 28 
+4.6 Monitor – Manage – Improve by Analysis and Reporting 
+vCDM offers an array of reports which can provide important information within a few seconds: 
+> Data comparison: Different variants can be compared to one another. The result can be presented graphically in 
+vCDMstudio and exported as an Excel report. The report includes A2L properties, parameter values, quality information, 
+maturity levels, work packages, permissions and lots more information. A template mechanism can be used for 
+application to different use cases without repeated configuration. 
+ 
+Figure 31: Map comparison exported to Excel 
+> Parameter value instances: This analysis shows the different values of a parameter occurring in different variants and 
+projects. This analysis can be used to optimize parameters or for a consistency check. 
+ 
+Figure 32: Evaluate occurrences of parameter values in calibration variants 
+> Parameter history: This report answers the question: Who made what change when and from which source? What was 
+the initial value, and to what value was the parameter changed? 
+
+ vCDM 
+ 29 
+ 
+Figure 33: Parameter history 
+> List of work imports: This report provides the sum of imports making up a variant. The history is tracked over as many 
+revision levels as desired. 
+> Calibration quality: The quality of the calibration can be tracked over time or across variants. 
+ 
+Figure 34: Calibration maturity for data variants  
+> Data review with vCDMstudio: vCDMstudio is used for offline data reviews. By utilizing the filter and search functions, 
+complicated matters can also be responded to. Possible changes can be conveniently merged back into vCDM. 
+ 
+ 
+  
+
+ vCDM 
+ 30 
+4.7 Advantages vCDMcenter 
+> vCDM supports the specific requirements of calibration engineers, small teams and globally distributed enterprises.  
+> The calibration processes and workflows can be adapted to the size of the company. 
+> All changes to the data can be traced without interruption. 
+> All operations are optimized for a wide range of variants. 
+> vCDM can be used for different ECU architectures (AUTOSAR, Adaptive) and calibration concepts. 
+> Domain-specific views visualize certain aspects of the calibration data in a clearly structured way. 
+> vCDM is integrated with the CANape calibration tool. 
+> vCDM ensures consistent data quality for calibration variants  
+> Extensive programming interfaces (APIs) are available. 
+  
+ vCDM 
+ 31 
+5  Easy access to the vCDM Database – vCDMweb 
+vCDMweb is easily accessible with a standard internet browser. It offers a selected set of functions to distribute calibratio n 
+knowledge throughout the enterprise. 
+> Search and Download of released calibration datasets 
+> Reports on calibration progress and maturity 
+> Upload of new ECU software 
+ 
+Figure 35: vCDMweb 
+5.1 Advantages vCDMweb 
+> Cost-efficient distribution of calibration knowledge throughout the enterprise 
+> Access-control by roles 
+ 
+ 
+ 
+  
+
+ vCDM 
+ 32 
+6  Continuous Integration (CI) – vCDM Tool-Set 
+6.1 Automate – Automate – Automate 
+Automation is a powerful methodology for repetitive tasks to speed up development processes, while reducing engineering 
+hours and human errors. Continuous integration (CI) was estab lished to build the final product as often as possible 
+(continuously) to uncover issues as early as possible, and not only during integration phase. 
+Continuous integration demands automation, hence both terms are often used synonymous. This chapter discuss es CI in the 
+context of parameter management. 
+ 
+6.2 Compare, Copy (Merge), Extract (vCDM Tool-Set) 
+Parameter files (DCM, CDF, Paco, CSV) or their binary representatives (Hex, S19) store calibrations, and are the “life blood”  
+of calibration data management. Typical uses cases are: 
+• comparing different parameters (e.g. to flag errors, start a build process) 
+• copying a parameter file to a hex (e.g. to customize a flash file for the required customer configuration) 
+• extracting parameters from a source (e.g. to release data to end-of-line-flash-configuration. 
+ 
+With the help of the COM server, you can control vCDMstudio using script languages. Arguably the most well -known script 
+languages available for this are: VBScript, JScript, Perl, and Python. The created scripts can  be used to automate frequently 
+performed tasks in vCDMstudio, which otherwise would require several operator inputs on the user interface. 
+Besides automation via COM interfaces, it is also possible to perform various actions using the command line. The 
+configuration files can be used to automate frequently performed tasks in vCDMstudio, which otherwise would require several 
+operator inputs on the user interface. 
+The following actions can be automated using the command line: 
+• Compare  
+• Export  
+• Merge  
+Which action is to be performed is defined using the second command line parameter. The third parameter references a 
+configuration file. This file is used to describe how the action is to be performed. 
+Example: 
+CDMstudio.exe –yb merge "c:\tmp\merge.xml" 
+ 
+vCDMstudio offers APIs (Code and command line) to achieve these tasks for long. However, its named-user license forbade its 
+use in CI environments. 
+vCDM Tool-Set (vCDMstudio Server Edition) is a dedicated license option that supports CI environments. It is not suited for 
+interactive use, as this use-case limited to a small set of parameters; no limitations apply when it is controlled by API. A new 
+Vector license type for CI provides an attractive model to deploy vCDM Tool-Set for these tasks. 
+ 
+6.3 Continous Rule Checks (vCDM Parameter Rules) 
+vCDM Parameter Rules (Chapter 2.3) can be defined to monitor parameters for compliance (A2L definitions, emission rules, 
+ISO26262 safety checks. Parameter source can be checks using such rule sets, and these checks are an integrated function of 
+vCDM. 
+Checking rules is CI environments is typical requirement. vCDM provides a command line tool for rule checks that can be 
+integrated into the CI environment. 
+ 
+ vCDM 
+ 33 
+6.4 Application Programming Interfaces 
+vCDM provides versatile Application Programming interfaces (API). The complete package with documentation and examples 
+is freely available for download from vector.com.  
+ 
+• vCDM Webservices API – for integration of the vCDM Server into CI environments 
+• vCDM Client APIs – for the automation of repetitive, manual tasks 
+• vCDM Tool API – for extending the user interface of vCDMcenter with custom requirements 
+ 
+6.5 Jenkins Integration 
+The Jenkins tool is often used to orchestrate CI environment. The requirements for interaction with a CDM system are too 
+different to have “one” Jenkins integration. The vCDM API Toolkit Package includes an example for a pipeline node to execute 
+vCDM functions. 
+ 
+  
+ vCDM 
+ 34 
+7  A software architecture for today and tomorrow 
+7.1 Cloud-ready 3-Tier architecture 
+vCDM system architecture introduces clear and distinct layers. The client applications vCDMcenter, vCDMweb and Option 
+vCDM with CANape or vCDMstudio connect to the data center with internet protocols. The data transfer is optimized for 
+global deployments and poor bandwidth.  
+The business logic is provided with the vCDM server in a secure datacenter – on-premise or in the cloud.   
+Opensource MariaDB or Oracle DB can be used as database server. The Repository server stores all files and multiple instances 
+can be setup for global replications. 
+ 
+Figure 36: vCDM 3-Tier architecture 
+7.2 Cloud-based vCDM - Software as a Service 
+The vCDM Software-as-a-service (SaaS) is a cloud-based solution. It offers considerable benefits for business users: 
+> No need for dedicated hardware resources 
+> No investment budget is needed 
+> Best-practice server operation by Vector 
+> Cost-effective operation 
+> Faster provision (cloud system is ready to use in a very short time) 
+The entire infrastructure for operating the server will be provided by Vector and its service partners. A high level of data security 
+is guaranteed through security measures (encryption, client separation, ISO 27001 certification). Selected, globally distributed 
+computing centers ensure fast response times. 
+All costs for hardwar e, software and databases are included in the subscription fee. There are three different levels of 
+configuration. Our service level agreements offer 99.0% availability and 2 hour recovery. 
+ 
+ 
+
+ vCDM 
+ 35 
+Vector Cloud Configuration Levels 
+Level of Configuration Small Medium Large 
+Max. number of users 30 200 >200 
+CPUs 4 8 16 
+Memory 4 GB 8 GB 16 GB 
+Hard disk space 65 GB 250 GB 2500 GB 
+Data transfer 8 GB per month 30 GB per month  240 GB per month 
+Figure 37:  Sizing of server components for several service levels 
+ 
+7.3 Open Source 
+vCDM supports the open -source web application server TOMCAT and open -source database MariaDB. This enables cost -
+efficient installation and management for the backend server.  
+7.4 Microsoft Azure 
+Microsoft Azure is a cloud computing service created by Microsoft for building, testing, deploying, and managing applications 
+and services through Microsoft-managed data centers.  
+vCDM can be deployed on Microsoft Azure, and becomes easily available in the Vector Cloud Framework. 
+  
+ vCDM 
+ 36 
+8  Training Classes 
+As part of our training program, we offer various training courses and workshops on vCDM at our classrooms in Stuttgart and 
+locally at our customers’ locations, or online 
+You can find more information on individual training classes and dates at: www.vector-academy.com
+Get More Information 
+Visit our website for
+> News
+> Products
+> Demo software
+> Support
+> Training classes
+> Adresses
+www.vector.com 
+
