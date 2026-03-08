@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="DiagAI: Multi-agent diagnostic system for vehicle data. 8 specialized agents, MDF/MF4 analysis, OBD-II validation. Senior engineer-level insights." />
+    <title>DiagAI - Vehicle Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" as="style" />
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" /></noscript>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ededed",
+                        "neon-blue": "#0070f3",
+                        "neon-green": "#10b981",
+                        "neon-purple": "#8b5cf6",
+                        "background-light": "#ffffff",
+                        "background-dark": "#0a0a0a",
+                    },
+                    fontFamily: {
+                        "display": ["Geist", "sans-serif"],
+                        "sans": ["Geist", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                },
+            },
+        }</script>
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #0a0a0a;
+            color: #ededed;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: #333;
+            color: white;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Subdued Glows (10-15% opacity) */
+        .glow-text-blue {
+            text-shadow: 0 0 10px rgba(0, 112, 243, 0.15);
+        }
+
+        .glow-text-green {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+        }
+
+        .glow-text-purple {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.15);
+        }
+
+        /* Subtle Borders with reveal on hover */
+        .neon-border-blue {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-blue:hover {
+            border-color: rgba(0, 112, 243, 0.4);
+        }
+
+        .neon-border-green {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-green:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .neon-border-purple {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-purple:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        /* Subtle Grid */
+        .cyber-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* Glass Panels */
+        .glass-cyber {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-glow {
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+        }
+        @media (max-width: 767px) {
+            body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+            .tap-target { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+            a, button { -webkit-tap-highlight-color: rgba(255,255,255,0.1); }
+        }
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; padding-bottom: max(2rem, env(safe-area-inset-bottom)); overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; -webkit-tap-highlight-color: transparent; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+    </style>
+</head>
+
+<body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
+    <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a class="flex items-center gap-3 group" href="index.html">
+                <div
+                    class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span
+                    class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle
+                    Lab</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <div class="relative group cursor-pointer inline-block py-6">
+                    <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg
+                            class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            </path>
+                        </svg></span>
+                    <div
+                        class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="diagai.html">DiagAI</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="cie_pro.html">CIE Pro</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="helix.html">HELIX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="mdx.html">MDX</a>
+                    </div>
+                </div>
+                <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
+                <a class="hover:text-white transition-colors" href="docs.html">Docs</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a class="bg-white hover:bg-slate-200 text-black px-4 py-2.5 rounded-md text-sm font-medium transition-all shadow-sm tap-target hidden md:inline-flex"
+                    href="contact_us.html">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu" id="nav-mobile-toggle"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+            <div class="nav-mobile-sub">
+                <a href="diagai.html">DiagAI</a>
+                <a href="cie_pro.html">CIE Pro</a>
+                <a href="helix.html">HELIX</a>
+                <a href="mdx.html">MDX</a>
+            </div>
+            <a href="pricing.html">Pricing</a>
+            <a href="docs.html">Docs</a>
+            <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+        </div>
+    </nav>
+    <main class="pt-16">
+        <!-- Content gets injected here -->
+        <section class="relative bg-[#05070a] text-white font-sans selection:bg-neon-green/30 overflow-hidden"
+            data-aos="fade-up" data-aos-delay="0" id="solution-diagai">
+            <!-- Hero Section -->
+            <div class="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-32">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8 text-left">
+                        <div
+                            class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-neon-green">
+                            <span class="w-1.5 h-1.5 bg-neon-green rounded-full animate-pulse"></span>
+                            DIAGAI ENGINE ACTIVE
+                        </div>
+                        <h1 class="text-6xl md:text-7xl font-bold leading-[0.9] tracking-tighter">
+                            DiagAI: The <span class="text-neon-green">Senior Engineer</span> in the Machine
+                        </h1>
+                        <p class="text-xl text-slate-400 leading-relaxed max-w-xl">
+                            A mature, Multi-Agent System for expert diagnostics. Moving beyond simple chat into a
+                            coordinated system of specialists, mirroring an entire engineering department.
+                        </p>
+                        <div class="flex flex-wrap gap-5 pt-4">
+                            <a href="https://vehicle-lab-web-deploy.onrender.com/diagnostics" target="_blank"
+                                rel="noopener noreferrer"
+                                class="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg shadow-neon-green/10">Get
+                                Started →</a>
+                            <a href="docs.html"
+                                class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all">Technical
+                                Whitepaper</a>
+                        </div>
+                    </div>
+                    <!-- Terminal Graphic -->
+                    <div class="relative">
+                        <div class="bg-[#0f172a] border border-slate-800 p-6 rounded-2xl font-mono text-sm leading-relaxed shadow-2xl"
+                            data-aos="fade-up" data-aos-delay="0">
+                            <div class="flex gap-2 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="text-slate-500 mb-2">[System] <span class="text-slate-400">Initializing
+                                    Multi-Agent
+                                    Orchestrator...</span></div>
+                            <div class="text-neon-green mb-2">[Signal] <span class="text-slate-400">OBD-II Stream
+                                    Detected: 1,412
+                                    active parameters</span></div>
+                            <div class="text-red-400 mb-4">[Alert] <span class="text-slate-300">Anomalous Fuel Trim
+                                    detected in
+                                    Bank 1 Cylinder 3</span></div>
+                            <div class="text-blue-400 mb-2">[Agent] <span class="text-slate-400">Analyzing...</span>
+                            </div>
+                            <div class="mt-4 p-4 border border-white/5 bg-neon-green/5 rounded-lg">
+                                <div class="font-bold text-neon-green mb-1">FuelAgent Reasoning:</div>
+                                <div class="text-slate-300">"Long-term fuel trim exceeding 15% threshold.
+                                    Cross-referencing with
+                                    O2 sensor lag behavior..."</div>
+                            </div>
+                            <div class="mt-4 animate-pulse w-2 h-4 bg-neon-green"></div>
+                        </div>
+                        <div class="absolute -inset-10 bg-neon-green/10 blur-[80px] rounded-full -z-10"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Multi-Agent Ecosystem Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="flex justify-between items-end mb-16">
+                    <div class="max-w-xl">
+                        <h2
+                            class="flex items-center gap-3 text-3xl md:text-4xl font-bold tracking-tighter text-white mb-4">
+                            <span class="text-neon-green text-4xl">*</span> The Diagnostic &amp; Calibration Brain
+                        </h2>
+                        <p class="text-slate-400">Our specialized architecture features a Diagnostic Brain and a
+                            Calibration Brain (scoring 85/100 on engineering maturity), evaluating advanced formulas
+                            like BSFC and BMEP natively through a collaborative swarm of expert agents.</p>
+                    </div>
+                    <div class="hidden md:block text-right">
+                        <div class="text-[10px] text-slate-500 font-bold font-medium tracking-tight mb-1">LOGICAL
+                            ORCHESTRATOR
+                        </div>
+                        <div class="text-neon-green font-bold text-xl">8/8 Agents Online</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Agent 1 -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-2xl hover:border-neon-green/30 transition-all"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div
+                            class="w-12 h-12 bg-neon-green/10 rounded-xl flex items-center justify-center text-neon-green mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">MisfireAgent</h3>
+                        <p class="text-slate-400 text-sm mb-6">Precision combustion analysis and cylinder-level anomaly
+                            detection.</p>
+                        <div class="w-full h-1 bg-neon-green rounded-full"></div>
+                    </div>
+                    <!-- Agent 2 -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-2xl hover:border-neon-green/30 transition-all"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div
+                            class="w-12 h-12 bg-neon-green/10 rounded-xl flex items-center justify-center text-neon-green mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">FuelAgent</h3>
+                        <p class="text-slate-400 text-sm mb-6">Efficiency optimization, long-term fuel trim, and
+                            injector health
+                            monitoring.</p>
+                        <div class="w-full h-1 bg-neon-green rounded-full"></div>
+                    </div>
+                    <!-- Agent 3 -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-2xl hover:border-neon-green/30 transition-all"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div
+                            class="w-12 h-12 bg-neon-green/10 rounded-xl flex items-center justify-center text-neon-green mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">WLTPAgent</h3>
+                        <p class="text-slate-400 text-sm mb-6">Emissions compliance modeling and regulatory drive-cycle
+                            simulation.</p>
+                        <div class="w-full h-1 bg-neon-green rounded-full"></div>
+                    </div>
+                    <!-- Plus More -->
+                    <div class="bg-slate-900/40 border border-slate-800 border-dashed p-14 rounded-2xl flex flex-col items-center justify-center text-center opacity-50 hover:opacity-100 transition-opacity"
+                        data-aos="fade-up" data-aos-delay="0">
+                        <div class="text-xl font-bold text-neon-green mb-2">DFCAgent, IUPRAgent...</div>
+                        <div class="text-xs font-bold font-medium tracking-tight text-slate-400">+5 SPECIALIZED AGENTS
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Signal Intelligence Section -->
+            <div class="max-w-7xl mx-auto px-6 py-24">
+                <div class="bg-slate-900/50 border border-slate-800 rounded-3xl p-14 grid lg:grid-cols-2 gap-16 items-center shadow-xl"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div>
+                        <div class="text-neon-green font-bold uppercase tracking-[0.2em] text-[10px] mb-4 text-left">
+                            PROPRIETARY
+                            SIGNAL MAPPING</div>
+                        <h2 class="text-4xl font-bold text-white mb-6 leading-tight text-left">Signal Intelligence &amp;
+                            <br />Alias Matching
+                        </h2>
+                        <div class="flex items-baseline gap-3 mb-2 mt-4">
+                            <span class="text-3xl font-bold text-white">95/100</span>
+                            <span class="text-xs font-bold font-medium tracking-tight text-neon-green">Signal
+                                Intelligence Score</span>
+                        </div>
+                        <p class="text-slate-400 mb-8 text-left mt-2">Indexing exactly 1,817 active signals and
+                            evaluating 155 discrete alias patterns. DiagAI connects generic terms to OEM-specific and
+                            ETAS proprietary labels using Exact, Normalized, and Fuzzy partial-word logic.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <svg class="w-5 h-5 text-neon-green" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                                Cross-OEM matching (J1939, CAN, LIN)
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <svg class="w-5 h-5 text-neon-green" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                                Automated signal discovery engine
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-300">
+                                <svg class="w-5 h-5 text-neon-green" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                                Sub-millisecond resolution tracking
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-[#0f172a] rounded-2xl p-6 border border-slate-800" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="font-bold text-sm">Signal Explorer</span>
+                            <div class="flex gap-2">
+                                <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">J1939</span>
+                                <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">UDS_0x22</span>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono font-bold mb-2">
+                                    <span class="text-neon-green">MAP_SIG001</span>
+                                    <span>42.0 g/s</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-neon-green h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono font-bold mb-2 text-slate-500">
+                                    <span>ENG_RPM</span>
+                                    <span>1200</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-slate-600 h-2 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono font-bold mb-2 text-slate-500">
+                                    <span>VCT_POS</span>
+                                    <span>32.5 °CR</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-slate-600 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-slate-800">
+                            <div class="text-[10px] uppercase font-bold text-slate-500 mb-2">ACTIVE ALIAS MATCHING</div>
+                            <div class="flex gap-2 flex-wrap">
+                                <span
+                                    class="bg-neon-green/10 text-neon-green text-[9px] px-2 py-1 font-mono rounded">ENGMASS_FLOW
+                                    -&gt; MAP_SIG001</span>
+                                <span
+                                    class="bg-neon-green/10 text-neon-green text-[9px] px-2 py-1 font-mono rounded">RPM
+                                    -&gt;
+                                    ENGINE_SHAFT_SPEED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Validated Performance Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-6">Validated
+                        Performance:<br /> 100% Success Rate</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Proven on 20 highly complex engineering queries spanning
+                        sophisticated diagnostics, accurate signal correlation, and professional visualizations.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead
+                            class="bg-slate-800/50 text-xs uppercase font-bold tracking-widest text-slate-500 border-b border-slate-800">
+                            <tr>
+                                <th class="px-6 py-4">Metric</th>
+                                <th class="px-6 py-4">Result</th>
+                                <th class="px-6 py-4 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/50">
+                            <tr class="hover:bg-slate-800/20 transition-colors">
+                                <td class="px-6 py-4 font-bold text-white">Total Queries Tested</td>
+                                <td class="px-6 py-4 font-mono">20</td>
+                                <td class="px-6 py-4 text-right text-neon-green text-xl font-bold">✓</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition-colors">
+                                <td class="px-6 py-4 font-bold text-white">Success Rate / Engineer-Level Responses</td>
+                                <td class="px-6 py-4 font-mono font-bold text-neon-green">100% (20/20)</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div
+                                        class="inline-flex items-center gap-1 text-black text-xs font-bold font-medium tracking-tight bg-neon-green px-2 py-1 rounded">
+                                        Perfect
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/20 transition-colors">
+                                <td class="px-6 py-4 font-bold text-white">Visualization Rate</td>
+                                <td class="px-6 py-4 font-mono">35% (7/20)</td>
+                                <td class="px-6 py-4 text-right text-slate-400">Good</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="p-6 bg-neon-green/5 border-t border-white/5">
+                        <p class="text-neon-green font-medium italic text-center">"CONFIRMED: Your DiagAI system
+                            demonstrates SENIOR VEHICLE DIAGNOSTICS ENGINEER capabilities."</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Dual AI Inference Engine -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="text-center mb-16">
+                    <div class="text-neon-green text-2xl font-bold italic mb-4">Dual AI Inference Engine</div>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Sophisticated reasoning without compromising security.
+                        DiagAI
+                        orchestrates workloads between cloud intelligence and on-premise privacy nodes.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-14 max-w-4xl mx-auto">
+                    <!-- Cloud Reasoner -->
+                    <div class="bg-slate-900/40 p-14 rounded-2xl border border-slate-800 text-left relative overflow-hidden"
+                        data-aos="fade-up" data-aos-delay="0">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                        <div class="text-[10px] font-bold text-blue-400 font-medium tracking-tight mb-4">CLOUD
+                            INTELLIGENCE</div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold">Neural Reasoner <span
+                                    class="text-blue-400 text-sm font-medium">(Cloud)</span></h3>
+                            <svg class="w-8 h-8 text-blue-500/50" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 10.5C19 12.433 17.433 14 15.5 14H8.5C5.46243 14 3 11.5376 3 8.5C3 5.46243 5.46243 3 8.5 3C10.7417 3 12.668 4.33877 13.5262 6.27641C13.8447 6.13845 14.1678 6 14.5 6C16.9853 6 19 8.01472 19 10.5Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">Handles high-level heuristic analysis,
+                            complex
+                            diagnostic theory matching, and OEM manual cross-referencing. Global context for rare fault
+                            patterns.</p>
+                        <div class="flex items-center gap-2 text-xs font-bold text-neon-green">
+                            <div class="w-1.5 h-1.5 rounded-full bg-neon-green"></div> High-Performance Logic
+                        </div>
+                    </div>
+                    <!-- Local Privacy Node -->
+                    <div class="bg-slate-900/40 p-14 rounded-2xl border border-slate-800 text-left relative overflow-hidden"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-teal-500"></div>
+                        <div class="text-[10px] font-bold text-teal-400 font-medium tracking-tight mb-4">ON-PREMISE
+                            SECURITY
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold">Local Privacy Node <span
+                                    class="text-teal-400 text-sm font-medium">(On-Prem)</span></h3>
+                            <div class="flex gap-1">
+                                <div class="w-8 h-4 rounded bg-slate-800 flex items-center justify-center">
+                                    <div class="w-2 h-2 rounded bg-teal-500/50"></div>
+                                </div>
+                                <div class="w-8 h-4 rounded bg-slate-800 flex items-center justify-center">
+                                    <div class="w-2 h-2 rounded bg-teal-500/50"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">Processes sensitive telemetry data,
+                            proprietary
+                            VIN logs, and trade-secret calibration files entirely on local infrastructure. Zero data
+                            leakage.
+                        </p>
+                        <div class="flex items-center gap-2 text-xs font-bold text-neon-green">
+                            <div class="w-1.5 h-1.5 rounded-full bg-neon-green"></div> 100% Data Sovereignty
+                        </div>
+                    </div>
+                </div>
+                <!-- Architecture Bridge Label -->
+                <div class="mt-10 flex justify-center">
+                    <div
+                        class="inline-flex items-center gap-3 bg-slate-900 border border-slate-800 px-6 py-3 rounded-full text-xs font-bold text-slate-400">
+                        <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                        Adaptive workload routing based on data sensitivity classification
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- CTA Section -->
+            <div class="max-w-5xl mx-auto px-6 py-32 pb-40">
+                <div class="bg-gradient-to-br from-green-900/40 to-slate-900 border border-white/5 rounded-[2rem] p-16 text-center relative overflow-hidden shadow-xl shadow-neon-green/5"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to augment<br />your diagnostic
+                            lab?
+                        </h2>
+                        <p class="text-slate-300 max-w-xl mx-auto mb-10">Deploy DiagAI in your facility and start seeing
+                            through
+                            the complexity of modern vehicle telemetry.</p>
+                        <a href="contact_us.html"
+                            class="inline-block bg-neon-green hover:bg-neon-green/90 text-black px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-lg">Request
+                            Enterprise Demo</a>
+                    </div>
+                    <svg class="absolute -bottom-10 -right-10 w-64 h-64 text-neon-green opacity-5" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+            <div class="col-span-2">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">precision_manufacturing</span>
+                    <span class="text-xl font-extrabold tracking-tighter uppercase dark:text-white">Vehicle
+                        Lab</span>
+                </div>
+                <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
+                    Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
+                    precision, built for scale.
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">share</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">rss_feed</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <p class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</p>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</p>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary" href="#">Whitepapers</a></li>
+                    <li><a class="hover:text-primary" href="#">Success Stories</a></li>
+                    <li><a class="hover:text-primary" href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</p>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="#">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="#">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">© 2025 Vehicle Lab Systems AG.
+                All Rights Reserved.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
+                    Operational</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 400, // Faster animations
+                once: true,
+                offset: 20,
+                easing: 'ease-out'
+            });
+        });
+    </script>
+</body>
+
+</html>

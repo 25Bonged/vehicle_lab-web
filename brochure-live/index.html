@@ -154,6 +154,11 @@
                     <a href="#features" class="cta-button">EXPLORE FEATURES</a>
                     <a href="#diagai" class="cta-button cta-purple">MEET DIAGAI</a>
                 </div>
+                <p style="margin-top: 20px;">
+                    <a href="#specs" class="nav-link" style="font-size: 0.95rem; opacity: 0.9;">Watch technical overview</a>
+                    <span style="margin: 0 12px; opacity: 0.5;">|</span>
+                    <a href="#specs" class="nav-link" style="font-size: 0.95rem; opacity: 0.9;">Whitepaper</a>
+                </p>
         </div>
     </section>
 
@@ -606,7 +611,7 @@
         </section>
 
         <!-- Section 5: Specs -->
-        <section class="scroll-section specs-section" id="specs">
+        <section class="scroll-section specs-section" id="specs" aria-label="Specs and documentation">
             <div class="container">
                 <h2 class="section-title">Technical Specifications</h2>
 
@@ -782,9 +787,7 @@
     <script src="/assets/js/utils/config.js?v=3"></script>
     <script src="/assets/js/utils/logger.js?v=3"></script>
     
-    <!-- Load GSAP and ScrollTrigger -->
-    <!-- TODO: Add SRI (Subresource Integrity) hashes for security -->
-    <!-- Generate with: curl -s <url> | openssl dgst -sha384 -binary | openssl base64 -A -->
+    <!-- Load GSAP and ScrollTrigger (SRI: curl -s URL | openssl dgst -sha384 -binary | openssl base64 -A) -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" 
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"

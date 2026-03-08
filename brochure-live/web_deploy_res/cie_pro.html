@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cie Pro - Vehicle Lab</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ededed",
+                        "neon-blue": "#0070f3",
+                        "neon-green": "#10b981",
+                        "neon-purple": "#8b5cf6",
+                        "background-light": "#ffffff",
+                        "background-dark": "#0a0a0a",
+                    },
+                    fontFamily: {
+                        "display": ["Geist", "sans-serif"],
+                        "sans": ["Geist", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                },
+            },
+        }</script>
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #0a0a0a;
+            color: #ededed;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: #333;
+            color: white;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Subdued Glows (10-15% opacity) */
+        .glow-text-blue {
+            text-shadow: 0 0 10px rgba(0, 112, 243, 0.15);
+        }
+
+        .glow-text-green {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+        }
+
+        .glow-text-purple {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.15);
+        }
+
+        /* Subtle Borders with reveal on hover */
+        .neon-border-blue {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-blue:hover {
+            border-color: rgba(0, 112, 243, 0.4);
+        }
+
+        .neon-border-green {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-green:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .neon-border-purple {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-purple:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        /* Subtle Grid */
+        .cyber-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* Glass Panels */
+        .glass-cyber {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-glow {
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+        }
+
+        /* Smooth transitions removed */
+    </style>
+</head>
+
+<body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
+    <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a class="flex items-center gap-3 group" href="index.html">
+                <div
+                    class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span
+                    class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle
+                    Lab</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <!-- Solutions Dropdown -->
+                <div class="relative group cursor-pointer inline-block py-6">
+                    <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg
+                            class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            </path>
+                        </svg></span>
+                    <div
+                        class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="diagai.html">DiagAI</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="cie_pro.html">CIE Pro</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="helix.html">HELIX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="mdx.html">MDX</a>
+                    </div>
+                </div>
+                <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
+                <a class="hover:text-white transition-colors" href="docs.html">Docs</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
+                    href="contact_us.html">Talk to Sales</a>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-16">
+        <!-- Content gets injected here -->
+        <section class="relative bg-[#020617] text-white font-sans selection:bg-cyan-500/30 overflow-hidden"
+            data-aos="fade-up" data-aos-delay="0" id="cie-pro">
+            <!-- Subtle Grid Background -->
+            <div class="absolute inset-0 z-0 opacity-[0.03]"
+                style="background-image: linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px); background-size: 40px 40px;">
+            </div>
+            <!-- Hero Section -->
+            <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-40">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <div
+                            class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                            Now with PINNs Integration
+                        </div>
+                        <h1 class="text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tighter">
+                            The Intelligence Engine for <br />
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 italic">Next-Generation
+                                Calibration</span>
+                        </h1>
+                        <p class="text-xl text-slate-400 leading-relaxed max-w-xl">
+                            The modern platform to replace your legacy, fragmented toolchain. Eliminate disconnected
+                            tools and
+                            expensive test cycles. Complete your entire workflow—from data ingest to ECU export—in a
+                            single,
+                            intelligent, AI-first environment.
+                        </p>
+                        <div class="flex flex-wrap gap-5 pt-4">
+                            <a href="contact_us.html"
+                                class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-blue-600/40">Get
+                                Started Now</a>
+                            <a href="docs.html"
+                                class="inline-block bg-slate-900 border border-slate-800 hover:border-slate-700 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all">View
+                                Technical Specs</a>
+                        </div>
+                    </div>
+                    <!-- Graphic -->
+                    <div class="relative">
+                        <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-[3rem] relative overflow-hidden group"
+                            data-aos="fade-up" data-aos-delay="0">
+                            <img alt="Engine"
+                                class="rounded-[2rem] opacity-70 grayscale group-hover:grayscale-0 transition-all duration-700"
+                                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&amp;fit=crop&amp;q=80&amp;w=800" />
+                        </div>
+                        <!-- Stat badges: placed OUTSIDE the card, NOT overlapping the image -->
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"
+                                data-aos="fade-up" data-aos-delay="100">
+                                <div class="text-4xl font-bold text-cyan-400">50-70%</div>
+                                <div class="text-[9px] uppercase font-bold text-slate-500 tracking-widest mt-1">Test
+                                    Time
+                                    Reduction</div>
+                            </div>
+                            <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"
+                                data-aos="fade-up" data-aos-delay="200">
+                                <div class="text-4xl font-bold text-blue-500">80%</div>
+                                <div class="text-[9px] uppercase font-bold text-slate-500 tracking-widest mt-1">Less
+                                    Data
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="absolute -inset-10 bg-blue-500/20 blur-[80px] rounded-full -z-10"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Data & Modeling Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="mb-20">
+                    <div class="text-blue-500 font-bold uppercase tracking-[0.3em] text-[11px] mb-4">Ingest &amp; Train
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tighter text-white">Understand Data &amp; Train
+                        Models in
+                        Minutes</h2>
+                    <p class="text-xl text-slate-400 mt-6 max-w-2xl">Skip manual conversion and hyperparameter tuning.
+                        Go from
+                        raw dyno data to production-grade surrogates instantly.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Ingest Card -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2.5rem] hover:border-blue-500/30 transition-all group"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-8 group-hover:bg-blue-500 group-hover:text-white transition-all"
+                            data-aos="fade-up" data-aos-delay="0">
+                            <span class="material-symbols-outlined text-3xl">database</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Multi-Format Ingest &amp; QA</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">Drag-and-drop support for CSV, MDF, Excel, MAT,
+                            and HDF5.
+                            Features automated signal decoding and instant quality assurance, flagging missing values
+                            and
+                            zero-variance signals before training begins.</p>
+                    </div>
+                    <!-- Models Card -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2.5rem] hover:border-cyan-500/30 transition-all group"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 mb-8 group-hover:bg-cyan-500 group-hover:text-white transition-all"
+                            data-aos="fade-up" data-aos-delay="200">
+                            <span class="material-symbols-outlined text-3xl">model_training</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">World-Class Model Suite &amp; AutoML</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">Access Random Forest, Gradient Boosting, GP, RBF,
+                            and
+                            PCE. Optuna-powered AutoML automatically finds the optimal architecture with built-in 5-fold
+                            cross-validation ensuring R² &gt; 0.95.</p>
+                        <div class="flex gap-4">
+                            <div class="bg-black/60 rounded-xl px-4 py-2 border border-slate-800">
+                                <div class="text-[10px] uppercase font-bold text-slate-500">R² Score</div>
+                                <div class="text-lg font-bold text-green-400">0.982</div>
+                            </div>
+                            <div class="bg-black/60 rounded-xl px-4 py-2 border border-slate-800">
+                                <div class="text-[10px] uppercase font-bold text-slate-500">RMSE</div>
+                                <div class="text-lg font-bold text-blue-400">2.15</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Smarter DoE Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="text-center mb-20">
+                    <div class="text-cyan-500 font-bold uppercase tracking-[0.3em] text-[11px] mb-4">Smarter DoE</div>
+                    <h2 class="text-5xl md:text-6xl font-bold text-white tracking-tighter">Slash Dyno Time by 30-50%
+                    </h2>
+                    <p class="text-xl text-slate-400 mt-6 max-w-2xl mx-auto">Generate optimal test plans that
+                        automatically
+                        adapt to your physical limits.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2rem]" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <h3 class="text-xl font-bold mb-3 text-white">Comprehensive Static DoE</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Optimal space-filling test plans for
+                            steady-state
+                            mapping using D-Optimal, Latin Hypercube (LHS), Sobol, and Box-Behnken methods.</p>
+                    </div>
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2rem]" data-aos="fade-up"
+                        data-aos-delay="0">
+                        <h3 class="text-xl font-bold mb-3 text-white">Dynamic DoE for Transients</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Time-based sequences with sinusoidal frequency
+                            sweeps.
+                            Automatically obeys safety limits and convex hull constraints to stay within valid
+                            envelopes.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Optimization Suite Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="mb-20">
+                    <div class="text-blue-500 font-bold uppercase tracking-[0.3em] text-[11px] mb-4">Optimization Suite
+                    </div>
+                    <h2 class="text-6xl font-bold tracking-tighter text-white">Interactive Pareto Fronts</h2>
+                    <p class="text-xl text-slate-400 mt-6 max-w-2xl">Solve complex multi-objective problems. Achieve
+                        50-70%
+                        faster convergence to the optimal solution using state-of-the-art constraint-aware optimizers.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2.5rem] hover:border-blue-500/30 transition-all group"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-8 group-hover:bg-blue-500 group-hover:text-white transition-all"
+                            data-aos="fade-up" data-aos-delay="200">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99z" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Constrained Bayesian Optimization (CBO)</h3>
+                        <p class="text-slate-400 leading-relaxed mb-8">Intelligently samples high-dimensional spaces
+                            while
+                            strictly
+                            adhering to hardware constraints. Perfect for safe-critical scenarios.</p>
+                        <div class="bg-black/60 rounded-xl p-5 border border-slate-800 font-mono text-xs text-blue-400">
+                            optimizer.configure({<br />
+                              constraints: "hard_limits",<br />
+                              kernel: "matern_52"<br />
+                            })
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-slate-900/40 border border-slate-800 p-14 rounded-[2.5rem] hover:border-cyan-500/30 transition-all group"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 mb-8 group-hover:bg-cyan-500 group-hover:text-white transition-all"
+                            data-aos="fade-up" data-aos-delay="0">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">NSGA-II Multi-Objective</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">Simultaneously optimizes conflicting objectives
+                            like fuel
+                            economy
+                            vs. torque output. Generates high-fidelity Pareto frontiers to find the optimal trade-off in
+                            seconds.</p>
+                        <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 rounded-xl px-5 py-3">
+                            <div class="text-3xl font-bold text-white">70%</div>
+                            <div class="text-xs font-bold font-medium tracking-tight text-slate-400">Faster Test Cycles
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Physics-Informed Intelligence Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <!-- Visual placeholder -->
+                    <div class="bg-slate-900/50 border border-slate-800 rounded-3xl p-14 flex items-center justify-center min-h-[360px]"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-24 mx-auto mb-6 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                </svg>
+                            </div>
+                            <p class="text-slate-500 font-mono text-xs">Physics Verified</p>
+                        </div>
+                    </div>
+                    <!-- Text content -->
+                    <div class="space-y-6">
+                        <div class="text-blue-500 font-bold uppercase tracking-[0.3em] text-[11px]">Physics-Informed AI
+                        </div>
+                        <h2 class="text-5xl font-bold tracking-tight text-white leading-tight">Physics-Informed
+                            Intelligence
+                        </h2>
+                        <p class="text-slate-400 text-lg leading-relaxed">
+                            Traditional black-box learning fails in high-stakes engineering. CIE Pro embeds the physics
+                            of your
+                            powertrain
+                            — thermodynamics, fluid dynamics, combustion PDEs — directly into the model training
+                            process.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4 p-4 bg-slate-900/40 border border-slate-800 rounded-xl">
+                                <div
+                                    class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400 shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white text-sm mb-1">PINNs Backbone</div>
+                                    <div class="text-slate-500 text-xs">Physics-Informed Neural Networks embed
+                                        thermodynamic
+                                        constraints to
+                                        prevent physically impossible predictions.</div>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4 p-4 bg-slate-900/40 border border-slate-800 rounded-xl">
+                                <div
+                                    class="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white text-sm mb-1">Gaussian Processes</div>
+                                    <div class="text-slate-500 text-xs">Full uncertainty quantification for every
+                                        prediction —
+                                        knowing when to
+                                        trust the model and when to take more data.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="flex items-center gap-4 pt-2">
+                            <div class="text-4xl font-bold text-cyan-400">80%</div>
+                            <div class="text-slate-400 text-sm">Reduction in physical validation runs required before
+                                sign-off
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Automated Map Generation Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-900">
+                <div class="text-center mb-20">
+                    <div class="text-blue-500 font-bold uppercase tracking-[0.3em] text-[11px] mb-4">Quality Enforcement
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-bold text-white tracking-tighter">Generate &amp; Export
+                        Production
+                        Calibrations</h2>
+                    <p class="text-xl text-slate-400 mt-6 max-w-2xl mx-auto">Create 2D/3D maps with interactive
+                        validation,
+                        physical constraints (smoothing, monotonicity), and seamless export to ETAS INCA, AVL CAMEO, and
+                        ASAM
+                        formats (A2L, CDF, HEX).</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-[4rem] p-14 grid lg:grid-cols-12 gap-10">
+                    <div class="lg:col-span-4 bg-slate-800/40 rounded-[2rem] p-14 text-left border border-slate-700/30 space-y-6"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <label class="block text-[10px] font-bold text-slate-500 font-medium tracking-tight">Constraints
+                            Editor</label>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold">Monotonicity</span>
+                                <div class="w-10 h-5 bg-blue-600 rounded-full relative">
+                                    <div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold">Gradient Limits</span>
+                                <div class="w-10 h-5 bg-blue-600 rounded-full relative">
+                                    <div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold">Boundary Clamp</span>
+                                <div class="w-10 h-5 bg-slate-700 rounded-full relative">
+                                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white/40 rounded-full"></div>
+                                </div>
+                            </div>
+                            <button
+                                class="w-full bg-white text-black py-4 rounded-2xl font-bold text-xs uppercase mt-4 hover:bg-slate-100 transition-colors">Apply
+                                Constraints</button>
+                        </div>
+                        <div class="bg-blue-600 rounded-2xl p-6 shadow-2xl text-center" data-aos="fade-up"
+                            data-aos-delay="0">
+                            <div class="text-4xl font-bold">0.0ms</div>
+                            <div class="text-[9px] uppercase font-bold tracking-widest opacity-80 mt-2">Latency Per
+                                Lookup</div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 bg-black rounded-[2rem] border border-slate-800 overflow-hidden relative min-h-[300px]"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-full h-full absolute inset-0" id="plotly-3d-map"></div>
+                        <div class="absolute bottom-8 left-8 flex gap-4">
+                            <div class="px-4 py-2 bg-black/80 border border-white/10 rounded-xl text-[10px] font-mono">
+                                Z: Torque
+                                (Nm)
+                            </div>
+                            <div class="px-4 py-2 bg-black/80 border border-white/10 rounded-xl text-[10px] font-mono">
+                                X: Speed
+                                (RPM)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CTA Section -->
+            <div class="max-w-7xl mx-auto px-6 py-32 pb-40 border-t border-slate-900">
+                <div class="bg-gradient-to-br from-blue-900/40 to-slate-900 border border-blue-500/20 rounded-[2rem] p-16 text-center relative overflow-hidden shadow-[0_0_50px_rgba(59,130,246,0.1)]"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Experience the Future of Calibration
+                        </h2>
+                        <p class="text-slate-300 max-w-xl mx-auto mb-10">Join leading automotive OEMs and industrial
+                            manufacturers
+                            accelerating their electrification and thermal management projects.</p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <a href="contact_us.html"
+                                class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/20 text-center">Schedule
+                                Technical Demo</a>
+                            <a href="contact_us.html"
+                                class="inline-block bg-slate-900 border border-slate-800 hover:border-slate-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all text-center">Talk
+                                to an Engineer</a>
+                        </div>
+                        <div
+                            class="mt-12 flex justify-center gap-14 text-xs font-bold text-slate-500 font-medium tracking-tight">
+                            <span>AUTOSAR</span><span>THERMALSIM</span><span>APPENDED</span><span>NEETURN_EV</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                window.addEventListener('load', function () {
+                    if (typeof Plotly === 'undefined') {
+                        console.error("Plotly library not loaded!");
+                        return;
+                    }
+                    console.log("Initializing Plotly 3D Surface Map...");
+                    const data = [{
+                        z: [
+                            [10, 10.62, 12.5, 12.5, 12.5, 12.5, 10.62, 10],
+                            [10.62, 12.5, 15.62, 15.62, 15.62, 15.62, 12.5, 10.62],
+                            [12.5, 15.62, 18.75, 18.75, 18.75, 18.75, 15.62, 12.5],
+                            [12.5, 15.62, 18.75, 23, 23, 18.75, 15.62, 12.5],
+                            [12.5, 15.62, 18.75, 23, 23, 18.75, 15.62, 12.5],
+                            [12.5, 15.62, 18.75, 18.75, 18.75, 18.75, 15.62, 12.5],
+                            [10.62, 12.5, 15.62, 15.62, 15.62, 15.62, 12.5, 10.62],
+                            [10, 10.62, 12.5, 12.5, 12.5, 12.5, 10.62, 10]
+                        ],
+                        type: 'surface',
+                        contours: {
+                            z: {
+                                show: true,
+                                usecolormap: true,
+                                highlightcolor: "#42f4f4",
+                                project: { z: true }
+                            }
+                        },
+                        colorscale: [
+                            [0, 'rgb(30, 41, 59)'],
+                            [0.5, 'rgb(59, 130, 246)'],
+                            [1, 'rgb(34, 211, 238)']
+                        ],
+                        showscale: false
+                    }];
+
+                    const layout = {
+                        padding: { l: 0, r: 0, b: 0, t: 0 },
+                        margin: { l: 0, r: 0, b: 0, t: 0 },
+                        scene: {
+                            backgroundcolor: 'rgb(0,0,0)',
+                            xaxis: { title: '', visible: false },
+                            yaxis: { title: '', visible: false },
+                            zaxis: { title: '', visible: false },
+                            camera: {
+                                eye: { x: 1.5, y: 1.5, z: 1.2 }
+                            }
+                        },
+                        autosize: true,
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)'
+                    };
+
+                    Plotly.newPlot('plotly-3d-map', data, layout, { responsive: true, displayModeBar: false });
+                });
+            </script>
+
+        </section>
+    </main>
+
+    <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+            <div class="col-span-2">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">precision_manufacturing</span>
+                    <span class="text-xl font-extrabold tracking-tighter uppercase dark:text-white">Vehicle
+                        Lab</span>
+                </div>
+                <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
+                    Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
+                    precision, built for scale.
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">share</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">rss_feed</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary" href="#">Whitepapers</a></li>
+                    <li><a class="hover:text-primary" href="#">Success Stories</a></li>
+                    <li><a class="hover:text-primary" href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="#">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="#">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">© 2025 Vehicle Lab Systems AG.
+                All Rights Reserved.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
+                    Operational</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 400, // Faster animations
+                once: true,
+                offset: 20,
+                easing: 'ease-out'
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,10 @@
 # Redirects for Vehicle Lab
 # Format: /path  to_url  status
+# Talk to Sales / Contact
+/talk-to-sales   /contact.html   200
+/contact_us      /contact.html   200
+# Docs section = Specs (technical overview / whitepaper)
+/docs     /specs.html    200
 # Clean product URLs (4 products)
 /diagai   /diagai.html   200
 /helix    /helix.html    200
