@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1280, user-scalable=yes" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Vehicle Lab: Precision automotive engineering suite. Calibration Intelligence (CIE Pro), Diagnostic AI (DiagAI), and Enterprise Workflow (HELIX). Built for OEMs." />
+    <title>Index - Vehicle Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" as="style" />
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" /></noscript>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ededed",
+                        "neon-blue": "#0070f3",
+                        "neon-green": "#10b981",
+                        "neon-purple": "#8b5cf6",
+                        "neon-cyan": "#00E5FF",
+                        "background-light": "#ffffff",
+                        "background-dark": "#0a0a0a",
+                    },
+                    fontFamily: {
+                        "display": ["Geist", "sans-serif"],
+                        "sans": ["Geist", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                },
+            },
+        }</script>
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #0a0a0a;
+            color: #ededed;
+            overflow-x: hidden;
+            min-width: 1280px;
+        }
+
+        ::selection {
+            background-color: #333;
+            color: white;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Subdued Glows (10-15% opacity) */
+        .glow-text-blue {
+            text-shadow: 0 0 10px rgba(0, 112, 243, 0.15);
+        }
+
+        .glow-text-green {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+        }
+
+        .glow-text-purple {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.15);
+        }
+
+        /* Subtle Borders with reveal on hover */
+        .neon-border-blue {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-blue:hover {
+            border-color: rgba(0, 112, 243, 0.4);
+        }
+
+        .neon-border-green {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-green:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .neon-border-purple {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-purple:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .neon-border-cyan {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.2s ease;
+        }
+
+        .neon-border-cyan:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+        }
+
+        /* Subtle Grid */
+        .cyber-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* Glass Panels */
+        .glass-cyber {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-glow {
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+        }
+
+        /* Mobile: touch targets, safe area, prevent overflow */
+        @media (max-width: 767px) {
+            body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+            .tap-target { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+            a, button { -webkit-tap-highlight-color: rgba(255,255,255,0.1); }
+        }
+        @supports (padding: max(0px)) {
+            body { padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right)); }
+        }
+
+        /* Mobile nav overlay */
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; padding-bottom: max(2rem, env(safe-area-inset-bottom)); overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; -webkit-tap-highlight-color: transparent; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+
+    </style>
+</head>
+
+<body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
+    <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a class="flex items-center gap-3 group" href="index.html">
+                <div
+                    class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span
+                    class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle
+                    Lab</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <!-- Solutions Dropdown -->
+                <div class="relative group cursor-pointer inline-block py-6">
+                    <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg
+                            class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            </path>
+                        </svg></span>
+                    <div
+                        class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="diagai.html">DiagAI</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="cie_pro.html">CIE Pro</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="helix.html">HELIX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="mdx.html">MDX</a>
+                    </div>
+                </div>
+                <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
+                <a class="hover:text-white transition-colors" href="docs.html">Docs</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a class="bg-white hover:bg-slate-200 text-black px-4 py-2.5 rounded-md text-sm font-medium transition-all shadow-sm tap-target hidden md:inline-flex"
+                    href="contact_us.html">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu" id="nav-mobile-toggle"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+            <div class="nav-mobile-sub">
+                <a href="diagai.html">DiagAI</a>
+                <a href="cie_pro.html">CIE Pro</a>
+                <a href="helix.html">HELIX</a>
+                <a href="mdx.html">MDX</a>
+            </div>
+            <a href="pricing.html">Pricing</a>
+            <a href="docs.html">Docs</a>
+            <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+        </div>
+    </nav>
+    <main class="pt-16">
+        <!-- Content gets injected here -->
+        <section class="relative pt-20 pb-32 px-6 overflow-hidden" data-aos="fade-up" data-aos-delay="0" id="hero">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <div class="z-10">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-white/5 text-primary text-xs font-bold font-medium tracking-tight mb-6">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        v4.2 Enterprise Release
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-8 dark:text-white">
+                        Precision <span class="text-neon-blue">Automotive</span> Engineering</h1>
+                    <p class="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl">
+                        The unified engineering suite for the future of mobility. Seamlessly integrate Calibration
+                        Intelligence, Diagnostic AI, and Enterprise Workflow management in one high-performance
+                        environment.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="contact_us.html"
+                            class="tap-target px-8 py-4 rounded-xl bg-primary text-background-dark font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all inline-flex items-center gap-2">
+                            Start Free Trial <span class="material-symbols-outlined">arrow_forward</span>
+                        </a>
+                        <a href="docs.html"
+                            class="tap-target px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-bold text-lg hover:bg-white/10 transition-all inline-flex">
+                            Watch technical overview
+                        </a>
+                    </div>
+                    <div
+                        class="mt-12 flex items-center gap-14 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                        <span class="text-xs font-bold uppercase tracking-tighter">Trusted by Global OEMs</span>
+                        <div class="flex gap-6">
+                            <span class="material-symbols-outlined text-3xl">directions_car</span>
+                            <span class="material-symbols-outlined text-3xl">electric_bolt</span>
+                            <span class="material-symbols-outlined text-3xl">terminal</span>
+                            <span class="material-symbols-outlined text-3xl">analytics</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative lg:h-[600px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-primary/5 blur-[80px] rounded-full"></div>
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden border border-white/10 glass-panel shadow-2xl flex flex-col"
+                        data-aos="fade-up" data-aos-delay="0">
+                        <!-- Terminal Header -->
+                        <div class="h-12 border-b border-white/5 flex items-center px-4 gap-2 bg-black/40">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            <div class="ml-4 text-[10px] font-mono text-slate-500">vehicle_lab_engine --live</div>
+                        </div>
+                        <!-- Terminal Body -->
+                        <div class="p-6 font-mono text-xs leading-relaxed flex-1 bg-[#0a0a0a] overflow-hidden relative">
+                            <div class="text-slate-500 mb-2">$ init_orchestrator --mode=multi-agent</div>
+                            <div class="text-neon-blue mb-4">&gt; Orchestrator initialized. 8/8 Agents Online.</div>
+                            <div class="text-slate-500 mb-2">$ connect_stream wss://ecu.local/telemetry</div>
+                            <div class="text-slate-300 mb-1">[SYS] Awaiting high-frequency MDF stream...</div>
+                            <div class="text-neon-green mb-4">[OK] Connection established. Latency: 0.02ms</div>
+                            <div class="text-slate-500 mb-2">$ start_analysis</div>
+                            <div class="space-y-1 mb-4">
+                                <div class="flex justify-between w-64"><span class="text-slate-400">Parameter:
+                                        ENG_RPM</span><span class="text-white">4520.0</span></div>
+                                <div class="flex justify-between w-64"><span class="text-slate-400">Parameter:
+                                        INJ_TIMING</span><span class="text-white">12.4ms</span></div>
+                                <div class="flex justify-between w-64"><span class="text-slate-400">Parameter:
+                                        FUEL_TRIM</span><span class="text-red-400">+14.2%</span></div>
+                            </div>
+                            <div class="flex gap-2 items-center text-neon-blue">
+                                <span class="animate-pulse">_</span> Analyzing variance model...
+                            </div>
+                            <div
+                                class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 px-6 border-y border-white/5 bg-[#0a0a0a]" data-aos="fade-up" data-aos-delay="0">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16">
+                <div class="flex-1">
+                    <h2 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-4">100%</h2>
+                    <div class="text-lg font-medium text-slate-400 max-w-sm">
+                        Success rate deploying our orchestration layer across Tier-1 OEM environments. Zero
+                        downtime. Zero regressions.
+                    </div>
+                </div>
+                <div
+                    class="flex-1 grid grid-cols-2 gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="border-l border-white/10 pl-6">
+                        <div class="text-sm font-bold text-slate-300 mb-1">ASAM Protocols</div>
+                        <div class="text-2xl font-black text-white">XCP / CCP</div>
+                    </div>
+                    <div class="border-l border-white/10 pl-6">
+                        <div class="text-sm font-bold text-slate-300 mb-1">Safety Standard</div>
+                        <div class="text-2xl font-black text-white">ISO 26262</div>
+                    </div>
+                    <div class="border-l border-white/10 pl-6">
+                        <div class="text-sm font-bold text-slate-300 mb-1">Cybersecurity</div>
+                        <div class="text-2xl font-black text-white">ISO/SAE 21434</div>
+                    </div>
+                    <div class="border-l border-white/10 pl-6">
+                        <div class="text-sm font-bold text-slate-300 mb-1">Data Model</div>
+                        <div class="text-2xl font-black text-white">ASAM MDF4</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-32 px-6 bg-slate-950/50" data-aos="fade-up" data-aos-delay="0" id="suite">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 dark:text-white uppercase tracking-tight">The
+                        Engineering Suite</h2>
+                    <div class="h-1.5 w-24 bg-primary mx-auto rounded-full mb-6"></div>
+                    <p class="text-slate-400 max-w-2xl mx-auto font-medium">Three specialized platforms meticulously
+                        integrated to handle the entire vehicle development lifecycle from calibration to
+                        diagnostics.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- CIE Pro -->
+                    <div class="group p-14 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 relative overflow-hidden neon-border-blue"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <span class="material-symbols-outlined text-8xl">science</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold font-medium tracking-tight mb-6">
+                                Maximized Resource Efficiency
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center text-primary mb-8 border border-white/5 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                                <span class="material-symbols-outlined text-3xl">psychology</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">CIE Pro</h3>
+                            <p class="text-primary font-bold text-sm font-medium tracking-tight mb-4"><span
+                                    class="text-neon-blue">Calibration Intelligence</span></p>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Model-Based Calibration utilizing PINNs
+                                and Gaussian Processes. Revolutionizing performance optimization.</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-primary text-xl">bolt</span>
+                                    50-70% reduction in test time
+                                </li>
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-primary text-xl">layers</span>
+                                    Gaussian Process Modeling
+                                </li>
+                            </ul>
+                            <a href="cie_pro.html"
+                                class="block text-center w-full py-3 rounded-lg border border-white/10 group-hover:bg-primary transition-all text-sm font-bold uppercase tracking-wider">Explore
+                                CIE Pro</a>
+                        </div>
+                    </div>
+                    <!-- DiagAI -->
+                    <div class="group p-14 rounded-2xl bg-white/5 neon-border-green hover:bg-white/10 transition-all duration-500 relative overflow-hidden ring-1 ring-neon-green/20"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 text-neon-green">
+                            <span class="material-symbols-outlined text-8xl">memory</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold font-medium tracking-tight mb-6">
+                                Diagnostic Intelligence
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-xl bg-neon-green/20 flex items-center justify-center text-neon-green mb-8 border border-white/5">
+                                <span class="material-symbols-outlined text-3xl">hub</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">DiagAI</h3>
+                            <p class="text-neon-green font-bold text-sm font-medium tracking-tight mb-4">The
+                                Diagnostic Brain</p>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Deep MDF Analytics powered by an 8-agent
+                                multi-agent system with Dual LLM integration for fault detection.</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-green text-xl">smart_toy</span>
+                                    8-Agent Multi-Agent System
+                                </li>
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-green text-xl">query_stats</span>
+                                    Advanced MDF Signal Analysis
+                                </li>
+                            </ul>
+                            <a href="diagai.html"
+                                class="block text-center w-full py-3 rounded-lg bg-neon-green/80 hover:bg-neon-green text-black text-sm font-bold uppercase tracking-wider shadow-lg shadow-neon-green/20">Explore
+                                DiagAI</a>
+                        </div>
+                    </div>
+                    <!-- HELIX -->
+                    <div class="group p-14 rounded-2xl bg-white/5 neon-border-purple hover:bg-white/10 transition-all duration-500 relative overflow-hidden"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 text-neon-purple">
+                            <span class="material-symbols-outlined text-8xl">database</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold font-medium tracking-tight mb-6">
+                                Enterprise Workflow
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-xl bg-neon-purple/20 flex items-center justify-center text-neon-purple mb-8 border border-white/5 group-hover:bg-neon-purple group-hover:text-white transition-all duration-500">
+                                <span class="material-symbols-outlined text-3xl">cloud_sync</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">HELIX</h3>
+                            <p class="text-neon-purple font-bold text-sm font-medium tracking-tight mb-4">
+                                Enterprise Workflow</p>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Centralized Calibration Data Management
+                                with A2L/Hex ingestion and real-time CRDT collaboration.</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-purple text-xl">view_in_ar</span>
+                                    3D Map Visualization
+                                </li>
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-purple text-xl">group_work</span>
+                                    CRDT-based Collaboration
+                                </li>
+                            </ul>
+                            <a href="helix.html"
+                                class="block text-center w-full py-3 rounded-lg border border-neon-purple/30 group-hover:bg-neon-purple transition-all text-sm font-bold uppercase tracking-wider">Explore
+                                HELIX</a>
+                        </div>
+                    </div>
+                    <!-- MDX -->
+                    <div class="group p-14 rounded-2xl bg-white/5 neon-border-cyan hover:bg-white/10 transition-all duration-500 relative overflow-hidden ring-1 ring-neon-cyan/20"
+                        data-aos="fade-up" data-aos-delay="400">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 text-neon-cyan">
+                            <span class="material-symbols-outlined text-8xl">monitoring</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold font-medium tracking-tight mb-6">
+                                Unlimited Format Flexibility
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-xl bg-neon-cyan/20 flex items-center justify-center text-neon-cyan mb-8 border border-white/5 group-hover:bg-neon-cyan group-hover:text-white transition-all duration-500">
+                                <span class="material-symbols-outlined text-3xl">data_object</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 dark:text-white">MDX</h3>
+                            <p class="text-neon-cyan font-bold text-sm font-medium tracking-tight mb-4">Professional MDF
+                                Data Lab</p>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Full-stack MDF/MF4 analytics with
+                                oscilloscope, instruments, and AI diagnostics. Faster than legacy desktop tools.</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-cyan text-xl">speed</span>
+                                    Sub-second GB File Loading
+                                </li>
+                                <li class="flex items-center gap-3 text-sm font-semibold">
+                                    <span class="material-symbols-outlined text-neon-cyan text-xl">cloud_off</span>
+                                    Total Data Privacy (Local)
+                                </li>
+                            </ul>
+                            <a href="mdx.html"
+                                class="block text-center w-full py-3 rounded-lg border border-neon-cyan/30 group-hover:bg-neon-cyan transition-all text-sm font-bold uppercase tracking-wider">Explore
+                                MDX</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 border-y border-white/5 bg-background-dark" data-aos="fade-up" data-aos-delay="0"
+            id="stats">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-wrap justify-center md:justify-between items-center gap-16 opacity-30">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl">verified_user</span>
+                        <span class="text-xl font-bold tracking-tighter">ISO 26262</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl">security</span>
+                        <span class="text-xl font-bold tracking-tighter">ISO/SAE 21434</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl">verified</span>
+                        <span class="text-xl font-bold tracking-tighter">ASIL D READY</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl">settings_input_component</span>
+                        <span class="text-xl font-bold tracking-tighter">AUTOSAR</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl">lan</span>
+                        <span class="text-xl font-bold tracking-tighter">ASPICE L3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="relative py-32 px-6 overflow-hidden bg-background-dark" data-aos="fade-up" data-aos-delay="0"
+            id="features">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[100px] rounded-full">
+            </div>
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="flex-1 min-w-0">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-purple/10 border border-white/5 text-neon-purple text-xs font-bold uppercase tracking-[0.2em] mb-8">
+                            Engineering Manifesto
+                        </div>
+                        <h2 class="text-5xl lg:text-7xl font-bold leading-none tracking-tighter mb-6 dark:text-white">
+                            Born in the Lab.<br />
+                            <span class="text-neon-purple">Built for the Revolution.</span>
+                        </h2>
+                        <h3
+                            class="text-2xl font-bold text-slate-200 mb-8 uppercase tracking-wide border-l-4 border-neon-blue pl-6">
+                            Ending the Era of Legacy Monopolies
+                        </h3>
+                        <div class="space-y-6 text-lg text-slate-400 font-medium leading-relaxed">
+                            <p>
+                                Vehicle Lab wasn't born in a boardroom. It was forged in the heat of the dyno cell
+                                and the pressure of the test track by engineers who were tired of being held hostage
+                                by overpriced, sluggish legacy software giants.
+                            </p>
+                            <p>
+                                We built the platform we always wanted: a high-performance environment that respects
+                                the real-world constraints of hardware, physics, and sub-millisecond latencies. No
+                                more compromise. No more technical debt.
+                            </p>
+                        </div>
+                        <div class="mt-12 flex items-center gap-8">
+                            <div class="flex flex-col">
+                                <span class="text-4xl font-bold text-white mb-1">0%</span>
+                                <span class="text-xs font-bold font-medium tracking-tight text-slate-500">Legacy
+                                    Code</span>
+                            </div>
+                            <div class="h-12 w-[1px] bg-white/10"></div>
+                            <div class="flex flex-col">
+                                <span class="text-4xl font-bold text-white mb-1">100%</span>
+                                <span class="text-xs font-bold font-medium tracking-tight text-slate-500">Engineer
+                                    Owned</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-full max-w-[380px] mx-auto lg:mx-0">
+                        <!-- Animated Engine Core Visual -->
+                        <div class="relative w-full max-w-[380px] aspect-square group" style="perspective: 800px; margin: 0 auto;">
+                            <!-- Outer rotating ring -->
+                            <div class="absolute inset-0 rounded-full border-2 border-neon-blue/20 animate-spin"
+                                style="animation-duration: 20s; border-style: dashed;"></div>
+                            <!-- Mid rotating ring (reverse) -->
+                            <div class="absolute inset-6 rounded-full border border-neon-purple/30 animate-spin"
+                                style="animation-duration: 12s; animation-direction: reverse;"></div>
+                            <!-- Inner glow ring -->
+                            <div class="absolute inset-12 rounded-full border border-neon-blue/40"
+                                style="box-shadow: 0 0 30px rgba(0,112,243,0.15), inset 0 0 30px rgba(0,112,243,0.07);">
+                            </div>
+
+                            <!-- Orbit dots -->
+                            <div class="absolute inset-0 animate-spin" style="animation-duration: 8s;">
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neon-blue shadow-[0_0_8px_rgba(0,112,243,0.8)]">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 rounded-full bg-neon-blue/60 shadow-[0_0_6px_rgba(0,112,243,0.5)]">
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 animate-spin"
+                                style="animation-duration: 8s; animation-delay: -4s;">
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-neon-purple shadow-[0_0_6px_rgba(139,92,246,0.8)]">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-1.5 h-1.5 rounded-full bg-neon-purple/60">
+                                </div>
+                            </div>
+
+                            <!-- Core circle -->
+                            <div class="absolute inset-16 rounded-full flex items-center justify-center"
+                                style="background: radial-gradient(circle at 40% 35%, rgba(0,112,243,0.2), rgba(10,10,10,0.9) 70%); border: 1px solid rgba(0,112,243,0.25); box-shadow: 0 0 60px rgba(0,112,243,0.12), inset 0 0 40px rgba(0,112,243,0.08);">
+                                <!-- Inner icon cluster -->
+                                <div class="text-center">
+                                    <span class="material-symbols-outlined text-neon-blue animate-pulse"
+                                        style="font-size: 4rem; animation-duration: 3s; filter: drop-shadow(0 0 12px rgba(0,112,243,0.6));">settings</span>
+                                    <div
+                                        class="text-[10px] font-bold tracking-[0.3em] text-neon-blue/80 uppercase mt-1">
+                                        Core Engine</div>
+                                </div>
+                            </div>
+
+                            <!-- Data stream lines (top, right, bottom, left) -->
+                            <div
+                                class="absolute top-[50%] left-0 w-12 h-[1px] bg-gradient-to-r from-transparent to-neon-blue/50 -translate-y-1/2">
+                            </div>
+                            <div
+                                class="absolute top-[50%] right-0 w-12 h-[1px] bg-gradient-to-l from-transparent to-neon-blue/50 -translate-y-1/2">
+                            </div>
+                            <div
+                                class="absolute left-[50%] top-0 h-12 w-[1px] bg-gradient-to-b from-transparent to-neon-blue/50 -translate-x-1/2">
+                            </div>
+                            <div
+                                class="absolute left-[50%] bottom-0 h-12 w-[1px] bg-gradient-to-t from-transparent to-neon-blue/50 -translate-x-1/2">
+                            </div>
+
+                            <!-- Floating stat chips -->
+                            <div class="absolute top-8 right-4 px-3 py-1.5 rounded-lg glass-cyber text-[10px] font-bold font-mono text-neon-green"
+                                style="box-shadow: 0 0 10px rgba(16,185,129,0.1);">
+                                <span class="animate-pulse mr-1 inline-block w-1.5 h-1.5 rounded-full bg-neon-green"
+                                    style="animation-duration: 2s;"></span>
+                                RPM: 8,500
+                            </div>
+                            <div class="absolute bottom-8 left-4 px-3 py-1.5 rounded-lg glass-cyber text-[10px] font-bold font-mono text-neon-blue/90"
+                                style="box-shadow: 0 0 10px rgba(0,112,243,0.1);">
+                                LATENCY: 0.02ms
+                            </div>
+                            <div
+                                class="absolute top-14 left-2 px-2 py-1 rounded-lg glass-cyber text-[9px] font-bold font-mono text-neon-purple/90">
+                                FUEL: ±0.01%
+                            </div>
+
+                            <!-- Background ambient glow -->
+                            <div class="absolute inset-0 rounded-full pointer-events-none"
+                                style="background: radial-gradient(circle at center, rgba(0,112,243,0.06) 0%, transparent 70%);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-neon-green/10 blur-3xl rounded-full pointer-events-none"
+                    aria-hidden="true"></div>
+                <div class="absolute bottom-10 left-0 w-24 h-24 bg-neon-purple/10 blur-2xl rounded-full pointer-events-none"
+                    aria-hidden="true"></div>
+            </div>
+        </section>
+        <section class="py-32 px-6 border-y border-white/5 bg-slate-950/30" data-aos="fade-up" data-aos-delay="0"
+            id="integrations">
+            <div class="max-w-7xl mx-auto">
+                <div class="glass-cyber p-16 rounded-3xl border-l-8 border-neon-green flex flex-col lg:flex-row items-center justify-between gap-12"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="max-w-2xl">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-green/10 border border-white/5 text-neon-green text-xs font-bold font-medium tracking-tight mb-6">
+                            Strategic Value Advantage
+                        </div>
+                        <h2 class="text-4xl lg:text-5xl font-bold mb-6 dark:text-white">
+                            India's Most <span class="text-neon-green">Cost-Effective</span> <br />Engineering
+                            Suite
+                        </h2>
+                        <p class="text-lg text-slate-400 leading-relaxed font-medium mb-8">
+                            We deliver world-class precision engineering tools at a price point optimized for the
+                            rapidly growing Indian automotive market. Achieve global standards without the legacy
+                            license premiums.
+                        </p>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-3xl font-bold text-white mb-1">40%</div>
+                                <div class="text-xs font-bold font-medium tracking-tight text-neon-green">Lower TCO
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-white mb-1">2.5x</div>
+                                <div class="text-xs font-bold font-medium tracking-tight text-neon-green">ROI
+                                    Acceleration</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="relative p-1 bg-gradient-to-br from-neon-green to-neon-blue rounded-2xl"
+                            data-aos="fade-up" data-aos-delay="100">
+                            <div class="bg-background-dark px-10 py-8 rounded-xl text-center">
+                                <span
+                                    class="material-symbols-outlined text-6xl text-neon-green mb-4">currency_rupee</span>
+                                <div class="text-sm font-bold text-slate-400 font-medium tracking-tight">Market
+                                    Leader</div>
+                                <div class="text-xl font-bold text-white">Optimized Pricing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-32 px-6 bg-background-dark overflow-hidden" data-aos="fade-up" data-aos-delay="0"
+            id="details">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-20 items-center">
+                    <div class="relative">
+                        <div class="absolute -top-14 -left-10 w-64 h-64 bg-primary/5 blur-[80px]"></div>
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-white/5 text-primary text-xs font-bold font-medium tracking-tight mb-6">
+                            Intelligence Revolution</div>
+                        <h2 class="text-4xl lg:text-5xl font-bold mb-8 dark:text-white uppercase tracking-tight">
+                            The Power of Agentic AI &amp; Workflow</h2>
+                        <p class="text-xl text-slate-200 leading-relaxed font-bold mb-8">
+                            Deploy a swarm of 8+ specialized AI agents purpose-trained for specific vehicle domains.
+                        </p>
+                        <div class="space-y-8">
+                            <div class="flex gap-6">
+                                <div
+                                    class="mt-1 flex-shrink-0 w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center text-primary border border-white/5">
+                                    <span class="material-symbols-outlined">hub</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2 dark:text-white">Multi-Agent Swarm
+                                        Intelligence</h3>
+                                    <p class="text-slate-400 leading-relaxed font-medium">From <span
+                                            class="text-primary">MisfireAgent</span> to <span
+                                            class="text-primary">FuelAgent</span>, our specialized agents
+                                        collaborate in real-time to automate complex root cause analysis with
+                                        sub-millisecond precision.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div
+                                    class="mt-1 flex-shrink-0 w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center text-primary border border-white/5">
+                                    <span class="material-symbols-outlined">psychology</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2 dark:text-white">Senior Engineer Level
+                                        Insights</h3>
+                                    <p class="text-slate-400 leading-relaxed font-medium">Augment your team with
+                                        insights that typically require decades of domain expertise. Our agents
+                                        identify anomalies before they become critical failures.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div
+                                    class="mt-1 flex-shrink-0 w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center text-primary border border-white/5">
+                                    <span class="material-symbols-outlined">merge_type</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2 dark:text-white">Seamless Lifecycle
+                                        Integration</h3>
+                                    <p class="text-slate-400 leading-relaxed font-medium">Workflow automation that
+                                        plugs directly into your existing engineering pipeline, reducing manual
+                                        triage time by up to 80%.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-square glass-cyber rounded-2xl border border-white/5 p-14 flex items-center justify-center relative overflow-hidden"
+                            data-aos="fade-up" data-aos-delay="200">
+                            <div class="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-4 p-4 opacity-40">
+                                <div
+                                    class="border border-primary/30 rounded flex items-center justify-center animate-pulse">
+                                    <span class="material-symbols-outlined text-primary">rocket</span>
+                                </div>
+                                <div class="border border-primary/30 rounded flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary">memory</span></div>
+                                <div
+                                    class="border border-primary/30 rounded flex items-center justify-center animate-pulse">
+                                    <span class="material-symbols-outlined text-primary">speed</span>
+                                </div>
+                                <div class="border border-primary/30 rounded flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary">settings_input_component</span>
+                                </div>
+                                <div
+                                    class="border-2 border-primary bg-primary/5 rounded flex items-center justify-center shadow-[0_0_20px_rgba(19,91,236,0.4)]">
+                                    <span class="material-symbols-outlined text-primary text-3xl">smart_toy</span>
+                                </div>
+                                <div class="border border-primary/30 rounded flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary">analytics</span></div>
+                                <div
+                                    class="border border-primary/30 rounded flex items-center justify-center animate-pulse">
+                                    <span class="material-symbols-outlined text-primary">shield</span>
+                                </div>
+                                <div class="border border-primary/30 rounded flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary">lan</span></div>
+                                <div
+                                    class="border border-primary/30 rounded flex items-center justify-center animate-pulse">
+                                    <span class="material-symbols-outlined text-primary">database</span>
+                                </div>
+                            </div>
+                            <div class="relative z-10 text-center">
+                                <div class="text-5xl font-bold text-white mb-2">8+</div>
+                                <div class="text-xs font-bold text-primary uppercase tracking-[0.3em]">Active Domain
+                                    Agents</div>
+                            </div>
+                            <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/5 blur-[80px] rounded-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-32 px-6" data-aos="fade-up" data-aos-delay="0" id="cta">
+            <div class="max-w-5xl mx-auto rounded-3xl bg-primary relative overflow-hidden p-16 text-center shadow-2xl shadow-primary/40"
+                data-aos="fade-up" data-aos-delay="300">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-neon-blue/40 via-primary to-neon-purple/40 opacity-90">
+                </div>
+                <div
+                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30">
+                </div>
+                <div class="relative z-10">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold font-medium tracking-tight mb-6">
+                        Trusted by Global OEMs
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">Ready to Accelerate
+                        Your <br />Engineering Cycle?</h2>
+                    <p class="text-white/90 text-lg mb-12 max-w-2xl mx-auto font-medium">
+                        Join leading global automotive manufacturers who have already reduced their calibration time
+                        by 60%. Request a customized technical demo today.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="contact_us.html"
+                            class="px-10 py-5 bg-white text-background-dark font-bold text-xl rounded-xl hover:scale-105 transition-all shadow-xl text-center">
+                            Request Enterprise Demo
+                        </a>
+                        <a href="contact_us.html"
+                            class="px-10 py-5 bg-black/40 text-white font-bold text-xl rounded-xl border border-white/20 hover:bg-black/60 transition-all text-center">
+                            Talk to an Engineer
+                        </a>
+                    </div>
+                    <p class="mt-8 text-white/80 text-sm font-bold font-medium tracking-tight">Global Support: 24/7
+                        OEM Critical Systems</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 400, once: true, offset: 20, easing: 'ease-out' });
+            }
+        });
+    </script>
+</body>
+
+</html>

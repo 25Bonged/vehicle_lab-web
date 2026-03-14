@@ -2,6 +2,12 @@
   publish = "web_deploy_res"
   command = ""
 
+# Docs: /docs → docs page (fixes "refused to connect" when visiting vehiclelab.in/docs)
+[[redirects]]
+  from = "/docs"
+  to = "/docs.html"
+  status = 200
+
 # Proxy rules — route app endpoints to Render backend
 [[redirects]]
   from = "/diagnostics/*"
@@ -83,3 +89,8 @@
   for = "/assets/*.png"
   [headers.values]
     Content-Type = "image/png"
+
+[[headers]]
+  for = "/resourses/market/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
